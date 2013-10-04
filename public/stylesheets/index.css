@@ -332,3 +332,9 @@ body {
     color: white;
     text-align: center;
 }
+
+#searchFailedMessage{
+    position: relative;
+    top: 50%;
+    left: 20%;
+}

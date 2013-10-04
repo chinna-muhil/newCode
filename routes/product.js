@@ -154,24 +154,28 @@ exports.search = function (req, res) {
     parseInt(max_price,10) ;
     console.log(max_price);
 
+
     //Amenities variable (storing in variable to allow the string 'LIKE' to work)
     var amenities=req.body.amenities;
 
+    //Message if search fails
+    var failedSearchMessage= "Could Not Find Any Properties matching Your criteria.Please Try again.";
+
     //Query Database to find properties
-    propertyModel.where('area',req.body.area)
+    propertyModel.where('address.zip',req.body.zipcode)
         .where('price').gte(min_price)
         .where('price').lte(max_price)
         .where('bedrooms',req.body.bedrooms)
         .where('bathrooms',req.body.bathrooms)
         .where('address.city',req.body.location)
         .where('type').in([new RegExp(req.body.prop_type,'i')])
-        .where('amenities').in([new RegExp(amenities, 'i')])
+        .where('amenities').in([new RegExp(amenities,'i')])
 
         .exec(function (err, docs) {
         if (err) return res.render('Error occurred');
             console.log("Errors:"+ err);
             console.log("Docs:"+docs);
-            console.log('area:'+req.body.area);
+            console.log('ZipCode:'+req.body.zipcode+"And is of type:===>"+(typeof req.body.zipcode));
             console.log('min_price:'+min_price);
             console.log('max_price'+max_price);
             console.log('amenities:'+req.body.amenities);
@@ -179,7 +183,15 @@ exports.search = function (req, res) {
             console.log('bedrooms:'+req.body.bedrooms);
             console.log('bathrooms:'+req.body.bathrooms);
             console.log('type:'+req.body.prop_type);
-        res.render('index', {products: JSON.stringify(docs), routePath: "search"});
+        if(docs.length > 0){
+            console.log("Not Failed"+docs.length);
+            //res.render('index', {products:failedSearchMessage , routePath: "searchFailed"});
+            res.render('index', {products: JSON.stringify(docs), routePath: "search"});
+        }else{
+            console.log("Failed"+docs.length);
+            res.render('index', {products:failedSearchMessage , routePath: "searchFailed"});
+            //res.render('index', {products: JSON.stringify(docs), routePath: "search"});
+        }
     });
 };
 

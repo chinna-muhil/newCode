@@ -33,7 +33,7 @@ html
                     form(action='/search',method='POST')
                         ul#serachFunctionInputTextUL
                             li
-                                input#serachFunctionInputText(type="number", name="area", placeholder="Area in sq. feet")
+                                input#serachFunctionInputText(type="number", name="zipcode", placeholder="Zip Code of are to search")
                             li
                                 input#serachFunctionComboBox(type="text", name="location", placeholder="Place to Serach")
                             li#PricingSliderLi
@@ -63,6 +63,8 @@ html
                                              });
                             li
                                 #serachFunctionRadio
+                                    input(type='radio', name='prop_type', value='renttimesharesale',checked)
+                                    a All |
                                     input(type='radio', name='prop_type', value='rent')
                                     a Rental |
                                     input(type='radio', name='prop_type', value='timeshare')
@@ -100,7 +102,7 @@ html
                                 console.log(propertyList[0].address.city)
                                 console.log
                                 var pos = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
-                            console.log("----loading---");
+                            console.log(pos+"----loading---");
                             // Function for Clustering
                             // Loading properties in Map using marker array from DB
                                 var markers = [];
@@ -172,16 +174,20 @@ html
                             //look for locality tag and administrative_area_level_1
                             var city = "";
                             var state = "";
+                            var postalCode="";
                             for (var i = 0, len = result.address_components.length; i < len; i++) {
 
                             var ac = result.address_components[i];
                             if (ac.types.indexOf("locality") >= 0) city = ac.long_name;
                             if (ac.types.indexOf("administrative_area_level_1") >= 0) state = ac.short_name;
-
+                            if (ac.types.indexOf("postal_code") >= 0) postalCode = ac.long_name;
+                            console.log(postalCode)
+                            console.log("**************************")
                             }
                             //only report if we got Good Stuff
                             if (city != '' && state != '') {
-                            document.getElementById("serachFunctionComboBox").placeholder = city + ',' + state;
+                            document.getElementById("serachFunctionComboBox").value = city + ',' + state;
+                            document.getElementById("serachFunctionInputText").value = postalCode;
                                 } else {
                                     console.log('Geocoder failed' + status)
                                     }
@@ -311,7 +317,7 @@ html
                             // Also populate in area search box
 
                                 geocoder = new google.maps.Geocoder();
-                            var location = pos;
+                            var location = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
                             geocoder.geocode({'location': location }, function (results, status) {
 
                             if (status == google.maps.GeocoderStatus.OK) {
@@ -320,16 +326,19 @@ html
                             //look for locality tag and administrative_area_level_1
                             var city = "";
                             var state = "";
+                            var postalCode= "";
                             for (var i = 0, len = result.address_components.length; i < len; i++) {
 
                             var ac = result.address_components[i];
                             if (ac.types.indexOf("locality") >= 0) city = ac.long_name;
                             if (ac.types.indexOf("administrative_area_level_1") >= 0) state = ac.short_name;
+                            if (ac.types.indexOf("postal_code") >= 0) postalCode = ac.long_name;
 
                             }
                             //only report if we got Good Stuff
                             if (city != '' && state != '') {
-                            document.getElementById("serachFunctionComboBox").placeholder = city + ',' + state;
+                            document.getElementById("serachFunctionComboBox").value = city + ',' + state;
+                            document.getElementById("serachFunctionInputText").value = postalCode;
                                 } else {
                                     console.log('Geocoder failed' + status)
                                     }
@@ -373,6 +382,10 @@ html
                             }
 
                             window.onload = loadScript;
+
+                else if routePath === "searchFailed"
+                    p
+                        h1#searchFailedMessage Could Not Find Any Properties matching Your criteria.Please Try again.
 
                 else if routePath === "prod"
                     div#MapDiv

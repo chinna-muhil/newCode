@@ -38,9 +38,9 @@ passport.use(new FacebookStrategy({
     callbackURL: config.development.fb.url+ '/' +'fbauthed'
     },
     function(accessToken, refreshToken, profile, done){
-        //console.log ("accesToken ", accessToken);
-        //console.log ("refreshToken", refreshToken);
-        //console.log ("profile", profile);
+        console.log ("accesToken ", accessToken);
+        console.log ("refreshToken", refreshToken);
+        console.log ("profile", profile);
         process.nextTick(function(){
             var query =  User.findOne({ 'fbId': profile.id });
             query.exec(function(err, oldUser){
@@ -64,7 +64,7 @@ passport.use(new FacebookStrategy({
                    newUser.favorite_teams = profile._json.favorite_teams;
                    newUser.save(function(err){
                        if(err) throw err;
-                       console.log('New user: ' + newUser.first_name + ' created and logged in!');
+                       console.log('New user: ' + newUser.name + ' created and logged in!');
                        done(null, newUser);
                    });
                }
@@ -144,14 +144,13 @@ app.post('/signedup', user.signedup);
 app.get('/fbauth', passport.authenticate('facebook', { scope: ['email', 'user_birthday', 'user_hometown', 'user_friends','read_stream'] }));
 app.get('/fbauthed', passport.authenticate('facebook', {failureRedirect: '/'}), routes.loggedin);
 
-
 app.get('/logout', function(req, res){
     req.logOut();
     res.redirect('/');
 });
 
 app.get('/settings', ensureAuthenticated,  function(req, res){
-    res.render('settings');
+    res.send('settings');
 });
 
 function ensureAuthenticated(req, res, next){
@@ -159,5 +158,4 @@ function ensureAuthenticated(req, res, next){
         return next();
     res.redirect('/');
 }
-
 
