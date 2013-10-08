@@ -1,7 +1,13 @@
 /*CopyRight Tag Solutions pvt.ltd 2013*/
-* {
-    margin: 0px;
-    padding: 0px;
+
+@font-face {
+    font-family: Segoeuil;
+    src: url(../fonts/SEGOEUIL.ttf);
+}
+
+*{
+    margin: 0;
+    padding: 0;
 }
 
 h1 {
@@ -18,12 +24,16 @@ header, section, footer, aside, nav, article, hgroup {
 
 body {
     text-align: center;
+    height: 100%;
+    width: 100%;
+    margin: 0 auto;
+    padding: 0;
 }
 
 #bigWarpper {
     border: 1px solid white;
-    width: 1250px;
-    margin: 10px auto;
+    min-width: 1260px;
+    margin: 0 auto;
     text-align: left;
     /*background: red;
     color: white;*/
@@ -36,11 +46,11 @@ body {
 }
 
 #mainNav {
-    border: 1px solid white;
-    border-bottom: 0px;
+    height: 40px;
     background: #0093d9;
     color: #FFFFFF;
     text-align: right;
+    border-bottom:3px solid #3C484F;
 }
 
 #mainNav li {
@@ -67,18 +77,14 @@ body {
 }
 #mainSection {
     float: left;
-    width: 340px;
+    width: 300px;
     height: 550px;
-    margin-top: 4px;
-    margin-right: 2px;
-    margin-left: 1px;
-    margin-bottom: 5px;
+    margin:0 auto;
 }
 
 #mainAside {
     float: left;
-    width: 906px;
-    height: 550px;
+    height: 560px;
     margin-right: 1px;
     margin-left: 0px;
     margin-bottom: 5px;
@@ -87,11 +93,10 @@ body {
 }
 
 #MapDiv {
-    width: 906px;
-    height: 550px;
+    width: 910px;
+    height: 565px;
     overflow-y: scroll;
-    max-width: 906px;
-    max-height: 550px;
+
 }
 
 #MapDiv2 {
@@ -122,32 +127,53 @@ body {
     margin-left: 5px;
 }
 
+#choosePropertyType{
+    text-align: center;
+    width: 250px;
+    margin: 0 auto;
+}
+
+#choosePropertyType ul{
+    margin:0 auto;
+    display: inline-block;
+    padding: 0;
+    width: 100%;
+}
+
+#choosePropertyType ul li{
+    margin: 0 auto;
+    display: inline-block;
+    width: 20%;
+    padding: 5px 0 5px 0;
+    background: #ffffff;
+}
+
+
+
 #serachFunction {
-    background: #E6E6E6;
-    height: 450px;
+    background: #f1f1f1;
 }
 
 #advertisementBlock {
     background: #0093d9;
-    height: 100px;
+    height: 10%;
 }
 
 #serachFunctionInputTextUL {
-    padding: 0px;
-    margin: 0px;
-    width: 340px;
-    border: 0px;
+    padding: 0;
+    margin: 0 auto;
+    width: 100%;
+    border: 0;
     color: #606060;
     font: 15px Tahoma;
+    border-right: 2px solid #000000;
 }
 
 #serachFunction li {
     list-style: none;
-}
-
-#serachFunctionInputText {
-    width: 325px;
-    margin: 5px;
+    margin: 0 auto;
+    width: 300px;
+    text-align: center;
 }
 
 #Location {
@@ -162,49 +188,29 @@ body {
 }
 
 #serachFunctionComboBox {
-    width: 320px;
-    margin: 0px;
+    margin: 0;
     color: #606060;
     font: 15px Tahoma;
 }
 
 #PricingSliderLi {
-    width: 325px;
-    margin: 8px;
     padding-bottom: 2px;
     height: 50px;
 }
 
 #PricingSliderDiv {
-    -moz-box-shadow: 4px 6px 7px rgb(110, 110, 110);
-    -webkit-box-shadow: 4px 6px 7px rgb(110, 110, 110);
-    box-shadow: 4px 6px 7px rgb(110, 110, 110);
+
 }
 
 #BedroomsSliderLi {
-    width: 325px;
-    margin: 8px;
     padding-bottom: 2px;
     height: 50px;
 }
 
-#BedroomsSliderDiv {
-    -moz-box-shadow: 4px 6px 7px rgb(110, 110, 110);
-    -webkit-box-shadow: 4px 6px 7px rgb(110, 110, 110);
-    box-shadow: 4px 6px 7px rgb(110, 110, 110);
-}
 
 #BathroomSliderLi {
-    width: 325px;
-    margin: 8px;
     padding-bottom: 2px;
     height: 50px;
-}
-
-#BathroomSliderDiv {
-    -moz-box-shadow: 4px 6px 7px rgb(110, 110, 110);
-    -webkit-box-shadow: 4px 6px 7px rgb(110, 110, 110);
-    box-shadow: 4px 6px 7px rgb(110, 110, 110);
 }
 
 #serachFunctionRadio {
@@ -214,10 +220,6 @@ body {
 
 }
 
-#serachFunctionButtonBox {
-    width: 325px;
-    margin: 5px;
-}
 
 #Options {
     padding-right: 15px;

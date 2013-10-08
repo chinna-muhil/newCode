@@ -14,6 +14,7 @@ html
         script(type='text/javascript', src='/javascripts/draggable-0.1.js')
         script(type='text/javascript', src='/javascripts/jquery.slider.js')
         script(type='text/javascript', src='https://google-maps-utility-library-v3.googlecode.com/svn/trunk/markerclusterer/src/markerclusterer.js')
+        script(type='text/javascript',src='/javascripts/main.js')
 
     body
         div#bigWarpper
@@ -32,6 +33,13 @@ html
                 article#serachFunction
                     form(action='/search',method='POST')
                         ul#serachFunctionInputTextUL
+                            li
+                                div#choosePropertyType
+                                    ul
+                                        li All
+                                        li Rent
+                                        li Sale
+                                        li Timeshare
                             li
                                 input#serachFunctionInputText(type="number", name="zipcode", placeholder="Zip Code of are to search")
                             li
@@ -61,7 +69,7 @@ html
                                               format: { format: '##', locale: 'us' },
                                               dimension: '&nbsp;bathroom(s)', skin: "round"
                                              });
-                            li
+                            //li
                                 #serachFunctionRadio
                                     input(type='radio', name='prop_type', value='renttimesharesale',checked)
                                     a All |
@@ -71,13 +79,13 @@ html
                                     a Timeshare |
                                     input(type='radio', name='prop_type', value='sale')
                                     a Sale
-                            li
+                            //li
                                 #serachFunctionRadio
                                     input#serachAmanitiesText(type="text", name="amenities", placeholder="Amenities")
                             li
                                 #serachFunctionButtonBox
                                     button#serachFunctionButton(type='submit', name='viewProperty',onclick='codeAddress()') View Property
-                                    a#serachFunctionAdvaceSearch(href="http://") Advance Search
+                                    //a#serachFunctionAdvaceSearch(href="http://") Advance Search
                 article#advertisementBlock
             aside#mainAside
                 if routePath === "home"
@@ -510,7 +518,7 @@ html
                             form(action="/properties/#{product.productName}", method="POST")
                                 input(type="hidden", name="_method", value="DELETE")
                                 button#serachFunctionButton(type="submit", name="Delete") Delete
-            footer#mainFooter
+            //footer#mainFooter
                 p#FooterText Copyright &copy; LSR 2013
 //-ul
                 li

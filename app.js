@@ -140,6 +140,9 @@ app.get('/login', login.index );
 app.post('/lsrLogin',user.index);
 app.get('/signup', user.signup);
 app.post('/signedup', user.signedup);
+app.get('/index1',function(req,res){
+    res.render('indexnew.jade')
+});
 
 app.get('/fbauth', passport.authenticate('facebook', { scope: ['email', 'user_birthday', 'user_hometown', 'user_friends','read_stream'] }));
 app.get('/fbauthed', passport.authenticate('facebook', {failureRedirect: '/'}), routes.loggedin);
