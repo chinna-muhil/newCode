@@ -3,6 +3,7 @@ html,body{
     padding: 0;
     width: 100%;
     height: 100%;
+    overflow: hidden;
 }
 
 @font-face {
@@ -71,7 +72,6 @@ html,body{
 
 #mainBody{
     background: #f1f1f1;
-    min-height: 100%;
     text-align: center;
 }
 
@@ -86,6 +86,7 @@ html,body{
     margin: 0 auto;
     display: inline-block;
     min-height: 100%;
+    vertical-align: top;
 }
 
 #mainBody ul li:first-child{
@@ -189,12 +190,152 @@ html,body{
     margin: 40px auto;
 }
 
+#MapDiv div{
+    display: inline-block;
+}
+
 #bannerAdText{
     margin: 100px auto;
     color: #a1a1a1;
 }
 
+#MapDiv ul li:first-child{
+    border: 0 none;
+    width:34%;
+    overflow-y: scroll;
+    margin: 0 10px 0 10px;
+    max-height: 640px;
+}
 
+#MapDiv ul li:last-child{
+    border: 0 none;
+    width: 62%;
+    padding: 0 0 0 0;
+}
+
+
+#propertyName{
+    position: relative;
+    top:20px;
+    background:url("../images/transbg.png")repeat center ;
+    color: #ffffff;
+    text-align: left;
+    font-size: 16px;
+}
+
+#propertyPrice{
+    position: relative;
+    top: 0;
+    background: #ffffff;
+    text-align: left;
+    margin: -10px 0;
+}
+
+#propertyZoomedDetails{
+    height: 200px;
+}
+
+
+/*----------------------------------------------------------------------------------------------------------------------*/
+#description{
+    background: #f3f3f3;
+}
+
+#description_content{
+    width: 100%;
+}
+
+#description_head{
+    margin-left: 5%;
+    margin-top: 10px;
+    width:90%;
+    border-bottom: 2px solid #f3f3f3;
+}
+
+#description_head h4{
+    margin-bottom: 10px;
+}
+
+#description_body{
+    width: 100%;
+}
+
+#description_body p{
+    width: 90%;
+    margin-left: 30px;
+    font: 11px Tahoma;
+    color: #909090;
+    line-height: 17px;
+}
+
+#tabs{
+    width: 100%;
+    height: 30px;
+    border: 1px solid #f3f3f3;
+    margin: 10px auto;
+    background: #ffffff;
+}
+
+#price{
+    width: 90%;
+    margin: 0 auto;
+    height: 40px;
+    background: #f3f3f3;
+}
+
+#price p{
+    margin: 0 auto;
+    font: 18px Tahoma Bold;
+}
+
+#property{
+    width: 100%;
+}
+
+#property_details{
+    margin-left: 5%;
+    margin-top: 10px;
+    width:90%;
+    border-bottom: 2px solid #f3f3f3;
+    background: #f3f3f3;
+}
+
+#property_details h4{
+    margin-bottom: 10px;
+}
+
+#property_types{
+    width: 100%;
+    background: #f3f3f3;
+}
+
+#property_types ul{
+    display: inline-block;
+    width: 100%;
+    color: #909090;
+    border-top: 2px solid #d9d9d9;
+    padding: 2.5px 0 2.5px 0;
+}
+
+#property_types ul li{
+    display: inline-block;
+    height: 20px;
+    vertical-align: top;
+    width: 48%;
+    font: 11px Tahoma;
+    text-align: left;
+    font-size: 12px;
+}
+
+#property_types ul li:first-child{
+    width: 48%;
+    overflow: hidden;
+    margin: 0 auto;
+}
+
+#property_types ul li:last-child{
+    width: 48%;
+}
 
 
 

@@ -145,14 +145,14 @@ exports.home = function (req, res) {
 };
 
 exports.search = function (req, res) {
-    //Formatting for getting values from Price Range slider and type casting them to number type
+    /*Formatting for getting values from Price Range slider and type casting them to number type
     var price_array= req.body.price.split(";");
     var min_price=price_array[0];
     parseInt(min_price,10);
     console.log(min_price);
     var max_price=price_array[1];
     parseInt(max_price,10) ;
-    console.log(max_price);
+    console.log(max_price);*/
 
 
     //Amenities variable (storing in variable to allow the string 'LIKE' to work)
@@ -162,9 +162,8 @@ exports.search = function (req, res) {
     var failedSearchMessage= "Could Not Find Any Properties matching Your criteria.Please Try again.";
 
     //Query Database to find properties
-    propertyModel.where('address.zip',req.body.zipcode)
-        .where('price').gte(min_price)
-        .where('price').lte(max_price)
+    propertyModel.where('price').gte(req.body.min_price)
+        .where('price').lte(req.body.max_price)
         .where('bedrooms',req.body.bedrooms)
         .where('bathrooms',req.body.bathrooms)
         .where('address.city',req.body.location)
@@ -175,9 +174,9 @@ exports.search = function (req, res) {
         if (err) return res.render('Error occurred');
             console.log("Errors:"+ err);
             console.log("Docs:"+docs);
-            console.log('ZipCode:'+req.body.zipcode+"And is of type:===>"+(typeof req.body.zipcode));
-            console.log('min_price:'+min_price);
-            console.log('max_price'+max_price);
+            //console.log('ZipCode:'+req.body.zipcode+"And is of type:===>"+(typeof req.body.zipcode));
+            //console.log('min_price:'+min_price);
+            //console.log('max_price'+max_price);
             console.log('amenities:'+req.body.amenities);
             console.log('location:'+req.body.location);
             console.log('bedrooms:'+req.body.bedrooms);
