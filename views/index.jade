@@ -45,30 +45,66 @@ html
                                     li Rent
                                     li Sale
                                     li Timeshare
-                            p#place Location
+                            p#place
+                                a Location
                                 br
                                 input#location(type="text", name="location")
 
-                            p#priceRange Price Range(USD)
+                            p#priceRange
+                                a Price Range(USD)
                                 br
                                 input#minPrice(type="number", name="min_price")
                                 |to
                                 input#maxPrice(type="number", name="max_price")
                             p#bedRooms
                                 br
-                                |Bedrooms
-                                input(type='range',min='0',max='5',step='1')
+                                a Bedrooms
+                                input(id='bedroom', type='range',min='0',max='5',step='1')
                             p#bathrooms
                                 br
-                                |Bathrooms
-                                input(type='range',min='0',max='5',step='1')
-                            div#more
-                                p More
-                            div#search
-                                input(type='submit', value='Search',id='searchButton')
+                                a Bathrooms
+                                input(id='bathroom' ,type='range',min='0',max='5',step='1')
+                            div#hidingDiv
+                                div#more_search
+                                    div#more
+                                        p More
+                                    div#search
+                                        input(type='submit', value='Search',id='searchButton')
 
-                            div#bannerAd
-                                p#bannerAdText Banner Ad
+                                div#bannerAd
+                                    p#bannerAdText Banner Ad
+
+                            script.
+                                $(document).ready(function(){
+                                    $("#more").click(function(){
+                                        $("#hidingDiv").hide();
+                                        $("#showingDiv").show();
+                                    });
+                                    $("#less").click(function(){
+                                        $("#hidingDiv").show();
+                                        $("#showingDiv").hide();
+                                    });
+                                });
+                            div#showingDiv(style="display: none")
+                                div#less
+                                    p Less
+                                p#place
+                                    a Country
+                                    br
+                                    input#location(type="text", name="location")
+                                p#place
+                                    a Postal Code
+                                    br
+                                    input#location(type="text", name="location")
+                                p#place
+                                    a Area Within
+                                    br
+                                    input#location(type="text", name="location")
+
+                                div#reset
+                                    a Reset
+                                    div#hide_search
+                                        input(type='submit', value='Search',id='searchButton')
                         li
                             aside#mainAside
                                 if routePath === "home"
@@ -110,7 +146,7 @@ html
                                                 for (var i = 0; i < propertyList.length; i++) {
                                                     var latLng = new google.maps.LatLng(propertyList[i].LatLng.latitude, propertyList[i].LatLng.longitude);
                                                     var marker = new google.maps.Marker({'position': latLng, infoWindowIndex : i});
-                                                    var content = '<div id=mapHoverInfo><p style="font-size:14px">'
+                                                    var content = '<div id=mapHoverInfo><p style="font-size:18px">'
                                                                     +propertyList[i].address.line1+", "
                                                                     +propertyList[i].address.line2+", "
                                                                     +propertyList[i].address.city+", "
@@ -391,6 +427,15 @@ html
                                     div#MapDiv
                                         ul
                                             li
+                                                div#sort Sort:
+                                                    select
+                                                        option Price High-Low
+                                                        option Price Low-High
+                                                        option Time - Newest-Oldest
+                                                        option Time - Oldest-Newest
+                                                        option Bedrooms Low-High
+                                                        option Bathrooms Low-High
+                                                div#compare Compare
                                                 script.
                                                     var propertyList = JSON.parse( '!{JSON.stringify(products)}' );
                                                     console.log("propertyList");
@@ -405,18 +450,18 @@ html
                                                     console.log(propertyList);
                                                         for(var i=0; i < propertyList.length ; i++){
                                                             console.log(propertyList[i].price);
-                                                            document.write("<div id=\"propertiesList\">"
+                                                            document.write("<a href=\"#\"> <div class=\"propertiesList\">"
                                                                             +'<p id=propertyName>'+propertyList[i].productName+'</p>'
                                                                             +"<p style=\"margin:5px 0\"><img src="+propertyList[i].picture+" width=300 height=170></p>"
                                                                             +"<p id=propertyPrice>$"+propertyList[i].price+"</p>"
-                                                                            +"</div>"
+                                                                            +"</div></a>"
                                                                             );
                                                         };
                                             li
                                                 div#propertyZoomedDetails
                                                     br
                                                     script.
-                                                        document.write("<p><img src="+propertyList[0].picture+" width=540 height=270></p>");
+                                                        document.write("<p><img src="+propertyList[0].picture+" width=640 height=270></p>");
                                                     div#description
                                                         div#tabs
                                                         div#price
@@ -442,6 +487,9 @@ html
                                                                         script.
                                                                             document.write(" "+propertyList[0].productType)
                                                                     li MLS ID
+                                                        div#description_prop
+                                                            h4 Descriptions
+                                                            p Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit
 
 
                                 else if routePath === "Add"
@@ -545,6 +593,16 @@ html
                                             form(action="/properties/#{product.productName}", method="POST")
                                                 input(type="hidden", name="_method", value="DELETE")
                                                 button#serachFunctionButton(type="submit", name="Delete") Delete
+
+                            script.
+                                    $(".propertiesList").click(function() {
+                                    //alert("Yayy");
+                                    var i = $(".propertiesList").index(this);
+                                    console.log(i);
+                                    $("#propertyZoomedDetails p img").attr("src", propertyList[i].picture);
+                                    $("#price p").html("Price: "+propertyList[i].price);
+                                    return false;
+                                    });
                             //footer#mainFooter
                                 p#FooterText Copyright &copy; LSR 2013
                 //-ul

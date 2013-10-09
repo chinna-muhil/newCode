@@ -270,7 +270,7 @@ body {
 #mapHoverInfo{
     color: deepskyblue;
     text-align: center;
-    width: 100%;
+    max-width: 300px;
     border-bottom:1px solid #d9d9d9;
 }
 
@@ -278,7 +278,7 @@ body {
     padding: 0;
     margin: 0 auto;
     display: inline-block;
-    width: 100%;
+    width: 300px;
 }
 
 #mapHoverInfo ul li{

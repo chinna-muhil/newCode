@@ -3,7 +3,6 @@ html,body{
     padding: 0;
     width: 100%;
     height: 100%;
-    overflow: hidden;
 }
 
 @font-face {
@@ -14,6 +13,15 @@ html,body{
 *{
     margin: 0;
     padding: 0;
+}
+
+a:visited{
+    text-decoration: none;
+    color: #000;
+}
+
+a{
+    text-decoration: none;
 }
 
 #bigWarpper{
@@ -164,7 +172,7 @@ html,body{
     background: #ffffff;
     border: 2px solid #dadada;
     border-radius: 5px;
-    margin: 20px 0 0 0 ;
+    margin: 20px 100px 0 0 ;
 }
 
 #more p{
@@ -188,10 +196,6 @@ html,body{
     background: #ffffff;
     border: 1px solid #dadada;
     margin: 40px auto;
-}
-
-#MapDiv div{
-    display: inline-block;
 }
 
 #bannerAdText{
@@ -235,10 +239,119 @@ html,body{
     height: 200px;
 }
 
+#mapHoverInfo{
+    color: deepskyblue;
+    text-align: center;
+    border-bottom:1px solid #d9d9d9;
+}
+
+#mapHoverInfo ul{
+    padding: 0;
+    margin: 0 auto;
+    display: inline-block;
+    width: 100%;
+}
+
+#mapHoverInfo ul li{
+    display: inline-block;
+    width: 48%;
+    color: #000000;
+    overflow: hidden;
+}
+
+#mapHoverInfo ul li:first-child{
+    text-align: left;
+    width: 48%;
+    color: #000000;
+    overflow: hidden;
+    margin: 0 auto;
+}
+
+#mapHoverInfo ul li:nth-child(2){
+    display: inline-block;
+    overflow: hidden;
+}
+
+#mapHoverInfo ul li:last-child{
+    text-align: right;
+    width: 48%;
+    color: #000000;
+    overflow: hidden;
+}
+
+#mapHoverInfoPicture{
+    padding: 5px;
+    border-bottom: 1px solid #d9d9d9;
+}
+
+#mapHoverInfoPicture ul{
+    width: 100%;
+    display: inline-block;
+}
+
+#mapHoverInfoPicture ul li{
+    display: inline-block;
+    width: 48%;
+    vertical-align: top;
+    margin: 0 auto;
+}
+
+#mapHoverInfoPicture ul li:first-child{
+    overflow: hidden;
+    display: inline-block;
+    width: 48%;
+    vertical-align: top;
+    margin: 0 auto;
+}
+
+#mapHoverInfoPicture ul li:last-child{
+    overflow: hidden;
+    display: inline-block;
+    width: 48%;
+    vertical-align: top;
+    margin: 0 auto;
+}
+
+#mapHoverInfoOptions{
+    text-align: center;
+}
+
+#mapHoverInfoOptions ul{
+    display: inline-block;
+    margin: 0 auto;
+    width: 100%;
+    padding: 0;
+    max-width: 500px;
+}
+
+#mapHoverInfoOptions ul li{
+    display: inline-block;
+    margin: 0 auto;
+    width: 23%;
+    padding: 5px 0 5px 0;
+}
+
+#mapHoverInfoOptions ul li:first-child{
+    overflow: hidden;
+    display: inline-block;
+    margin: 0 auto;
+    width: 23%;
+    padding: 5px 0 5px 0;
+}
+
+#mapHoverInfoOptions ul li:last-child{
+    overflow: hidden;
+    display: inline-block;
+    margin: 0 auto;
+    width: 23%;
+    padding: 5px 0 5px 0;
+}
+
+
 
 /*----------------------------------------------------------------------------------------------------------------------*/
 #description{
-    background: #f3f3f3;
+    background: #ffffff;
 }
 
 #description_content{
@@ -286,6 +399,7 @@ html,body{
 #price p{
     margin: 0 auto;
     font: 18px Tahoma Bold;
+    padding-top: 7px;
 }
 
 #property{
@@ -293,28 +407,27 @@ html,body{
 }
 
 #property_details{
-    margin-left: 5%;
     margin-top: 10px;
     width:90%;
     border-bottom: 2px solid #f3f3f3;
-    background: #f3f3f3;
+    height: 30px;
+    margin-left: 30px;
 }
 
 #property_details h4{
     margin-bottom: 10px;
+    float: left;
 }
 
 #property_types{
     width: 100%;
-    background: #f3f3f3;
 }
 
 #property_types ul{
     display: inline-block;
-    width: 100%;
     color: #909090;
-    border-top: 2px solid #d9d9d9;
     padding: 2.5px 0 2.5px 0;
+    margin-left: 30px;
 }
 
 #property_types ul li{
@@ -325,6 +438,7 @@ html,body{
     font: 11px Tahoma;
     text-align: left;
     font-size: 12px;
+    padding-bottom: 5px;
 }
 
 #property_types ul li:first-child{
@@ -336,6 +450,130 @@ html,body{
 #property_types ul li:last-child{
     width: 48%;
 }
+
+
+
+/*---------------------------------------------------------------------------@@@@@@@@@_-------------------------------*/
+
+#location{
+    width: 230px;
+}
+
+#bedRooms a{
+    float: left;
+    margin-left: 52px;
+}
+
+#bathrooms a{
+    float: left;
+    margin-left: 52px;
+}
+
+#bedroom{
+    width: 230px;
+}
+
+#bathroom{
+    width: 230px;
+}
+
+#more_search div{
+    display: inline-block;
+}
+
+#search{
+    width:70px;
+}
+
+#priceRange a {
+    float: left;
+    margin-left: 52px;
+}
+
+#place a{
+    float: left;
+    margin-left: 52px;
+}
+
+#minPrice,#maxPrice{
+    width: 105px;
+}
+
+#less{
+    height: 30px;
+    width: 58px;
+    background: #ffffff;
+    border: 2px solid #dadada;
+    border-radius: 5px;
+    margin-top: 20px;
+    margin-left: 60px;
+}
+
+#less p{
+    margin: 5px;
+    color: #212121;
+}
+
+#hide_search{
+    float: right;
+    margin-right: 60px;
+}
+
+#reset a{
+    margin-top: 10px;
+}
+
+#sort{
+    width: 190px;
+    background-color: #ffffff;
+    border: 1px solid #dadada;
+    margin-right: 30px;
+    margin-top: 10px;
+}
+
+#compare{
+    width: 70px;
+    background-color: #ffffff;
+    border: 1px solid #dadada;
+    float: right;
+    margin:-22px 0 0 0 ;
+}
+
+#description_prop{
+    width: 570px;
+    padding-top: 10px;
+    margin-left: 30px;
+}
+
+#description_prop h4{
+    border-bottom: 2px solid #f3f3f3;
+    padding-bottom: 5px;
+    float: left;
+    margin-right: 100%;
+    padding-right: 440px;
+}
+
+#description_prop p{
+    text-align: justify;
+    width: 520px;
+    font: 12px Tahoma;
+    color: #909090;
+    line-height: 20px;
+}
+
+input[type="range"]{
+    background: url("../images/slider.png") #ffffff no-repeat center;
+    background-size:cover;
+    background-position: 8px -2px;
+    width: 181px;
+    height: 20px;
+    -webkit-appearance: none;;
+    -webkit-box-shadow: inset 0px 0px 1px 1px rgba(218, 218, 218), 0px 1px 1px 0px rgba(218, 218, 218);
+    -moz-box-shadow: inset 0px 0px 1px 1px rgba(0, 0, 0, 0.9), 0px 1px 1px 0px rgba(255, 255, 255, 0.13);
+    box-shadow: inset 0px 0px 1px 1px rgba(218, 218, 218,0.9), 0px 1px 1px 0px rgba(218, 218, 218, 0.13);
+}
+
+
 
 
 
