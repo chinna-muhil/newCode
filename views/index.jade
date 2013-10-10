@@ -58,11 +58,33 @@ html
                             p#bedRooms
                                 br
                                 a Bedrooms
-                                input(id='bedroom', type='range',min='0',max='5',step='1')
+                                br
+                                input#BedroomsSlider(type="slider", value="2", name="bedroom", style="display:block;")
+                                script(type='text/javascript', charset='utf-8').
+                                            jQuery("#BedroomsSlider").slider({
+                                            from: 1,
+                                            to: 5,
+                                            scale: ['|', '|', '|', '|', '|'],
+                                            limits: false,
+                                            step: 1,
+                                            dimension: '',
+                                            skin: "blue"
+                                            });
                             p#bathrooms
                                 br
                                 a Bathrooms
-                                input(id='bathroom' ,type='range',min='0',max='5',step='1')
+                                br
+                                input#BathroomsSlider(type="slider", value="2", name="bedroom", style="display:block;")
+                                script(type='text/javascript', charset='utf-8').
+                                            jQuery("#BathroomsSlider").slider({
+                                            from: 1,
+                                            to: 5,
+                                            scale: ['|', '|', '|', '|', '|'],
+                                            limits: false,
+                                            step: 1,
+                                            dimension: '',
+                                            skin: "blue"
+                                            });
                             div#hidingDiv
                                 div#more_search
                                     div#more
@@ -452,7 +474,8 @@ html
                                                             document.write("<a href=\"#\"> <div class=\"propertiesList\">"
                                                                             +'<p id=propertyName>'+propertyList[i].productName+'</p>'
                                                                             +"<p style=\"margin:5px 0\"><img src="+propertyList[i].picture+" width=300 height=170></p>"
-                                                                            +"<p id=propertyPrice>$"+propertyList[i].price+"</p>"
+                                                                            +"<p id=propertyPrice>$"+propertyList[i].price+"<a style=\"float:right;margin-top:-2px;margin-right:20px\"><img src=/images/green_arrow.png></a></p>"
+                                                                            +"<p id=arrowKey></p>"
                                                                             +"</div></a>"
                                                                             );
                                                         };
