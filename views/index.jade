@@ -473,17 +473,17 @@ html
                                                                 h4 Property Details
                                                             div#property_types
                                                                 ul
-                                                                    li Beds:
+                                                                    li#beds Beds:
                                                                         script.
                                                                             document.write(" "+propertyList[0].bedrooms)
-                                                                    li Sqft:
+                                                                    li#area Sqft:
                                                                         script.
                                                                             document.write(" "+propertyList[0].area)
                                                                     li Built: 2005
-                                                                    li Bath:
+                                                                    li#baths Bath:
                                                                         script.
                                                                             document.write(" "+propertyList[0].bathrooms)
-                                                                    li Type:
+                                                                    li#type Type:
                                                                         script.
                                                                             document.write(" "+propertyList[0].productType)
                                                                     li MLS ID
@@ -601,6 +601,10 @@ html
                                     console.log(i);
                                     $("#propertyZoomedDetails p img").attr("src", propertyList[i].picture);
                                     $("#price p").html("Price: "+propertyList[i].price);
+                                    $("#beds").html("Beds: "+propertyList[i].bedrooms);
+                                    $("#baths").html("Baths: "+propertyList[i].bathrooms);
+                                    $("#area").html("Area: "+propertyList[i].area);
+                                    $("#type").html("Area: "+propertyList[i].productType);
                                     return false;
                                     });
                             //footer#mainFooter
