@@ -22,7 +22,15 @@ html
                 ul
                     li
                         p#logo LSR
-                    li MapNList
+                    li
+                        div#map
+                            a(href="/")
+                                img(src="/images/map_icon.png",style="margin-right:7px")
+                                | Map
+                        div#list
+                            a(href="/properties")
+                                img(src="/images/listicon_bluepng.png",style="margin-right:10px")
+                                | List
                     li
                         nav#mainNav
                             ul
@@ -37,13 +45,17 @@ html
             div#mainBody
                 ul
                     li
+                        script.
+                            $( '.selector' ).on( "click", function() {
+                                $( this ).css( "background", "red" );
+                            });
                         form(action='/search',method='POST')
                             div#choosePropertyType
                                 ul
-                                    li All
-                                    li Rent
-                                    li Sale
-                                    li Timeshare
+                                    li.selector All
+                                    li.selector Rent
+                                    li.selector Sale
+                                    li.selector Timeshare
                             p#place
                                 a Location
                                 br
@@ -484,10 +496,21 @@ html
                                                     br
                                                     script.
                                                         document.write("<p class=\"bxslider\">"
-                                                                        +"<img src="+propertyList[0].picture+" width=580 height=270>"
+                                                                        +"<img src="+propertyList[0].picture+" width=635 height=270>"
                                                                         +"</p>");
                                                     div#description
                                                         div#tabs
+                                                            ul
+                                                                li
+                                                                    img(src="/images/maps_button.png")
+                                                                li
+                                                                    img(src="/images/messgae.png")
+                                                                li
+                                                                    img(src="/images/save_button.png")
+                                                                li
+                                                                    img(src="/images/some_button.png")
+                                                                li
+                                                                    img(src="/images/print.png")
                                                         div#price
                                                             p Price:
                                                                 script.
@@ -513,7 +536,7 @@ html
                                                                     li MLS ID
                                                         div#description_prop
                                                             h4 Descriptions
-                                                            p Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit
+                                                            p Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit.
 
 
                                 else if routePath === "Add"
