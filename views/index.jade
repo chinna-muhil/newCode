@@ -7,6 +7,7 @@ html
         link(rel='stylesheet', href='/stylesheets/index1.css')
         link(rel='stylesheet', href='/stylesheets/jslider.css')
         link(rel='stylesheet', href='/stylesheets/jslider.round.css')
+        link(rel='stylesheet', href='/stylesheets/jquery.bxslider.css')
         script(type='text/javascript', src='/javascripts/jquery-1.7.1.js')
         script(type='text/javascript', src='/javascripts/jshashtable-2.1_src.js')
         script(type='text/javascript', src='/javascripts/jquery.numberformatter-1.2.3.js')
@@ -16,6 +17,7 @@ html
         script(type='text/javascript', src='/javascripts/jquery.slider.js')
         script(type='text/javascript', src='https://google-maps-utility-library-v3.googlecode.com/svn/trunk/markerclusterer/src/markerclusterer.js')
         script(type='text/javascript',src='/javascripts/main.js')
+        script(type='text/javascript', src='/javascripts/jquery.bxslider.min.js')
     body
         div#bigWarpper
             div#header
@@ -485,7 +487,7 @@ html
                                                             console.log(propertyList[i].price);
                                                             document.write("<a href=\"#\"> <div class=\"propertiesList\">"
                                                                             +'<p id=propertyName>'+propertyList[i].productName+'</p>'
-                                                                            +"<p style=\"margin:5px 0\"><img src="+propertyList[i].picture+" width=300 height=170></p>"
+                                                                            +"<p style=\"margin:5px 0\"><img src="+propertyList[i].picture.linkFront+" width=300 height=170></p>"
                                                                             +"<p id=propertyPrice>$"+propertyList[i].price+"<a style=\"float:right;margin-top:-2px;margin-right:20px\"><img src=/images/green_arrow.png></a></p>"
                                                                             +"<p id=arrowKey></p>"
                                                                             +"</div></a>"
@@ -496,7 +498,11 @@ html
                                                     br
                                                     script.
                                                         document.write("<p class=\"bxslider\">"
-                                                                        +"<img src="+propertyList[0].picture+" width=635 height=270>"
+
+                                                                        +"<img src="+propertyList[0].picture.linkFront+" width=580 height=270/>"
+                                                                        +"<img src="+propertyList[0].picture.linkBack+" width=580 height=270/>"
+                                                                        +"<img src="+propertyList[0].picture.linkLeft+" width=580 height=270/>"
+                                                                        +"<img src="+propertyList[0].picture.linkRight+" width=580 height=270/>"
                                                                         +"</p>");
                                                     div#description
                                                         div#tabs
@@ -613,8 +619,14 @@ html
                                                 input(type="float", name="latitude", value="#{product.LatLng.latitude}")
                                             p#Addelements Property's Longitude :
                                                 input(type="float", name="longitude", value="#{product.LatLng.longitude}")
-                                            p#Addelements Property's Image :
-                                                input(type="file", name="picture")
+                                            p#Addelements Property's Front Image :
+                                                input(type="file", name="pictureFront")
+                                            p#Addelements Property's Back Image :
+                                                input(type="file", name="pictureBack")
+                                            p#Addelements Property's Left Image :
+                                                input(type="file", name="pictureLeft")
+                                            p#Addelements Property's Right Image :
+                                                input(type="file", name="pictureRight")
                                             button#serachFunctionButton(type="submit") Update
                                 else if routePath === "Show"
                                     div#dispaly
@@ -642,17 +654,45 @@ html
                                                 button#serachFunctionButton(type="submit", name="Delete") Delete
 
                             script.
-                                    $(".propertiesList").click(function() {
+                                    $(".propertiesList").click(function(e) {
                                     //alert("Yayy");
                                     var i = $(".propertiesList").index(this);
                                     console.log(i);
-                                    $("#propertyZoomedDetails p img").attr("src", propertyList[i].picture);
                                     $("#price p").html("Price: "+propertyList[i].price);
                                     $("#beds").html("Beds: "+propertyList[i].bedrooms);
                                     $("#baths").html("Baths: "+propertyList[i].bathrooms);
                                     $("#area").html("Area: "+propertyList[i].area);
                                     $("#type").html("Area: "+propertyList[i].productType);
+                                    var slider = $('.bxslider').bxSlider();
+                                        slider.destroySlider();
+                                        $('.bxslider').append(
+                                             "<img src="+propertyList[i].picture.linkFront+" width=580 height=270/>"
+                                             +"<img src="+propertyList[i].picture.linkBack+" width=580 height=270/>"
+                                             +"<img src="+propertyList[i].picture.linkLeft+" width=580 height=270/>"
+                                             +"<img src="+propertyList[i].picture.linkRight+" width=580 height=270/>"
+                                             );
+                                             e.preventDefault();
+                                             slider.reloadSlider({
+                                             mode: 'horizontal',
+                                             auto: true,
+                                             speed:1000,
+                                             pause: 2000,
+                                             slideWidth: 580,
+                                                height: 270,
+                                         });
+
                                     return false;
+                                    });
+
+                                    $(document).ready(function(){
+                                        $('.bxslider').bxSlider({
+                                            mode: 'horizontal',
+                                             auto: true,
+                                             pause: 2000,
+                                             speed:1000,
+                                             slideWidth: 580,
+                                             height: 270,
+                                        });
                                     });
                             //footer#mainFooter
                                 p#FooterText Copyright &copy; LSR 2013

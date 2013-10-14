@@ -27,7 +27,12 @@ var propertySchema = new Schema({
         latitude: Number,
         longitude: Number
     },
-    picture:String
+    picture:{
+        linkFront:String,
+        linkBack:String,
+        linkLeft:String,
+        linkRight:String
+    }
 });
 
 var propertyModel = mongoose.model('Property', propertySchema);
@@ -93,12 +98,28 @@ exports.edit = function (req, res) {
 
 exports.update = function (req, res) {
     var b = req.body;
-    var link = req.files.picture.path;
-    var baseNmae = path.basename(link);
-    console.log( "Full path -- "  + link );
-    console.log("BaseNmae path -- " + baseNmae);
-    var joinedPath = '/images/' + baseNmae;
-    console.log("Joined path --> "+ joinedPath);
+    //Resolving the base path for multiple image file uploaded by user
+    var linkFront = req.files.pictureFront.path;
+    var linkBack = req.files.pictureBack.path;
+    var linkLeft = req.files.pictureLeft.path;
+    var linkRight = req.files.pictureRight.path;
+
+    //Create an array of all the file paths uploaded.
+    var linkArray= new Array([linkFront],[linkBack],[linkLeft],[linkRight]);
+
+    //Function to iterate the the link array and resolve proper paths and push to resolvedPathArray.
+    function resolveBasePath(){
+        var resolvedPathArray =new Object();
+        for(var i= 0;i <linkArray.length;i++){
+            var baseName = path.basename(linkArray[i]);
+            var joinedPath = '/images/' + baseName;
+            if(i==0){resolvedPathArray.linkFront=joinedPath.toString();}
+            if(i==1){resolvedPathArray.linkBack=joinedPath.toString();}
+            if(i==2){resolvedPathArray.linkLeft=joinedPath.toString();}
+            if(i==3){resolvedPathArray.linkRight=joinedPath.toString();}
+        }
+        return resolvedPathArray;
+    }
     propertyModel.update(
         { productName: req.params.name},
         { productName: b.name,
@@ -121,7 +142,7 @@ exports.update = function (req, res) {
                 latitude: b.latitude,
                 longitude: b.longitude
             },
-            picture: joinedPath
+            picture: resolveBasePath()
         },
         function (err) {
             res.redirect('/properties/' + b.name);
