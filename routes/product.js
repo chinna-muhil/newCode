@@ -166,18 +166,6 @@ exports.home = function (req, res) {
 };
 
 exports.search = function (req, res) {
-    /*Formatting for getting values from Price Range slider and type casting them to number type
-    var price_array= req.body.price.split(";");
-    var min_price=price_array[0];
-    parseInt(min_price,10);
-    console.log(min_price);
-    var max_price=price_array[1];
-    parseInt(max_price,10) ;
-    console.log(max_price);*/
-
-    //Amenities variable (storing in variable to allow the string 'LIKE' to work)
-    var amenities=req.body.amenities;
-
     //Message if search fails
     var failedSearchMessage= "Could Not Find Any Properties matching Your criteria.Please Try again.";
 
@@ -200,12 +188,10 @@ exports.search = function (req, res) {
             console.log('type:'+req.body.prop_type);
         if(docs.length > 0){
             console.log("Not Failed"+docs.length);
-            //res.render('index', {products:failedSearchMessage , routePath: "searchFailed"});
             res.render('index', {products: JSON.stringify(docs), routePath: "search"});
         }else{
             console.log("Failed"+docs.length);
             res.render('index', {products:failedSearchMessage , routePath: "searchFailed"});
-            //res.render('index', {products: JSON.stringify(docs), routePath: "search"});
         }
     });
 };
