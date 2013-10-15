@@ -76,6 +76,11 @@
 	*display: inline;
 }
 
+.bx-pager-item{
+    position: relative;
+    bottom: 30px;
+}
+
 .bx-wrapper .bx-pager.bx-default-pager a {
 	background: #666;
 	text-indent: -9999px;

@@ -47,17 +47,25 @@ html
             div#mainBody
                 ul
                     li
-                        script.
-                            $( '.selector' ).on( "click", function() {
-                                $( this ).css( "background", "red" );
-                            });
                         form(action='/search',method='POST')
                             div#choosePropertyType
                                 ul
-                                    li.selector All
-                                    li.selector Rent
-                                    li.selector Sale
-                                    li.selector Timeshare
+                                    input(type='button', class='selector', value='All')
+                                    input(type='button', class='selector', value='Rent')
+                                    input(type='button', class='selector', value='Sale')
+                                    input(type='button', class='selector', id='selectorLast', value='Timeshare')
+                                    input(type='hidden', name='prop_type', id='chosenType', value="")
+                                    script.
+                                            $('.selector').click(function(){
+                                                $('.selector').css('background', '#ffffff');
+                                                $('.selector').css('color', '#000000');
+                                                $(this).css('color', '#ffffff');
+                                                $(this).css('background', '#606060');
+                                                var hahaha=$(this).attr("value");
+
+                                                //alert(hahaha);
+                                                document.getElementById("chosenType").value=hahaha;
+                                            });
                             p#place
                                 a Location
                                 br
@@ -66,9 +74,9 @@ html
                             p#priceRange
                                 a Price Range(USD)
                                 br
-                                input#minPrice(type="number", name="min_price")
+                                input#minPrice(type="text", name="min_price",pattern="[0-9]*")
                                 |to
-                                input#maxPrice(type="number", name="max_price")
+                                input#maxPrice(type="text", name="max_price",pattern="[0-9]*")
                             p#bedRooms
                                 br
                                 a Bedrooms
@@ -88,7 +96,7 @@ html
                                 br
                                 a Bathrooms
                                 br
-                                input#BathroomsSlider(type="slider", value="2", name="bedroom", style="display:block;")
+                                input#BathroomsSlider(type="slider", value="2", name="bathroom", style="display:block;")
                                 script(type='text/javascript', charset='utf-8').
                                             jQuery("#BathroomsSlider").slider({
                                             from: 1,
@@ -126,15 +134,15 @@ html
                                 p#place
                                     a Country
                                     br
-                                    input#location(type="text", name="location")
+                                    input#location(type="text", name="country")
                                 p#place
                                     a Postal Code
                                     br
-                                    input#location(type="text", name="location")
+                                    input#location(type="text", name="zipcode")
                                 p#place
                                     a Area Within
                                     br
-                                    input#location(type="text", name="location")
+                                    input#location(type="text", name="areaOfSearch")
 
                                 div#reset
                                     a Reset
@@ -196,7 +204,7 @@ html
                                                                     +"<p>Area:"+propertyList[i].area+"sqft</p>"
                                                                     +"<p>Built:2005</p>"
                                                                     +'<p>More:<img width=10 height=10 src="../images/blue%20arrow.png"></p></li>'
-                                                                    +'<li>'+'<img width=100 height=100 src='+propertyList[i].picture+'>'+'</li></ul></div>'
+                                                                    +'<li>'+'<img width=100 height=100 src='+propertyList[i].picture.linkFront+'>'+'</li></ul></div>'
                                                                     +"<div id=mapHoverInfoOptions>"
                                                                     +'<ul><li><img width=35 height=35 src="../images/button.png"></li>'
                                                                     +'<li><img width=35 height=35 src="../images/save.png"></li>'
@@ -257,8 +265,8 @@ html
                                             }
                                             //only report if we got Good Stuff
                                             if (city != '' && state != '') {
-                                            document.getElementById("serachFunctionComboBox").value = city + ',' + state;
-                                            document.getElementById("serachFunctionInputText").value = postalCode;
+                                            document.getElementById("location").value = city + ',' + state;
+                                            //document.getElementById("serachFunctionInputText").value = postalCode;
                                                 } else {
                                                     console.log('Geocoder failed' + status)
                                                     }
@@ -497,13 +505,12 @@ html
                                                 div#propertyZoomedDetails
                                                     br
                                                     script.
-                                                        document.write("<p class=\"bxslider\">"
-
+                                                        document.write("<div class=\"slider\"> <div class=\"bxslider\">"
                                                                         +"<img src="+propertyList[0].picture.linkFront+" width=580 height=270/>"
                                                                         +"<img src="+propertyList[0].picture.linkBack+" width=580 height=270/>"
                                                                         +"<img src="+propertyList[0].picture.linkLeft+" width=580 height=270/>"
                                                                         +"<img src="+propertyList[0].picture.linkRight+" width=580 height=270/>"
-                                                                        +"</p>");
+                                                                        +"</div></div>");
                                                     div#description
                                                         div#tabs
                                                             ul
@@ -654,7 +661,7 @@ html
                                                 button#serachFunctionButton(type="submit", name="Delete") Delete
 
                             script.
-                                    $(".propertiesList").click(function(e) {
+                                    $(".propertiesList").click(function() {
                                     //alert("Yayy");
                                     var i = $(".propertiesList").index(this);
                                     console.log(i);
@@ -663,23 +670,34 @@ html
                                     $("#baths").html("Baths: "+propertyList[i].bathrooms);
                                     $("#area").html("Area: "+propertyList[i].area);
                                     $("#type").html("Area: "+propertyList[i].productType);
-                                    var slider = $('.bxslider').bxSlider();
-                                        slider.destroySlider();
-                                        $('.bxslider').append(
-                                             "<img src="+propertyList[i].picture.linkFront+" width=580 height=270/>"
+                                        $('.slider').empty();
+                                        $('.slider').append(
+                                             "<div class=\"bxslider\"> <img src="+propertyList[i].picture.linkFront+" width=580 height=270/>"
                                              +"<img src="+propertyList[i].picture.linkBack+" width=580 height=270/>"
                                              +"<img src="+propertyList[i].picture.linkLeft+" width=580 height=270/>"
-                                             +"<img src="+propertyList[i].picture.linkRight+" width=580 height=270/>"
+                                             +"<img src="+propertyList[i].picture.linkRight+" width=580 height=270/> </div?"
                                              );
-                                             e.preventDefault();
-                                             slider.reloadSlider({
-                                             mode: 'horizontal',
+                                    $('.bxslider').bxSlider({
+                                            mode: 'horizontal',
                                              auto: true,
-                                             speed:1000,
                                              pause: 2000,
+                                             speed:1000,
                                              slideWidth: 580,
-                                                height: 270,
-                                         });
+                                             height: 270,
+                                            infiniteLoop:true,
+                                            buildPager: function(slideIndex){
+                                            switch(slideIndex){
+                                                case 0:
+                                                    return '<img src='+propertyList[i].picture.linkFront+' width=50 height=50>';
+                                                case 1:
+                                                    return '<img src='+propertyList[i].picture.linkBack+' width=50 height=50>';
+                                                case 2:
+                                                    return '<img src='+propertyList[i].picture.linkLeft+' width=50 height=50>';
+                                                case 3:
+                                                    return '<img src='+propertyList[i].picture.linkRight+' width=50 height=50>';
+                                            }
+                                            }
+                                        });
 
                                     return false;
                                     });
@@ -692,6 +710,19 @@ html
                                              speed:1000,
                                              slideWidth: 580,
                                              height: 270,
+                                            infiniteLoop:true,
+                                            buildPager: function(slideIndex){
+                                            switch(slideIndex){
+                                                case 0:
+                                                    return '<img src='+propertyList[0].picture.linkFront+' width=50 height=50>';
+                                                case 1:
+                                                    return '<img src='+propertyList[0].picture.linkBack+' width=50 height=50>';
+                                                case 2:
+                                                    return '<img src='+propertyList[0].picture.linkLeft+' width=50 height=50>';
+                                                case 3:
+                                                    return '<img src='+propertyList[0].picture.linkRight+' width=50 height=50>';
+                                            }
+                                            }
                                         });
                                     });
                             //footer#mainFooter

@@ -133,7 +133,7 @@ a{
     width: 100%;
 }
 
-#choosePropertyType ul li{
+.selector{
     margin: 0 auto;
     display: inline-block;
     width: 15%;
@@ -143,6 +143,7 @@ a{
     border-top: 2px solid #dadada;
     border-bottom: 2px solid #dadada;
     border-left: 2px solid #dadada;
+    border-right: 0 none;
 }
 
 
@@ -151,7 +152,7 @@ a{
     border-right: 0 none;
 }
 
-#choosePropertyType ul li:last-child{
+#selectorLast{
     width: 25%;
     border-right: 2px solid #dadada;
 }
@@ -504,7 +505,7 @@ a{
 /*---------------------------------------------------------------------------@@@@@@@@@_-------------------------------*/
 
 #location{
-    width: 230px;
+    width: 223px;
 }
 
 #bedRooms a{
@@ -535,12 +536,12 @@ a{
 
 #priceRange a {
     float: left;
-    margin-left: 52px;
+    margin-left: 42px;
 }
 
 #place a{
     float: left;
-    margin-left: 52px;
+    margin-left: 42px;
 }
 
 #minPrice,#maxPrice{
@@ -588,7 +589,7 @@ a{
 }
 
 #description_prop{
-    width: 570px;
+    width: 560px;
     padding-top: 10px;
     margin-left: 30px;
 }
@@ -627,7 +628,9 @@ input[type="range"]{
     margin: 8px;
     padding-bottom: 2px;
     height: 50px;
+    font-size: 30px;
 }
+
 
 #BedroomsSliderDiv {
     -moz-box-shadow: 4px 6px 7px rgb(110, 110, 110);
@@ -641,6 +644,15 @@ input[type="range"]{
     display: inline-block;
     text-align: right;
 }
+
+#MapDiv2 {
+    width: 906px;
+    height: 550px;
+    overflow-y: scroll;
+    max-width: 906px;
+    max-height: 550px;
+}
+
 
 #list{
     width:45px;

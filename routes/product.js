@@ -175,7 +175,6 @@ exports.search = function (req, res) {
     parseInt(max_price,10) ;
     console.log(max_price);*/
 
-
     //Amenities variable (storing in variable to allow the string 'LIKE' to work)
     var amenities=req.body.amenities;
 
@@ -185,23 +184,19 @@ exports.search = function (req, res) {
     //Query Database to find properties
     propertyModel.where('price').gte(req.body.min_price)
         .where('price').lte(req.body.max_price)
-        .where('bedrooms',req.body.bedrooms)
-        .where('bathrooms',req.body.bathrooms)
+        .where('bedrooms',req.body.bedroom)
+        .where('bathrooms',req.body.bathroom)
         .where('address.city',req.body.location)
         .where('type').in([new RegExp(req.body.prop_type,'i')])
-        .where('amenities').in([new RegExp(amenities,'i')])
 
         .exec(function (err, docs) {
         if (err) return res.render('Error occurred');
             console.log("Errors:"+ err);
             console.log("Docs:"+docs);
             //console.log('ZipCode:'+req.body.zipcode+"And is of type:===>"+(typeof req.body.zipcode));
-            //console.log('min_price:'+min_price);
-            //console.log('max_price'+max_price);
-            console.log('amenities:'+req.body.amenities);
             console.log('location:'+req.body.location);
-            console.log('bedrooms:'+req.body.bedrooms);
-            console.log('bathrooms:'+req.body.bathrooms);
+            console.log('bedrooms:'+req.body.bedroom);
+            console.log('bathrooms:'+req.body.bathroom);
             console.log('type:'+req.body.prop_type);
         if(docs.length > 0){
             console.log("Not Failed"+docs.length);
