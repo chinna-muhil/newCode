@@ -3,7 +3,6 @@ var express = require('express')
     , routes = require('./routes')
     , productRoutes = require('./routes/product')
     , user = require('./routes/user')
-    , login = require('./routes/login')
     , http = require('http')
 	, https = require('https')
 	, fs = require('fs')
@@ -38,15 +37,15 @@ passport.use(new FacebookStrategy({
     callbackURL: config.development.fb.url+ '/' +'fbauthed'
     },
     function(accessToken, refreshToken, profile, done){
-        console.log ("accesToken ", accessToken);
-        console.log ("refreshToken", refreshToken);
-        console.log ("profile", profile);
         process.nextTick(function(){
             var query =  User.findOne({ 'fbId': profile.id });
             query.exec(function(err, oldUser){
                if (oldUser){
                    console.log('Existing User:' + oldUser.name + ' found and logged in!');
                    done(null, oldUser);
+                   console.log ("accesToken ", accessToken);
+                   console.log ("refreshToken", refreshToken);
+                   console.log ("profile", profile);
                }else{
                    var newUser = new User();
                    newUser.fbId = profile.id;
@@ -133,16 +132,17 @@ app.get('/properties/:name/edit', productRoutes.edit);
 app.put('/properties/:name', productRoutes.update);
 app.delete('/properties/:name', productRoutes.remove);
 app.post('/search',productRoutes.search);
-
+app.get('/search',productRoutes.getsearch);
+app.get('/searchList',productRoutes.searchList);
 
 //Routing
-app.get('/login', login.index );
 app.post('/lsrLogin',user.index);
 app.get('/signup', user.signup);
 app.post('/signedup', user.signedup);
 app.get('/index1',function(req,res){
     res.render('indexnew.jade')
 });
+
 
 app.get('/fbauth', passport.authenticate('facebook', { scope: ['email', 'user_birthday', 'user_hometown', 'user_friends','read_stream'] }));
 app.get('/fbauthed', passport.authenticate('facebook', {failureRedirect: '/'}), routes.loggedin);

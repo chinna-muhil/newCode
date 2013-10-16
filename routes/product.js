@@ -44,6 +44,8 @@ exports.index = function (req, res) {
     });
 };
 
+
+
 exports.new = function (req, res) {
     res.render("index", {routePath: "Add", title: 'Add New Product - By Sandeep Pagi'});
 };
@@ -165,6 +167,7 @@ exports.home = function (req, res) {
     });
 };
 
+var results;
 exports.search = function (req, res) {
     //Message if search fails
     var failedSearchMessage= "Could Not Find Any Properties matching Your criteria.Please Try again.";
@@ -181,6 +184,8 @@ exports.search = function (req, res) {
         if (err) return res.render('Error occurred');
             console.log("Errors:"+ err);
             console.log("Docs:"+docs);
+            results=docs;
+            console.log("results in search"+results);
             //console.log('ZipCode:'+req.body.zipcode+"And is of type:===>"+(typeof req.body.zipcode));
             console.log('location:'+req.body.location);
             console.log('bedrooms:'+req.body.bedroom);
@@ -188,7 +193,7 @@ exports.search = function (req, res) {
             console.log('type:'+req.body.prop_type);
         if(docs.length > 0){
             console.log("Not Failed"+docs.length);
-            res.render('index', {products: JSON.stringify(docs), routePath: "search"});
+            res.render('search', {products: JSON.stringify(docs), routePath: "search"});
         }else{
             console.log("Failed"+docs.length);
             res.render('index', {products:failedSearchMessage , routePath: "searchFailed"});
@@ -196,3 +201,12 @@ exports.search = function (req, res) {
     });
 };
 
+exports.searchList =function(req,res){
+    console.log("results in searchLink"+results);
+    res.render('search', {products:JSON.stringify(results), routePath: "searchList"});
+};
+
+exports.getsearch =function(req,res){
+    console.log("results in getsearch"+results);
+    res.render('search', {products:JSON.stringify(results), routePath: "search"});
+};
