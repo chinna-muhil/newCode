@@ -177,7 +177,7 @@ exports.search = function (req, res) {
         .where('price').lte(req.body.max_price)
         .where('bedrooms',req.body.bedroom)
         .where('bathrooms',req.body.bathroom)
-        .where('address.city',req.body.location)
+        .where('type').in([new RegExp(req.body.location,'i')])
         .where('type').in([new RegExp(req.body.prop_type,'i')])
 
         .exec(function (err, docs) {
