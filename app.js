@@ -144,7 +144,7 @@ app.get('/index1',function(req,res){
 });
 
 
-app.get('/fbauth', passport.authenticate('facebook', { scope: ['email', 'user_birthday', 'user_hometown', 'user_friends','read_stream'] }));
+app.get('/fbauth', passport.authenticate('facebook', {display:'popup', scope: ['email', 'user_birthday', 'user_hometown', 'user_friends','read_stream'] }));
 app.get('/fbauthed', passport.authenticate('facebook', {failureRedirect: '/'}), routes.loggedin);
 
 app.get('/logout', function(req, res){

@@ -16,9 +16,9 @@ html
         script(type='text/javascript', src='/javascripts/draggable-0.1.js')
         script(type='text/javascript', src='/javascripts/jquery.slider.js')
         script(type='text/javascript', src='https://google-maps-utility-library-v3.googlecode.com/svn/trunk/markerclusterer/src/markerclusterer.js')
-        script(type='text/javascript',src='/javascripts/main.js')
         script(type='text/javascript', src='/javascripts/jquery.bxslider.min.js')
         script(type='text/javascript', src='/javascripts/jquery.colorbox-min.js')
+        script(type='text/javascript',src='/javascripts/main.js')
     body
         div#bigWarpper
             div#header
@@ -48,7 +48,7 @@ html
             div#mainBody
                 ul
                     li
-                        form(action='/search',method='POST')
+                        form#searchForm(action='/search',method='POST')
                             div#choosePropertyType
                                 ul
                                     input(type='button', class='selector', value='All')
@@ -135,11 +135,11 @@ html
                                 p#place
                                     a Country
                                     br
-                                    input#location(type="text", name="country")
+                                    input#country(type="text", name="country")
                                 p#place
                                     a Postal Code
                                     br
-                                    input#location(type="text", name="zipcode")
+                                    input#zipcode(type="text", name="zipcode")
                                 p#place
                                     a Area Within
                                     br
@@ -148,7 +148,7 @@ html
                                 div#reset
                                     a Reset
                                     div#hide_search
-                                        input(type='submit', value='Search',id='searchButton')
+                                        input(type='submit', value='Search',id='searchButton',onsubmit="validateForm()" )
                         li
                             aside#mainAside
                                 if routePath === "home"
@@ -255,19 +255,22 @@ html
                                             var city = "";
                                             var state = "";
                                             var postalCode="";
+                                            var country="";
                                             for (var i = 0, len = result.address_components.length; i < len; i++) {
 
                                             var ac = result.address_components[i];
                                             if (ac.types.indexOf("locality") >= 0) city = ac.long_name;
                                             if (ac.types.indexOf("administrative_area_level_1") >= 0) state = ac.short_name;
                                             if (ac.types.indexOf("postal_code") >= 0) postalCode = ac.long_name;
+                                            if (ac.types.indexOf("country") >= 0) country = ac.long_name;
                                             //console.log(postalCode)
                                             //console.log("**************************")
                                             }
                                             //only report if we got Good Stuff
                                             if (city != '' && state != '') {
                                             document.getElementById("location").value = city + ',' + state;
-                                            //document.getElementById("serachFunctionInputText").value = postalCode;
+                                            document.getElementById("zipcode").value = postalCode;
+                                            document.getElementById("country").value = country;
                                                 } else {
                                                     console.log('Geocoder failed' + status)
                                                     }
@@ -682,7 +685,7 @@ html
                         div#social_network
                             | Connect with
                             div#social_link
-                                a#login(href="/fbauth")
+                                a#login(href="/fbauth", class="iframe")
                                     div#facebook_text Facebook
                                 a#twitter
                                     div#twitter_text Twitter
@@ -762,6 +765,7 @@ html
                                 $(document).ready(function(){
                                     //Examples of how to assign the Colorbox event to elements
                                     $(".group1").colorbox({rel:'group3', inline:true, transition:"none"});
+                                    $(".iframe").colorbox({iframe:true,width:"50%", height:"50%"});
                                 });
                             script.
                                 //AJax Request for sending mail

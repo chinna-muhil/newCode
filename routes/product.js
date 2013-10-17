@@ -172,6 +172,12 @@ exports.search = function (req, res) {
     //Message if search fails
     var failedSearchMessage= "Could Not Find Any Properties matching Your criteria.Please Try again.";
 
+    if(req.body.min_price == "" ||req.body.max_price == ""){
+        req.body.min_price=0;
+        req.body.max_price=1000000000000000000000;}
+    if(req.body.prop_type == "" ){
+        req.body.prop_type='';}
+
     //Query Database to find properties
     propertyModel.where('price').gte(req.body.min_price)
         .where('price').lte(req.body.max_price)
@@ -185,12 +191,16 @@ exports.search = function (req, res) {
             console.log("Errors:"+ err);
             console.log("Docs:"+docs);
             results=docs;
-            console.log("results in search"+results);
-            //console.log('ZipCode:'+req.body.zipcode+"And is of type:===>"+(typeof req.body.zipcode));
+            console.log("results in main search"+results);
+            console.log('ZipCode:'+req.body.zipcode+"And is of type:===>"+(typeof req.body.zipcode));
             console.log('location:'+req.body.location);
             console.log('bedrooms:'+req.body.bedroom);
             console.log('bathrooms:'+req.body.bathroom);
-            console.log('type:'+req.body.prop_type);
+            console.log('country:'+req.body.country);
+            console.log('areaOfSearch:'+req.body.areaOfSearch);
+            console.log('min_price:'+req.body.min_price);
+            console.log('max_price:'+req.body.max_price);
+            console.log('prop_type:'+req.body.prop_type);
         if(docs.length > 0){
             console.log("Not Failed"+docs.length);
             res.render('search', {products: JSON.stringify(docs), routePath: "search"});

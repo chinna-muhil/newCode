@@ -158,7 +158,7 @@ a{
     border-right: 2px solid #dadada;
 }
 
-#minPrice,#location,#maxPrice{
+#minPrice,#location,#maxPrice,#country,#zipcode{
     height: 30px;
 }
 
@@ -505,7 +505,7 @@ a{
 
 /*---------------------------------------------------------------------------@@@@@@@@@_-------------------------------*/
 
-#location{
+#location,#country,#zipcode{
     width: 223px;
 }
 

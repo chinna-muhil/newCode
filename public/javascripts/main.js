@@ -24,3 +24,5 @@ var size3= function(){
 
 $(document).ready(size3);
 $(window).resize(size3);
+
+
