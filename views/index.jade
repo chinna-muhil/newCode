@@ -47,7 +47,7 @@ html
                                     | LOGIN
             div#mainBody
                 ul
-                    li
+                    li.propertiesListContainer
                         form#searchForm(action='/search',method='POST')
                             div#choosePropertyType
                                 ul
@@ -150,9 +150,9 @@ html
                                     div#hide_search
                                         input(type='submit', value='Search',id='searchButton',onsubmit="validateForm()" )
                         li
-                            aside#mainAside
+                            aside#mainAside.propertiesListContainer
                                 if routePath === "home"
-                                    div#MapDiv
+                                    div#MapDiv.propertiesListContainer
                                         script.
                                             var map;
                                             var propertyList = JSON.parse( !{JSON.stringify(products)} );
@@ -169,7 +169,7 @@ html
                                             // Initial Map Options.
                                             var mapOptions = {
                                                 zoom: 14,
-                                                mapTypeId: google.maps.MapTypeId.ROADMAP
+                                                mapTypeId: google.maps.MapTypeId.ROADMAP,
                                             };
 
                                             // Loading Map
@@ -189,45 +189,34 @@ html
                                                 var infoWindows = [];
                                                 for (var i = 0; i < propertyList.length; i++) {
                                                     var latLng = new google.maps.LatLng(propertyList[i].LatLng.latitude, propertyList[i].LatLng.longitude);
-                                                    var marker = new google.maps.Marker({'position': latLng, infoWindowIndex : i});
-                                                    var content = '<div id=mapHoverInfo><p style="font-size:18px">'
-                                                                    +propertyList[i].address.line1+", "
-                                                                    +propertyList[i].address.line2+", "
-                                                                    +propertyList[i].address.city+", "
-                                                                    +propertyList[i].address.zip
-                                                                    +"</p>"
-                                                                    +"<ul><li>"+"Type:"+propertyList[i].type+"</li>"
-                                                                    +"<li>Price:"+propertyList[i].price+"</li></ul>"
-                                                                    +"</div>"
-                                                                    +"<div id=mapHoverInfoPicture>"
-                                                                    +"<ul><li><p>Beds:"+propertyList[i].bedrooms+"</p>"
-                                                                    +"<p>Baths:"+propertyList[i].bathrooms+"</p>"
-                                                                    +"<p>Area:"+propertyList[i].area+"sqft</p>"
-                                                                    +"<p>Built:2005</p>"
-                                                                    +'<p>More:<img width=10 height=10 src="../images/blue%20arrow.png"></p></li>'
-                                                                    +'<li>'+'<img width=100 height=100 src='+propertyList[i].picture.linkFront+'>'+'</li></ul></div>'
-                                                                    +"<div id=mapHoverInfoOptions>"
-                                                                    +'<ul><li><img width=35 height=35 src="../images/button.png"></li>'
-                                                                    +'<li><img width=35 height=35 src="../images/save.png"></li>'
-                                                                    +'<li><img width=35 height=35 src="../images/select.png"></li>'
-                                                                    +'<li><img width=33 height=33 src="../images/messgae.png"></li></ul>'
-                                                                    +"</div>";
+                                                    var marker = new google.maps.Marker({'position': latLng, infoWindowIndex : i,
+                                                                                          icon:'/images/marker.png'
+                                                                                       });
+                                                    var content ='<div class=propertiesListMap>'
+                                                                +'<p id=propertyNameMap>'+propertyList[i].productName+'</p>'
+                                                                +'<a href=#><p style=margin:5px 0><img src='+propertyList[i].picture.linkFront+' width=300 height=170></p>'
+                                                                +"<p id=propertyPriceMap>$"+propertyList[i].price+"<a style=float:right;margin-top:-2px;margin-right:20px><img src=/images/green_arrow.png></p>"
+                                                                +'<p id=arrowKeyMap></p>'
+                                                                +'</div></a><br/>'
+
                                                     var infoWindow = new google.maps.InfoWindow({
                                                         content : content
                                                     });
                                                     google.maps.event.addListener(marker, 'click',
                                                         function(event)
                                                         {
+                                                            this.setIcon('/images/marker_hover.png');
                                                             infoWindows[this.infoWindowIndex].open(map, this);
                                                         }
                                                     );
-                                                    /*
+                                                     /*
                                                     google.maps.event.addListener(marker, 'mouseout',
                                                         function(event)
                                                         {
-                                                            infoWindows[this.infoWindowIndex].close();
+                                                        this.setIcon('/images/marker.png');
+                                                        infoWindows[this.infoWindowIndex].close();
                                                         }
-                                                    );*/
+                                                    ); */
                                                     infoWindows.push(infoWindow);
                                                     markers.push(marker);
                                                 }
@@ -473,7 +462,7 @@ html
                                 else if routePath === "prod"
                                     div#MapDiv
                                         ul
-                                            li
+                                            li.propertiesListContainer
                                                 div#sort Sort:
                                                     select
                                                         option Price High-Low
@@ -482,29 +471,43 @@ html
                                                         option Time - Oldest-Newest
                                                         option Bedrooms Low-High
                                                         option Bathrooms Low-High
-                                                div#compare Compare
-                                                script.
-                                                    var propertyList = JSON.parse( '!{JSON.stringify(products)}' );
-                                                    console.log("propertyList");
-                                                    console.log(propertyList);
-                                                    var myArray=[propertyList[0]];
-                                                    //console.log("Here Comes myArray")
-                                                    //console.log(myArray[0].price);
-                                                    function sortAscendingByPrice(){
-                                                        propertyList.sort(function(a, b) {
-                                                            return a.price - b.price;
-                                                        })}
-                                                    console.log(propertyList);
-                                                        for(var i=0; i < propertyList.length ; i++){
+                                                div#compare(onclick="sortAscendingByPrice()") Compare
+                                                div#list1
+                                                    script.
+                                                        var propertyList = JSON.parse( '!{JSON.stringify(products)}' );
+
+                                                            function populate(){
+                                                            $('#list1').empty();
+                                                            for(var i=0; i < propertyList.length ; i++){
                                                             console.log(propertyList[i].price);
-                                                            document.write("<a href=\"#\"> <div class=\"propertiesList\">"
-                                                                            +'<p id=propertyName>'+propertyList[i].productName+'</p>'
-                                                                            +"<p style=\"margin:5px 0\"><img src="+propertyList[i].picture.linkFront+" width=300 height=170></p>"
-                                                                            +"<p id=propertyPrice>$"+propertyList[i].price+"<a style=\"float:right;margin-top:-2px;margin-right:20px\"><img src=/images/green_arrow.png></a></p>"
-                                                                            +"<p id=arrowKey></p>"
-                                                                            +"</div></a>"
-                                                                            );
-                                                        };
+                                                            document.getElementById("list1").innerHTML+=" <div class=\"propertiesList\">"
+                                                                    +' <p id=propertyName>'+propertyList[i].productName+'</p>'
+                                                                    +"<a href=\"#\"><p style=\"margin:5px 0\"><img src="+propertyList[i].picture.linkFront+" width=300 height=170></p>"
+                                                                    +"<p id=propertyPrice>$"+propertyList[i].price+"<a style=\"float:right;margin-top:-2px;margin-right:20px\"><img src=/images/green_arrow.png></p>"
+                                                                    +"<p id=arrowKey></p>"
+                                                                    +"</div></a><br/>"
+                                                                    //);
+                                                             };}
+
+                                                            function sortAscendingByPrice(){
+                                                            propertyList.sort(function(a, b){
+                                                            return a.price - b.price;})
+                                                            console.log(propertyList);
+                                                            //$('#link1').empty();
+                                                            //alert("khallas");
+                                                            populate();
+                                                            }
+
+                                                            for(var i=0; i < propertyList.length ; i++){
+                                                                console.log(propertyList[i].price);
+                                                                document.write("<a href=\"#\"> <div class=\"propertiesList\">"
+                                                                                +'<p id=propertyName>'+propertyList[i].productName+'</p>'
+                                                                                +"<p style=\"margin:5px 0\"><img src="+propertyList[i].picture.linkFront+" width=300 height=170></p>"
+                                                                                +"<p id=propertyPrice>$"+propertyList[i].price+"<a style=\"float:right;margin-top:-2px;margin-right:20px\"><img src=/images/green_arrow.png></a></p>"
+                                                                                +"<p id=arrowKey></p>"
+                                                                                +"</div></a>"
+                                                                                );
+                                                            };
                                             li
                                                 div#propertyZoomedDetails
                                                     br

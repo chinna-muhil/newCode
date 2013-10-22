@@ -3,6 +3,7 @@ html,body{
     padding: 0;
     width: 100%;
     height: 100%;
+    background: #f1f1f1;
 }
 
 @font-face {
@@ -11,6 +12,7 @@ html,body{
 }
 
 *{
+    font-family: Segoeuil,sans-serif;
     margin: 0;
     padding: 0;
 }
@@ -49,7 +51,6 @@ a{
     width: 32%;
     display: inline-block;
     margin: 6px auto;
-    border-right:1px solid #000000;
     color: #ffffff;
 }
 
@@ -100,8 +101,7 @@ a{
 
 #mainBody ul li:first-child{
     width: 25%;
-    /*border-right:2px solid #000000 ;*/
-    box-shadow: 10px 0px 5px -11px #888;
+    box-shadow: 10px -11px 10px -11px #888;
 }
 
 #mainBody ul li:last-child{
@@ -212,7 +212,6 @@ a{
     width:34%;
     overflow-y: scroll;
     margin: 0 10px 0 10px;
-    max-height: 640px;
 }
 
 #MapDiv ul li:last-child{
@@ -222,31 +221,59 @@ a{
 }
 
 .propertiesList{
-    height: 220px
+    position: relative;
+    top: -30px;
+    height: 220px;
 }
 
 #propertyName{
     position: relative;
-    top:40px;
+    top: 35px;
     padding: 5px;
     background:url("../images/transbg.png")repeat center ;
     color: #ffffff;
     text-align: left;
     font-size: 16px;
-    margin: 10px 10px 10px 10px;
 }
 
 #propertyPrice{
     position: relative;
-    top: -10px;
+    top: -49px;
     padding-left: 20px;
     padding-top: 10px;
     background: #f9f9f9;
     box-shadow: inset 0 -10px 10px -13px #000000;
     text-align: left;
-    margin: -10px 10px 10px 10px;
     height: 30px;
 }
+
+.propertiesListMap{
+    position: relative;
+    margin: -35px auto -48px auto;
+    height: 220px;
+}
+
+#propertyNameMap{
+    position: relative;
+    top: 35px;
+    padding: 5px;
+    background:url("../images/transbg.png")repeat center ;
+    color: #ffffff;
+    text-align: left;
+    font-size: 16px;
+}
+
+#propertyPriceMap{
+    position: relative;
+    top: -48px;
+    padding-left: 20px;
+    padding-top: 10px;
+    background: #f9f9f9;
+    box-shadow: inset 0 -10px 10px -13px #000000;
+    text-align: left;
+    height: 30px;
+}
+
 
 #propertyZoomedDetails{
     height: 200px;
@@ -307,6 +334,7 @@ a{
     width: 48%;
     vertical-align: top;
     margin: 0 auto;
+    text-align: left;
 }
 
 #mapHoverInfoPicture ul li:first-child{
@@ -365,7 +393,7 @@ a{
 /*----------------------------------------------------------------------------------------------------------------------*/
 #description{
     width: 102.5%;
-    margin-top: -10px;
+    margin-top: -60px;
     background: #ffffff;
 }
 
@@ -495,6 +523,7 @@ a{
     width: 48%;
     overflow: hidden;
     margin: 0 auto;
+    box-shadow: none;
 }
 
 #property_types ul li:last-child{
@@ -511,20 +540,20 @@ a{
 
 #bedRooms a{
     float: left;
-    margin-left: 52px;
+    margin-left: 42px;
 }
 
 #bathrooms a{
     float: left;
-    margin-left: 52px;
+    margin-left: 42px;
 }
 
-#bedroom{
+#bedroom,#bathroom{
     width: 230px;
 }
 
-#bathroom{
-    width: 230px;
+#bedroom span,#bathroom span{
+    margin-left: 42px;
 }
 
 #more_search div{
@@ -556,7 +585,7 @@ a{
     border: 2px solid #dadada;
     border-radius: 5px;
     margin-top: 20px;
-    margin-left: 60px;
+    margin-left: 42px;
 }
 
 #less p{
@@ -642,15 +671,21 @@ input[type="range"]{
 #map{
     margin-right: 20px;
     display: inline-block;
-    text-align: right;
+    background: #1E9FDD;
+    height: 34px;
+    width: 89px;
+    border-top-left-radius:5px ;
+    border-top-right-radius:5px ;
+}
+
+#map:visited{
+    background: #f1f1f1;
 }
 
 #MapDiv2 {
     width: 906px;
     height: 550px;
     overflow-y: scroll;
-    max-width: 906px;
-    max-height: 550px;
 }
 
 #list{

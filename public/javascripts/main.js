@@ -1,5 +1,5 @@
 var size1= function(){
-    $('#bigWarpper').height(
+    $('#bigWarpper,.propertiesListContainer').height(
         $(window).height()-43
     );
 };
