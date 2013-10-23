@@ -31,7 +31,6 @@ passport.serializeUser(function(user, done){
 
 passport.deserializeUser(function(id, done){
     User.findById(id, function(err, user){
-        console.log(user)
         done(err, user);
     });
 });
@@ -49,9 +48,9 @@ passport.use(new FacebookStrategy({
                 if (oldUser){
                     console.log('Existing User:' + oldUser.name + ' found and logged in!');
                     done(null, oldUser);
-                    console.log ("accesToken ", accessToken);
+                    /*console.log ("accesToken ", accessToken);
                     console.log ("refreshToken", refreshToken);
-                    console.log ("profile", profile);
+                    console.log ("profile", profile);*/
                 }else{
                     var newUser = new User();
                     newUser.fbId = profile.id;
