@@ -28,11 +28,11 @@ html
                     li
                         div#map
                             a(href="/")
-                                img(src="/images/map_icon.png",style="margin-right:7px")
+                                img(src="/images/maps_button1.png",style="margin-right:7px;")
                                 | Map
                         div#list
                             a(href="/properties")
-                                img(src="/images/listicon_bluepng.png",style="margin-right:10px")
+                                img(src="/images/listicon_bluepng.png",style="margin-right:10px;")
                                 | List
                     li
                         nav#mainNav
@@ -192,12 +192,12 @@ html
                                                     var marker = new google.maps.Marker({'position': latLng, infoWindowIndex : i,
                                                                                           icon:'/images/marker.png'
                                                                                        });
-                                                    var content ='<div class=propertiesListMap>'
-                                                                +'<p id=propertyNameMap>'+propertyList[i].productName+'</p>'
-                                                                +'<a href=#><p style=margin:5px 0><img src='+propertyList[i].picture.linkFront+' width=300 height=170></p>'
-                                                                +"<p id=propertyPriceMap>$"+propertyList[i].price+"<a style=float:right;margin-top:-2px;margin-right:20px><img src=/images/green_arrow.png></p>"
-                                                                +'<p id=arrowKeyMap></p>'
-                                                                +'</div></a><br/>'
+                                                    var content ='<div class=propertiesListMap style=background:url('+propertyList[i].picture.linkFront+')no-repeat;background-size:300px 175px>'
+                                                                +'<div id=propertyNameMap>'+propertyList[i].productName+'</div>'
+                                                                +"<div id=propertyPriceMap>$"+propertyList[i].price+"<a style=float:right;margin-top:-2px;margin-right:20px><img src=/images/green_arrow.png></div>"
+                                                                +'<div id=arrowKeyMap></div>'
+                                                                +'</div></a><br/>';
+
 
                                                     var infoWindow = new google.maps.InfoWindow({
                                                         content : content
@@ -480,34 +480,37 @@ html
                                                             $('#list1').empty();
                                                             for(var i=0; i < propertyList.length ; i++){
                                                             console.log(propertyList[i].price);
-                                                            document.getElementById("list1").innerHTML+=" <div class=\"propertiesList\">"
-                                                                    +' <p id=propertyName>'+propertyList[i].productName+'</p>'
-                                                                    +"<a href=\"#\"><p style=\"margin:5px 0\"><img src="+propertyList[i].picture.linkFront+" width=300 height=170></p>"
-                                                                    +"<p id=propertyPrice>$"+propertyList[i].price+"<a style=\"float:right;margin-top:-2px;margin-right:20px\"><img src=/images/green_arrow.png></p>"
-                                                                    +"<p id=arrowKey></p>"
-                                                                    +"</div></a><br/>"
-                                                                    //);
-                                                             };}
+                                                            document.getElementById("list1").innerHTML += "<br/><div class=propertiesList style=background:url("+propertyList[i].picture.linkFront+")no-repeat;background-size:300px 175px>"
+                                                                                                            +"<div id=propertyName>"+propertyList[i].productName+"</div>"
+                                                                                                            +"<div id=propertyPrice>$"+propertyList[i].price+"<a style=float:right;margin-top:-2px;margin-right:20px><img src=/images/green_arrow.png></div>"
+                                                                                                            +"<div id=arrowKey></div>"
+                                                                                                            +"</div></a>" }}
 
                                                             function sortAscendingByPrice(){
                                                             propertyList.sort(function(a, b){
                                                             return a.price - b.price;})
                                                             console.log(propertyList);
-                                                            //$('#link1').empty();
-                                                            //alert("khallas");
                                                             populate();
                                                             }
 
                                                             for(var i=0; i < propertyList.length ; i++){
                                                                 console.log(propertyList[i].price);
-                                                                document.write("<a href=\"#\"> <div class=\"propertiesList\">"
-                                                                                +'<p id=propertyName>'+propertyList[i].productName+'</p>'
-                                                                                +"<p style=\"margin:5px 0\"><img src="+propertyList[i].picture.linkFront+" width=300 height=170></p>"
-                                                                                +"<p id=propertyPrice>$"+propertyList[i].price+"<a style=\"float:right;margin-top:-2px;margin-right:20px\"><img src=/images/green_arrow.png></a></p>"
-                                                                                +"<p id=arrowKey></p>"
-                                                                                +"</div></a>"
+                                                                document.write("<br/> <div class=propertiesList style=background:url("+propertyList[i].picture.linkFront+")no-repeat;background-size:300px 175px>"
+                                                                                                        +"<div id=propertyName>"+propertyList[i].productName+"</div>"
+                                                                                                        +"<div id=propertyPrice>$"+propertyList[i].price+"<a style=float:right;margin-top:-2px;margin-right:20px><img src=/images/green_arrow.png></div>"
+                                                                                                        +"<div id=arrowKey></div>"
+                                                                                                        +"</div></a>"
                                                                                 );
                                                             };
+                                                    script.
+                                                        $('#map').css('background','#1E9FDD')
+                                                        $('#map img').attr('src','/images/map_icon.png')
+                                                        $('#map a').css('color','#ffffff')
+                                                        $('#map').css('height','24')
+                                                        $('#list').css('background','#f1f1f1')
+                                                        $('#list img').attr('src','/images/listicon_grey.png')
+                                                        $('#list a').css('color','#000000')
+                                                        $('#list').css('height','27')
                                             li
                                                 div#propertyZoomedDetails
                                                     br
@@ -699,7 +702,7 @@ html
                                 a(href="/signup")  Create one here
 
                             script.
-                                    $(".propertiesList").click(function() {
+                                    $(".propertiesList").live('click',function() {
                                     //alert("Yayy");
                                     var i = $(".propertiesList").index(this);
                                     console.log(i);
@@ -713,15 +716,13 @@ html
                                              "<div class=\"bxslider\"> <img src="+propertyList[i].picture.linkFront+" width=580 height=270/>"
                                              +"<img src="+propertyList[i].picture.linkBack+" width=580 height=270/>"
                                              +"<img src="+propertyList[i].picture.linkLeft+" width=580 height=270/>"
-                                             +"<img src="+propertyList[i].picture.linkRight+" width=580 height=270/> </div?"
+                                             +"<img src="+propertyList[i].picture.linkRight+" width=580 height=270/> </div>"
                                              );
                                     $('.bxslider').bxSlider({
                                             mode: 'horizontal',
                                              auto: true,
                                              pause: 2000,
                                              speed:1000,
-                                             slideWidth: 580,
-                                             height: 270,
                                             infiniteLoop:true,
                                             buildPager: function(slideIndex){
                                             switch(slideIndex){
@@ -746,8 +747,6 @@ html
                                              auto: true,
                                              pause: 2000,
                                              speed:1000,
-                                             slideWidth: 580,
-                                             height: 270,
                                             infiniteLoop:true,
                                             buildPager: function(slideIndex){
                                             switch(slideIndex){
