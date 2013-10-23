@@ -227,6 +227,7 @@ a{
 .propertiesList{
     height: 150px;
     background: url("../images/1b8d950ad2e378688b0b2ad14c82f006.jpg")no-repeat center ;
+    cursor: pointer;
 }
 
 #propertyName{
