@@ -4,6 +4,10 @@ exports.index = function(req, res){
   res.render('index', { title: 'LSR', routePath: "home" });
 };
 
-exports.loggedin = function(req, res){
-    res.render('loggedin', { title: 'LSR', user: req.user});
+exports.index = function(req, res){
+    res.render('index', { title: 'LSR', routePath: "loggedin" });
 };
+
+/*exports.loggedin = function(req, res){
+    res.render('loggedin', { title: 'LSR',routePath:"home", user: req.user});
+};*/

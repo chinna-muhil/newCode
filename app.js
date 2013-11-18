@@ -80,7 +80,7 @@ passport.use(new FacebookStrategy({
 //Random Comment in file
 // all environments
 app.configure(function () {
-    app.set('port', process.env.PORT || 8080);
+    app.set('port', process.env.PORT || 3000);
     app.set('sslport', process.env.SSLPORT || 3030);
     app.set('views', __dirname + '/views');
     app.set('view engine', 'jade');
@@ -153,8 +153,8 @@ app.get('/index1',function(req,res){
 });
 
 app.get('/', routes.index);
-app.get('/fbauth', passport.authenticate('facebook', {display:'popup', scope: ['email', 'user_birthday', 'user_hometown', 'user_friends','read_stream'] }));
-app.get('/loggedin', ensureLoggedIn('/'), routes.loggedin);
+app.get('/fbauth', passport.authenticate('facebook', {/*display:'popup',*/ scope: ['email', 'user_birthday', 'user_hometown', 'user_friends','read_stream'] }));
+app.get('/loggedin', ensureLoggedIn('/'), routes.index);
 app.get('/fbauthed', passport.authenticate('facebook',{
     failureRedirect: '/',
     successRedirect: '/loggedin'
