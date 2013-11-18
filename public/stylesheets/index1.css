@@ -100,7 +100,7 @@ a{
 }
 
 #mainBody ul li:first-child{
-    width: 25%;
+    width: 315px;
     box-shadow: 10px -11px 10px -11px #888;
 }
 
@@ -213,7 +213,7 @@ a{
 
 #MapDiv ul li:first-child{
     border: 0 none;
-    width:34%;
+    width:320px;
     overflow-y: scroll;
     margin: 0 10px 0 10px;
 }

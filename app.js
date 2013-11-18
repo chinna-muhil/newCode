@@ -80,12 +80,13 @@ passport.use(new FacebookStrategy({
 //Random Comment in file
 // all environments
 app.configure(function () {
-    app.set('port', process.env.PORT || 3000);
+    app.set('port', process.env.PORT || 8080);
     app.set('sslport', process.env.SSLPORT || 3030);
     app.set('views', __dirname + '/views');
     app.set('view engine', 'jade');
     app.use(express.favicon());
     app.use(express.logger('dev'));
+    app.use(express.compress());
     app.use(express.cookieParser());
     app.use(express.bodyParser({keepExtensions:true, uploadDir:path.join(__dirname,'public/images')}));
     app.use(express.session({ secret: '09efbe9a8a1fb61432451259ddc5bf76'}));
@@ -139,6 +140,9 @@ app.delete('/properties/:name', productRoutes.remove);
 app.post('/search',productRoutes.search);
 app.get('/search',productRoutes.getsearch);
 app.get('/searchList',productRoutes.searchList);
+app.get('/s',function(req,res){
+    res.render('s.html');
+});
 
 //Routing
 app.post('/lsrLogin',user.index);
