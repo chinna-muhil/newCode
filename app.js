@@ -8,7 +8,8 @@ var express = require('express')
     , fs = require('fs')
     , path = require('path')
     , mongoose = require('mongoose')
-    , TwitterStrategy = require('passport-twitter').Strategy;
+    , TwitterStrategy = require('passport-twitter').Strategy
+    , LinkedInStrategy = require('passport-linkedin').Strategy;
 
 var mongo = require('mongodb');
 var BSON = mongo.BSONPure;
@@ -27,6 +28,9 @@ var passport = require('passport'),
 var TWITTER_CONSUMER_KEY = "aX5yhKcQU5YHQLKS08vRgg";
 var TWITTER_CONSUMER_SECRET = "cX37DlsPLeW55zXAmrs1douL4B87Yd536EutZ2QqpA";
 
+var LINKEDIN_API_KEY = "77970wh9b8os92";
+var LINKEDIN_SECRET_KEY = "XTj0TNj0eTbnU5cS";
+
 //set up the passport
 
 passport.serializeUser(function(user, done){
@@ -39,6 +43,7 @@ passport.deserializeUser(function(id, done){
     });
 });
 
+//strategy for facebook login
 passport.use(new FacebookStrategy({
         clientID: config.development.fb.appId,
         clientSecret: config.development.fb.appSecret,
@@ -81,7 +86,7 @@ passport.use(new FacebookStrategy({
     }
 ));
 
-
+//strategy for twitter login
 passport.use(new TwitterStrategy({
         consumerKey: TWITTER_CONSUMER_KEY,
         consumerSecret: TWITTER_CONSUMER_SECRET,
@@ -99,6 +104,39 @@ passport.use(new TwitterStrategy({
                 } else {
                     var newUser = new User();
                     newUser.twitterId = profile.id;
+                    newUser.name = profile.displayName;
+                    newUser.username = profile.username;
+                    newUser.location = profile._json.location;
+                    newUser.save(function(err) {
+                        if(err) {throw err;}
+                        console.log ("profile", profile);
+                        console.log('New user: ' + newUser.name + ' created and logged in!');
+                        done(null, newUser);
+                    });
+                }
+            });
+        });
+    }
+));
+
+
+//strategy for linkedin login
+passport.use(new LinkedInStrategy({
+        consumerKey: LINKEDIN_API_KEY,
+        consumerSecret: LINKEDIN_SECRET_KEY,
+        callbackURL: "http://127.0.0.1:3000/auth/linkedin/callback"
+    },
+    function(token, tokenSecret, profile, done) {
+        process.nextTick(function () {
+            var query = User.findOne({ 'twitterId': profile.id });
+            query.exec(function (err, oldUser) {
+                console.log(oldUser);
+                if(oldUser) {
+                    console.log('User: ' + oldUser.name + ' found and logged in!');
+                    done(null, oldUser);
+                    console.log ("profile", profile);
+                } else {
+                    var newUser = new User();
                     newUser.name = profile.displayName;
                     newUser.username = profile.username;
                     newUser.location = profile._json.location;
@@ -189,6 +227,7 @@ app.get('/index1',function(req,res){
     res.render('indexnew.jade')
 });
 
+//facebook login
 app.get('/', routes.index);
 app.get('/fbauth', passport.authenticate('facebook', {/*display:'popup',*/ scope: ['email', 'user_birthday', 'user_hometown', 'user_friends','read_stream'] }));
 app.get('/loggedin', ensureLoggedIn('/'), routes.index);
@@ -197,6 +236,8 @@ app.get('/fbauthed', passport.authenticate('facebook',{
     successRedirect: '/loggedin'
 }));
 
+
+//twitter login
 app.get('/auth/twitter',
     passport.authenticate('twitter'));
 
@@ -206,6 +247,20 @@ app.get('/auth/twitter/callback',
         // Successful authentication, redirect home.
         res.redirect('/');
     });
+
+
+//linkedin login
+app.get('/auth/linkedin',
+    passport.authenticate('linkedin'));
+
+app.get('/auth/linkedin/callback',
+    passport.authenticate('linkedin', { failureRedirect: '/login' }),
+    function(req, res) {
+        // Successful authentication, redirect home.
+        res.redirect('/');
+    });
+
+
 
 app.get('/logout', function(req, res){
     req.logOut();
