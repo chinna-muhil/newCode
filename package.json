@@ -12,6 +12,7 @@
     "mongoose" :"3.6.17",
     "node-oauth2-server" : "*",
     "passport": "~0.1.17",
-    "passport-facebook": "~1.0.1"
+    "passport-facebook": "~1.0.1",
+    "passport-twitter": ">= 0.0.0"
   }
 }

@@ -7,7 +7,8 @@ var express = require('express')
     , https = require('https')
     , fs = require('fs')
     , path = require('path')
-    , mongoose = require('mongoose');
+    , mongoose = require('mongoose')
+    , TwitterStrategy = require('passport-twitter').Strategy;
 
 var mongo = require('mongodb');
 var BSON = mongo.BSONPure;
@@ -22,6 +23,9 @@ var ensureLoggedIn = require('connect-ensure-login').ensureLoggedIn;
 
 var passport = require('passport'),
     FacebookStrategy = require('passport-facebook').Strategy;
+
+var TWITTER_CONSUMER_KEY = "aX5yhKcQU5YHQLKS08vRgg";
+var TWITTER_CONSUMER_SECRET = "cX37DlsPLeW55zXAmrs1douL4B87Yd536EutZ2QqpA";
 
 //set up the passport
 
@@ -68,6 +72,39 @@ passport.use(new FacebookStrategy({
                     newUser.favorite_teams = profile._json.favorite_teams;
                     newUser.save(function(err){
                         if(err) throw err;
+                        console.log('New user: ' + newUser.name + ' created and logged in!');
+                        done(null, newUser);
+                    });
+                }
+            });
+        });
+    }
+));
+
+
+passport.use(new TwitterStrategy({
+        consumerKey: TWITTER_CONSUMER_KEY,
+        consumerSecret: TWITTER_CONSUMER_SECRET,
+        callbackURL: "http://127.0.0.1:3000/auth/twitter/callback"
+    },
+    function(token, tokenSecret, profile, done) {
+        process.nextTick(function () {
+            var query = User.findOne({ 'twitterId': profile.id });
+            query.exec(function (err, oldUser) {
+                console.log(oldUser);
+                if(oldUser) {
+                    console.log('User: ' + oldUser.name + ' found and logged in!');
+                    done(null, oldUser);
+                    console.log ("profile", profile);
+                } else {
+                    var newUser = new User();
+                    newUser.twitterId = profile.id;
+                    newUser.name = profile.displayName;
+                    newUser.username = profile.username;
+                    newUser.location = profile._json.location;
+                    newUser.save(function(err) {
+                        if(err) {throw err;}
+                        console.log ("profile", profile);
                         console.log('New user: ' + newUser.name + ' created and logged in!');
                         done(null, newUser);
                     });
@@ -159,6 +196,16 @@ app.get('/fbauthed', passport.authenticate('facebook',{
     failureRedirect: '/',
     successRedirect: '/loggedin'
 }));
+
+app.get('/auth/twitter',
+    passport.authenticate('twitter'));
+
+app.get('/auth/twitter/callback',
+    passport.authenticate('twitter', { failureRedirect: '/login' }),
+    function(req, res) {
+        // Successful authentication, redirect home.
+        res.redirect('/');
+    });
 
 app.get('/logout', function(req, res){
     req.logOut();
