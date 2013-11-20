@@ -20,6 +20,7 @@ exports.findById = function(id, callback) {
 
 var userSchema = new mongoose.Schema({
     twitterId: String,
+    linkedinId: String,
     fbId: String,
     name: String,
     username: String,

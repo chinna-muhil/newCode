@@ -128,7 +128,7 @@ passport.use(new LinkedInStrategy({
     },
     function(token, tokenSecret, profile, done) {
         process.nextTick(function () {
-            var query = User.findOne({ 'twitterId': profile.id });
+            var query = User.findOne({ 'linkedinId': profile.id });
             query.exec(function (err, oldUser) {
                 console.log(oldUser);
                 if(oldUser) {
@@ -138,8 +138,7 @@ passport.use(new LinkedInStrategy({
                 } else {
                     var newUser = new User();
                     newUser.name = profile.displayName;
-                    newUser.username = profile.username;
-                    newUser.location = profile._json.location;
+                    newUser.linkedinId = profile.id;
                     newUser.save(function(err) {
                         if(err) {throw err;}
                         console.log ("profile", profile);
