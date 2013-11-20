@@ -44,7 +44,9 @@ exports.index = function (req, res) {
     });
 };
 
-
+exports.index =function(req,res){
+    res.render('index', {products:JSON.stringify(results), routePath: "compare"});
+};
 
 exports.new = function (req, res) {
     res.render("index", {routePath: "Add", title: 'Add New Product - By Sandeep Pagi'});

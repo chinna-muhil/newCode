@@ -1032,20 +1032,241 @@ input[type="range"]{
 }
 
 
+/*------------------------------------------------------Compare Page Style-----------------------------------------------*/
 
+#compare_body{
+    width: 95%;
+    height: 550px;
+    margin: 10px auto;
+    background-color: #ffffff;
+    border: 2px solid #dadada;
+    border-radius: 5px;
+}
 
+#compare_header{
+    width: 95%;
+    height: 40px;
+    margin: 0 auto;
+    padding-top: 10px;
+    border-bottom: 1px solid #dadada;
+}
 
+#compare_header{
+    display: inline-flex;
+}
 
+#compare_header h4{
+    width: 200px;
+    margin: 0 auto;
+}
 
+#back{
+    height: 30px;
+    width: 58px;
+    background: #ffffff;
+    border: 2px solid #dadada;
+    border-radius: 5px;
+}
 
+#back p{
+    margin: 5px;
+    color: #212121;
+}
 
+#close{
+    height: 30px;
+    width: 58px;
+    background: #ffffff;
+    border: 2px solid #dadada;
+    border-radius: 5px;
+}
 
+#close p{
+    margin: 5px;
+    color: #212121;
+}
 
+#comparison{
+    width: 100%;
+    height: 480px;
+    margin: 0 auto;
+}
 
+#comparison ul{
+    width: 100%;
+    height: 480px;
+    margin-top: 10px;
+    display: inline-block;
+}
 
+#comparison ul li{
+    width: 28%;
+    height: 100%;
+    border: 1px solid #dadada;
+    border-radius: 5px;
+    display: inline-block;
+    margin-right: 5px;
+}
 
+#comparison ul li:first-child{
+    width: 7.5%;
+    height: 100%;
+    border: 1px solid #dadada;
+    background-color: #f1f1f1;
+    border-radius: 5px;
+    overflow-y: auto;
+    box-shadow: none;
+    margin: 0 8px;
+}
 
+#comparison ul li:last-child{
+    width: 28%;
+    height: 100%;
+    border: 1px solid #dadada;
+    display: inline-block;
+}
 
+#compare_details{
+    width: 100%;
+    height: 480px;
+}
 
+#property_name{
+    text-align: justify;
+    width: 90%;
+    margin: 0 auto;
+    height: 50px;
+    border-bottom: 1px solid #dadada;
+}
 
+#compare_price{
+    width: 90%;
+    height: 30px;
+    margin: 0 auto;
+    padding-top: 120px;
+    border-bottom: 1px solid #dadada;
+}
 
+#compare_beds{
+    width: 90%;
+    height: 30px;
+    margin: 0 auto;
+    padding-top: 7px;
+    border-bottom: 1px solid #dadada;
+}
+
+#compare_baths{
+    width: 90%;
+    height: 30px;
+    margin: 0 auto;
+    padding-top: 7px;
+    border-bottom: 1px solid #dadada;
+}
+
+#compare_sqft{
+    width: 90%;
+    height: 30px;
+    margin: 0 auto;
+    padding-top: 7px;
+    border-bottom: 1px solid #dadada;
+}
+
+#compare_type{
+    width: 90%;
+    height: 30px;
+    margin: 0 auto;
+    padding-top: 7px;
+    border-bottom: 1px solid #dadada;
+}
+
+#compare_built{
+    width: 90%;
+    height: 30px;
+    margin: 0 auto;
+    padding-top: 7px;
+    border-bottom: 1px solid #dadada;
+}
+
+#compare_mls{
+    width: 90%;
+    height: 30px;
+    margin: 0 auto;
+    padding-top: 7px;
+    border-bottom: 1px solid #dadada;
+}
+
+#compare_features{
+    width: 90%;
+    height: 30px;
+    margin: 0 auto;
+    padding-top: 10px;
+}
+
+#black{
+    width: 100%;
+    height: 60px;
+    background-color: #000000;
+}
+
+#comparePrice{
+    width: 100%;
+    height: 26px;
+    border-bottom: 1px solid #dadada;
+    background-color: #f1f1f1;
+    padding-top: 5px;
+}
+
+#CompareBeds{
+    width: 90%;
+    height: 30px;
+    margin: 0 auto;
+    padding-top: 7px;
+    border-bottom: 1px solid #dadada;
+}
+
+#CompareBaths{
+    width: 90%;
+    height: 30px;
+    margin: 0 auto;
+    padding-top: 7px;
+    border-bottom: 1px solid #dadada;
+}
+
+#CompareSqft{
+    width: 90%;
+    height: 30px;
+    margin: 0 auto;
+    padding-top: 7px;
+    border-bottom: 1px solid #dadada;
+}
+
+#CompareType{
+    width: 90%;
+    height: 30px;
+    margin: 0 auto;
+    padding-top: 7px;
+    border-bottom: 1px solid #dadada;
+}
+
+#CompareBuilt{
+    width: 90%;
+    height: 30px;
+    margin: 0 auto;
+    padding-top: 7px;
+    border-bottom: 1px solid #dadada;
+}
+
+#CompareMls{
+    width: 90%;
+    height: 30px;
+    margin: 0 auto;
+    padding-top: 7px;
+    border-bottom: 1px solid #dadada;
+}
+
+#CompareFeatures{
+    width: 90%;
+    height: 30px;
+    margin: 0 auto;
+    padding-top: 10px;
+}

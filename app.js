@@ -219,6 +219,8 @@ app.get('/s',function(req,res){
     res.render('s.html');
 });
 
+app.get('/compare',productRoutes.index)
+
 //Routing
 app.post('/lsrLogin',user.index);
 app.get('/signup', user.signup);

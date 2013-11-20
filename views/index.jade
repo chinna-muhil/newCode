@@ -45,6 +45,8 @@ html
                                     abbr#navText ADD
                                 li: a(class="group1", href="#box1", style="text-decoration: none")
                                     | LOGIN
+                                li: a(href="/compare",style="text-decoration: none")
+                                    | compare
             div#mainBody
                 ul
                     li.propertiesListContainer
@@ -669,6 +671,90 @@ html
                                             form(action="/properties/#{product.productName}", method="POST")
                                                 input(type="hidden", name="_method", value="DELETE")
                                                 button#serachFunctionButton(type="submit", name="Delete") Delete
+                                else if routePath === "compare"
+                                    div#MapDiv
+                                        div#compare_body
+                                            div#compare_header
+                                                div#back
+                                                    p Back
+                                                h4 Comparing '3' properties
+                                                div#close
+                                                    p Close
+                                            div#comparison
+                                                ul
+                                                    li
+                                                        div#compare_details
+                                                            p#property_name Property Name
+                                                            p#compare_price Price
+                                                            p#compare_beds Beds
+                                                            p#compare_baths Baths
+                                                            p#compare_sqft Sqft
+                                                            p#compare_type Type
+                                                            p#compare_built Built
+                                                            p#compare_mls MLS ID
+                                                            p#compare_features Features
+                                                    li
+                                                        script.
+                                                            $(document).ready(function(){
+                                                                $('.slider').bxSlider({
+                                                                slideWidth: 247,
+                                                                minSlides: 1,
+                                                                auto: true,
+                                                                autoControls: false,
+                                                                slideMargin: 2,
+                                                                pager: false,
+                                                                pause:3000,
+                                                                speed: 2000,
+                                                                controls:false
+                                                                });
+                                                            });
+                                                        div#details
+                                                            div#black
+                                                            div.slider
+                                                                img(src="/images/Prop4a.jpg", width="247px",height="110px")
+                                                                img(src="images/Prop4b.jpg", width="247px",height="110px")
+                                                                img(src="images/Prop4c.jpg", width="247px",height="110px")
+                                                                img(src="images/Prop4d.jpg", width="247px",height="110px")
+                                                            p#comparePrice $3000
+                                                            p#CompareBeds 3
+                                                            p#CompareBaths 3
+                                                            p#CompareSqft 3396
+                                                            p#CompareType Condo
+                                                            p#CompareBuilt 2012
+                                                            p#CompareMls 0091948
+                                                            p#CompareFeatures Alarm Balcony
+                                                    li
+                                                        div#details
+                                                            div#black
+                                                            div.slider
+                                                                img(src="/images/Prop4d.jpg", width="247px",height="110px")
+                                                                img(src="images/Prop4a.jpg", width="247px",height="110px")
+                                                                img(src="images/Prop4b.jpg", width="247px",height="110px")
+                                                                img(src="images/Prop4c.jpg", width="247px",height="110px")
+                                                            p#comparePrice $3000
+                                                            p#CompareBeds 3
+                                                            p#CompareBaths 3
+                                                            p#CompareSqft 3396
+                                                            p#CompareType Condo
+                                                            p#CompareBuilt 2012
+                                                            p#CompareMls 0091948
+                                                            p#CompareFeatures Alarm Balcony
+                                                    li
+                                                        div#details
+                                                            div#black
+                                                            div.slider
+                                                                img(src="/images/Prop4c.jpg", width="247px",height="110px")
+                                                                img(src="images/Prop4d.jpg", width="247px",height="110px")
+                                                                img(src="images/Prop4a.jpg", width="247px",height="110px")
+                                                                img(src="images/Prop4b.jpg", width="247px",height="110px")
+                                                            p#comparePrice $3000
+                                                            p#CompareBeds 3
+                                                            p#CompareBaths 3
+                                                            p#CompareSqft 3396
+                                                            p#CompareType Condo
+                                                            p#CompareBuilt 2012
+                                                            p#CompareMls 0091948
+                                                            p#CompareFeatures Alarm Balcony
         div(style="display:none; width: 50%; height:auto")
             div#box1
                 div#container
