@@ -35,6 +35,7 @@ var propertySchema = new Schema({
     }
 });
 
+
 var propertyModel = mongoose.model('Property', propertySchema);
 
 exports.index = function (req, res) {
@@ -44,12 +45,22 @@ exports.index = function (req, res) {
     });
 };
 
-exports.index =function(req,res){
-    res.render('index', {products:JSON.stringify(results), routePath: "compare"});
-};
-
 exports.new = function (req, res) {
     res.render("index", {routePath: "Add", title: 'Add New Product - By Sandeep Pagi'});
+};
+
+exports.comparison = function(req,res){
+    propertyModel.find({}, function (err, docs) {
+        if (err) return res.render('Error occurred');
+        res.render('index', {products: docs, routePath: "comparison", title: 'Product List - By Sandeep Pagi'});
+    });
+};
+
+exports.compare = function(req,res){
+    propertyModel.find({}, function (err, docs) {
+        if (err) return res.render('Error occurred');
+        res.render('index', {products: docs, routePath: "compare", title: 'Product List - By Sandeep Pagi'});
+    });
 };
 
 exports.create = function (req, res) {

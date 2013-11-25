@@ -1270,3 +1270,129 @@ input[type="range"]{
     margin: 0 auto;
     padding-top: 10px;
 }
+
+#comparePrice1{
+    width: 100%;
+    height: 26px;
+    border-bottom: 1px solid #dadada;
+    background-color: #f1f1f1;
+    padding-top: 5px;
+}
+
+#CompareBeds1{
+    width: 90%;
+    height: 30px;
+    margin: 0 auto;
+    padding-top: 7px;
+    border-bottom: 1px solid #dadada;
+}
+
+#CompareBaths1{
+    width: 90%;
+    height: 30px;
+    margin: 0 auto;
+    padding-top: 7px;
+    border-bottom: 1px solid #dadada;
+}
+
+#CompareSqft1{
+    width: 90%;
+    height: 30px;
+    margin: 0 auto;
+    padding-top: 7px;
+    border-bottom: 1px solid #dadada;
+}
+
+#CompareType1{
+    width: 90%;
+    height: 30px;
+    margin: 0 auto;
+    padding-top: 7px;
+    border-bottom: 1px solid #dadada;
+}
+
+#CompareBuilt1{
+    width: 90%;
+    height: 30px;
+    margin: 0 auto;
+    padding-top: 7px;
+    border-bottom: 1px solid #dadada;
+}
+
+#CompareMls1{
+    width: 90%;
+    height: 30px;
+    margin: 0 auto;
+    padding-top: 7px;
+    border-bottom: 1px solid #dadada;
+}
+
+#CompareFeatures1{
+    width: 90%;
+    height: 30px;
+    margin: 0 auto;
+    padding-top: 10px;
+}
+
+#comparePrice2{
+    width: 100%;
+    height: 26px;
+    border-bottom: 1px solid #dadada;
+    background-color: #f1f1f1;
+    padding-top: 5px;
+}
+
+#CompareBeds2{
+    width: 90%;
+    height: 30px;
+    margin: 0 auto;
+    padding-top: 7px;
+    border-bottom: 1px solid #dadada;
+}
+
+#CompareBaths2{
+    width: 90%;
+    height: 30px;
+    margin: 0 auto;
+    padding-top: 7px;
+    border-bottom: 1px solid #dadada;
+}
+
+#CompareSqft2{
+    width: 90%;
+    height: 30px;
+    margin: 0 auto;
+    padding-top: 7px;
+    border-bottom: 1px solid #dadada;
+}
+
+#CompareType2{
+    width: 90%;
+    height: 30px;
+    margin: 0 auto;
+    padding-top: 7px;
+    border-bottom: 1px solid #dadada;
+}
+
+#CompareBuilt2{
+    width: 90%;
+    height: 30px;
+    margin: 0 auto;
+    padding-top: 7px;
+    border-bottom: 1px solid #dadada;
+}
+
+#CompareMls2{
+    width: 90%;
+    height: 30px;
+    margin: 0 auto;
+    padding-top: 7px;
+    border-bottom: 1px solid #dadada;
+}
+
+#CompareFeatures2{
+    width: 90%;
+    height: 30px;
+    margin: 0 auto;
+    padding-top: 10px;
+}

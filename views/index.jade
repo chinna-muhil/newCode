@@ -45,7 +45,7 @@ html
                                     abbr#navText ADD
                                 li: a(class="group1", href="#box1", style="text-decoration: none")
                                     | LOGIN
-                                li: a(href="/compare",style="text-decoration: none")
+                                li: a(href="/comparison",style="text-decoration: none")
                                     | compare
             div#mainBody
                 ul
@@ -460,7 +460,6 @@ html
                                 else if routePath === "searchFailed"
                                     p
                                         h1#searchFailedMessage Could Not Find Any Properties matching Your criteria.Please Try again.
-
                                 else if routePath === "prod"
                                     div#MapDiv
                                         ul
@@ -473,7 +472,9 @@ html
                                                         option Time - Oldest-Newest
                                                         option Bedrooms Low-High
                                                         option Bathrooms Low-High
-                                                div#compare(onclick="sortAscendingByPrice()") Compare
+                                                //div#compare(onclick="sortAscendingByPrice()") Compare
+                                                div#compare Compare
+                                                    //a(href="/compare") Compare
                                                 div#list1
                                                     script.
                                                         var propertyList = JSON.parse( '!{JSON.stringify(products)}' );
@@ -483,9 +484,9 @@ html
                                                             for(var i=0; i < propertyList.length ; i++){
                                                             console.log(propertyList[i].price);
                                                             document.getElementById("list1").innerHTML += "<br/><div class=propertiesList style=background:url("+propertyList[i].picture.linkFront+")no-repeat;background-size:300px 175px>"
-                                                                                                            +"<div id=propertyName>"+propertyList[i].productName+"</div>"
-                                                                                                            +"<div id=propertyPrice>$"+propertyList[i].price+"<a style=float:right;margin-top:-2px;margin-right:20px><img src=/images/green_arrow.png></div>"
-                                                                                                            +"<div id=arrowKey></div>"
+                                                                                                            +"<div id=propertyName>"+propertyList[i].productName+"<a style=float:right;margin-top:-2px;margin-right:20px><input type=checkbox name=property value=propertyList[i]></div>"
+                                                                                                            +"<div id=propertyPrice class="+i+">$"+propertyList[i].price+"<a style=margin-top:-2px;margin-right:20px><img src=/images/green_arrow.png></div>"
+                                                                                                            //+"<div id=arrowKey></div>"
                                                                                                             +"</div></a>" }}
 
                                                             function sortAscendingByPrice(){
@@ -496,14 +497,64 @@ html
                                                             }
 
                                                             for(var i=0; i < propertyList.length ; i++){
-                                                                console.log(propertyList[i].price);
+                                                                console.log(propertyList[i]);
                                                                 document.write("<br/> <div class=propertiesList style=background:url("+propertyList[i].picture.linkFront+")no-repeat;background-size:300px 175px>"
-                                                                                                        +"<div id=propertyName>"+propertyList[i].productName+"</div>"
-                                                                                                        +"<div id=propertyPrice>$"+propertyList[i].price+"<a style=float:right;margin-top:-2px;margin-right:20px><img src=/images/green_arrow.png></div>"
+                                                                                                        //+"<input type=checkbox name=property>"
+                                                                                                        +"<div id=propertyName>"+propertyList[i].productName+"<a style=float:right;margin-top:-2px;margin-right:20px><input type=checkbox name=property value="+i+"></div>"
+                                                                                                        +"<div id=propertyPrice class="+i+">$"+propertyList[i].price+"<a style=margin-top:-2px;margin-right:20px><img src=/images/green_arrow.png></div>"
                                                                                                         +"<div id=arrowKey></div>"
                                                                                                         +"</div></a>"
                                                                                 );
                                                             };
+                                                            $(document).ready(function(){
+                                                                $(function compare() {
+                                                                    $('#compare').click(function () {
+                                                                        var checkValues = $('input[name=property]:checked').map(function() {
+                                                                            console.log($(this).val());
+                                                                            return propertyList[$(this).val()];
+                                                                        }).get();
+                                                                        console.log(checkValues[0]);
+                                                                        console.log(checkValues[1]);
+                                                                        if(checkValues[2] != null){
+                                                                            console.log(checkValues[1]);
+                                                                            //document.getElementById("comparison").innerHTML +=("<ul>"+
+                                                                                                                                    "<li>"
+                                                                                                                                        +"<div id=details>"
+                                                                                                                                            +"<div id=black></div>"
+                                                                                                                                            +"<div class=comslider></div>"
+                                                                                                                                            +"<div id=comparePrice>"+checkValues[0]['price']+"</div>"
+                                                                                                                                            +"<div id=compareBeds>"+checkValues[0]['bedrooms']+"</div>"
+                                                                                                                                            +"<div id=compareBaths>"+checkValues[0]['bathrooms']+"</div>"
+                                                                                                                                            +"<div id=compareSqft>"+checkValues[0]['area']+"</div>"
+                                                                                                                                            +"<div id=compareType>"+checkValues[0]['productType']+"</div>"
+                                                                                                                                        +"</div>"
+                                                                                                                                    +"</li>"
+                                                                                                                                 +"</ul>";
+                                                                            //}
+                                                                            $("#MapDiv").hide();
+                                                                            $("#compare_body").show();
+                                                                            $("#comparePrice").html(checkValues[0]['price']);
+                                                                            $("#CompareBeds").html(checkValues[0]['bedrooms']);
+                                                                            $("#CompareBaths").html(checkValues[0]['bathrooms']);
+                                                                            $("#CompareSqft").html(checkValues[0]['area']);
+                                                                            $("#CompareType").html(checkValues[0]['productType']);
+                                                                            $("#comparePrice1").html(checkValues[1]['price']);
+                                                                            $("#CompareBeds1").html(checkValues[1]['bedrooms']);
+                                                                            $("#CompareBaths1").html(checkValues[1]['bathrooms']);
+                                                                            $("#CompareSqft1").html(checkValues[1]['area']);
+                                                                            $("#CompareType1").html(checkValues[1]['productType']);
+                                                                            $("#comparePrice2").html(checkValues[2]['price']);
+                                                                            $("#CompareBeds2").html(checkValues[2]['bedrooms']);
+                                                                            $("#CompareBaths2").html(checkValues[2]['bathrooms']);
+                                                                            $("#CompareSqft2").html(checkValues[2]['area']);
+                                                                            $("#CompareType2").html(checkValues[2]['productType']);
+                                                                        }else{
+                                                                            alert("select Three properties");
+                                                                        }
+                                                                    });
+                                                                });
+                                                            });
+
                                                     script.
                                                         $('#map').css('background','#1E9FDD')
                                                         $('#map img').attr('src','/images/map_icon.png')
@@ -562,8 +613,143 @@ html
                                                         div#description_prop
                                                             h4 Descriptions
                                                             p Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit.
+                                    div#compare_body(style="display:none")
+                                        div#compare_header
+                                            div#back
+                                                p Back
+                                            h4 Comparing '3' properties
+                                            div#close
+                                                p Close
+                                        div#comparison
+                                            script.
+                                                var checkValues = JSON.parse( '!{JSON.stringify(products)}' );
+                                            ul
+                                                li
+                                                    div#compare_details
+                                                        p#property_name Property Name
+                                                        p#compare_price Price
+                                                        p#compare_beds Beds
+                                                        p#compare_baths Baths
+                                                        p#compare_sqft Sqft
+                                                        p#compare_type Type
+                                                        p#compare_built Built
+                                                        p#compare_mls MLS ID
+                                                        p#compare_features Features
+                                                li
+                                                    script.
+                                                        $(document).ready(function(){
+                                                            $('.comslider').bxSlider({
+                                                            slideWidth: 247,
+                                                            minSlides: 1,
+                                                            auto: true,
+                                                            autoControls: false,
+                                                            slideMargin: 2,
+                                                            pager: false,
+                                                            pause:3000,
+                                                            speed: 2000,
+                                                            });
+                                                        });
+                                                    div#details
+                                                        div#black
+                                                        div.comslider
+                                                            img(src="/images/Prop4a.jpg", width="247px",height="110px")
+                                                            img(src="images/Prop4b.jpg", width="247px",height="110px")
+                                                            img(src="images/Prop4c.jpg", width="247px",height="110px")
+                                                            img(src="images/Prop4d.jpg", width="247px",height="110px")
+                                                        p#comparePrice
+                                                            script.
+                                                                document.write(checkValues[0]['price']);
+                                                        p#CompareBeds
+                                                            script.
+                                                                document.write(checkValues[0]['bedrooms']);
+                                                        p#CompareBaths
+                                                            script.
+                                                                document.write(checkValues[0]['bathrooms']);
+                                                        p#CompareSqft
+                                                            script.
+                                                                document.write(checkValues[0]['area']);
+                                                        p#CompareType
+                                                            script.
+                                                                document.write(checkValues[0]['productType']);
+                                                        p#CompareBuilt 2012
+                                                        p#CompareMls 0091948
+                                                        p#CompareFeatures Alarm Balcony
 
+                                            -each checkValue in checkValues
+                                                li
+                                                    div#details
+                                                        div#black
+                                                        div.comslider
+                                                            img(src="/images/Prop4d.jpg", width="247px",height="110px")
+                                                            img(src="images/Prop4a.jpg", width="247px",height="110px")
+                                                            img(src="images/Prop4b.jpg", width="247px",height="110px")
+                                                            img(src="images/Prop4c.jpg", width="247px",height="110px")
+                                                        p#comparePrice1
+                                                            script.
+                                                                document.write(checkValues[1]['price']);
+                                                        p#CompareBeds1
+                                                            script.
+                                                                document.write(checkValues[1]['bedrooms']);
+                                                        p#CompareBaths1
+                                                            script.
+                                                                document.write(checkValues[1]['bathrooms']);
+                                                        p#CompareSqft1
+                                                            script.
+                                                                document.write(checkValues[1]['area']);
+                                                        p#CompareType1
+                                                            script.
+                                                                document.write(checkValues[1]['productType']);
+                                                        p#CompareBuilt1 2012
+                                                        p#CompareMls1 0091948
+                                                        p#CompareFeatures1 Alarm Balcony
+                                                li
+                                                    div#details
+                                                        div#black
+                                                        div.comslider
+                                                            img(src="/images/Prop4c.jpg", width="247px",height="110px")
+                                                            img(src="images/Prop4d.jpg", width="247px",height="110px")
+                                                            img(src="images/Prop4a.jpg", width="247px",height="110px")
+                                                            img(src="images/Prop4b.jpg", width="247px",height="110px")
+                                                        p#comparePrice2
+                                                            script.
+                                                                document.write(checkValues[2]['price']);
+                                                        p#CompareBeds2
+                                                            script.
+                                                                document.write(checkValues[2]['bedrooms']);
+                                                        p#CompareBaths2
+                                                            script.
+                                                                document.write(checkValues[2]['bathrooms']);
+                                                        p#CompareSqft2
+                                                            script.
+                                                                document.write(checkValues[2]['area']);
+                                                        p#CompareType2
+                                                            script.
+                                                                document.write(checkValues[2]['productType']);
+                                                        p#CompareBuilt2 2012
+                                                        p#CompareMls2 0091948
+                                                        p#CompareFeatures2 Alarm Balcony
 
+                                else if routePath === "comparison"
+                                    script.
+                                        var propertyList = JSON.parse( '!{JSON.stringify(products)}' );
+                                            document.write("<div class=\"slider\"> <div class=\"bxslider\">"
+                                                            +"<img src="+propertyList[0].picture.linkFront+" width=580 height=270/>"
+                                                            +"<img src="+propertyList[0].picture.linkBack+" width=580 height=270/>"
+                                                            +"<img src="+propertyList[0].picture.linkLeft+" width=580 height=270/>"
+                                                            +"<img src="+propertyList[0].picture.linkRight+" width=580 height=270/>"
+                                                            +"</div></div>");
+                                            document.write("<div class=\"slider\"> <div class=\"bxslider\">"
+                                                            +"<img src="+propertyList[0].picture.linkFront+" width=580 height=270/>"
+                                                            +"<img src="+propertyList[0].picture.linkBack+" width=580 height=270/>"
+                                                            +"<img src="+propertyList[0].picture.linkLeft+" width=580 height=270/>"
+                                                            +"<img src="+propertyList[0].picture.linkRight+" width=580 height=270/>"
+                                                            +"</div></div>");
+                                            document.write("<div class=\"slider\"> <div class=\"bxslider\">"
+                                                            +"<img src="+propertyList[0].picture.linkFront+" width=580 height=270/>"
+                                                            +"<img src="+propertyList[0].picture.linkBack+" width=580 height=270/>"
+                                                            +"<img src="+propertyList[0].picture.linkLeft+" width=580 height=270/>"
+                                                            +"<img src="+propertyList[0].picture.linkRight+" width=580 height=270/>"
+                                                            +"</div></div>");
                                 else if routePath === "Add"
                                     form(method="POST",action="/properties")
                                         p#Addelements Name for Property :
@@ -681,6 +867,8 @@ html
                                                 div#close
                                                     p Close
                                             div#comparison
+                                                script.
+                                                    var checkValues = JSON.parse( '!{JSON.stringify(products)}' );
                                                 ul
                                                     li
                                                         div#compare_details
@@ -705,7 +893,6 @@ html
                                                                 pager: false,
                                                                 pause:3000,
                                                                 speed: 2000,
-                                                                controls:false
                                                                 });
                                                             });
                                                         div#details
@@ -715,11 +902,21 @@ html
                                                                 img(src="images/Prop4b.jpg", width="247px",height="110px")
                                                                 img(src="images/Prop4c.jpg", width="247px",height="110px")
                                                                 img(src="images/Prop4d.jpg", width="247px",height="110px")
-                                                            p#comparePrice $3000
-                                                            p#CompareBeds 3
-                                                            p#CompareBaths 3
-                                                            p#CompareSqft 3396
-                                                            p#CompareType Condo
+                                                            p#comparePrice
+                                                                script.
+                                                                    document.write(checkValues[0]['price']);
+                                                            p#CompareBeds
+                                                                script.
+                                                                    document.write(checkValues[0]['bedrooms']);
+                                                            p#CompareBaths
+                                                                script.
+                                                                    document.write(checkValues[0]['bathrooms']);
+                                                            p#CompareSqft
+                                                                script.
+                                                                    document.write(checkValues[0]['area']);
+                                                            p#CompareType
+                                                                script.
+                                                                    document.write(checkValues[0]['productType']);
                                                             p#CompareBuilt 2012
                                                             p#CompareMls 0091948
                                                             p#CompareFeatures Alarm Balcony
@@ -731,11 +928,21 @@ html
                                                                 img(src="images/Prop4a.jpg", width="247px",height="110px")
                                                                 img(src="images/Prop4b.jpg", width="247px",height="110px")
                                                                 img(src="images/Prop4c.jpg", width="247px",height="110px")
-                                                            p#comparePrice $3000
-                                                            p#CompareBeds 3
-                                                            p#CompareBaths 3
-                                                            p#CompareSqft 3396
-                                                            p#CompareType Condo
+                                                            p#comparePrice
+                                                                script.
+                                                                    document.write(checkValues[1]['price']);
+                                                            p#CompareBeds
+                                                                script.
+                                                                    document.write(checkValues[1]['bedrooms']);
+                                                            p#CompareBaths
+                                                                script.
+                                                                    document.write(checkValues[1]['bathrooms']);
+                                                            p#CompareSqft
+                                                                script.
+                                                                    document.write(checkValues[1]['area']);
+                                                            p#CompareType
+                                                                script.
+                                                                    document.write(checkValues[1]['productType']);
                                                             p#CompareBuilt 2012
                                                             p#CompareMls 0091948
                                                             p#CompareFeatures Alarm Balcony
@@ -747,11 +954,21 @@ html
                                                                 img(src="images/Prop4d.jpg", width="247px",height="110px")
                                                                 img(src="images/Prop4a.jpg", width="247px",height="110px")
                                                                 img(src="images/Prop4b.jpg", width="247px",height="110px")
-                                                            p#comparePrice $3000
-                                                            p#CompareBeds 3
-                                                            p#CompareBaths 3
-                                                            p#CompareSqft 3396
-                                                            p#CompareType Condo
+                                                            p#comparePrice
+                                                                script.
+                                                                    document.write(checkValues[2]['price']);
+                                                            p#CompareBeds
+                                                                script.
+                                                                    document.write(checkValues[2]['bedrooms']);
+                                                            p#CompareBaths
+                                                                script.
+                                                                    document.write(checkValues[2]['bathrooms']);
+                                                            p#CompareSqft
+                                                                script.
+                                                                    document.write(checkValues[2]['area']);
+                                                            p#CompareType
+                                                                script.
+                                                                    document.write(checkValues[2]['productType']);
                                                             p#CompareBuilt 2012
                                                             p#CompareMls 0091948
                                                             p#CompareFeatures Alarm Balcony
@@ -788,66 +1005,66 @@ html
                                 a(href="/signup")  Create one here
 
                             script.
-                                    $(".propertiesList").live('click',function() {
-                                    //alert("Yayy");
-                                    var i = $(".propertiesList").index(this);
-                                    console.log(i);
-                                    $("#price p").html("Price: "+propertyList[i].price);
-                                    $("#beds").html("Beds: "+propertyList[i].bedrooms);
-                                    $("#baths").html("Baths: "+propertyList[i].bathrooms);
-                                    $("#area").html("Area: "+propertyList[i].area);
-                                    $("#type").html("Area: "+propertyList[i].productType);
-                                        $('.slider').empty();
-                                        $('.slider').append(
-                                             "<div class=\"bxslider\"> <img src="+propertyList[i].picture.linkFront+" width=580 height=270/>"
-                                             +"<img src="+propertyList[i].picture.linkBack+" width=580 height=270/>"
-                                             +"<img src="+propertyList[i].picture.linkLeft+" width=580 height=270/>"
-                                             +"<img src="+propertyList[i].picture.linkRight+" width=580 height=270/> </div>"
-                                             );
+                                $("#propertyPrice").live('click',function() {
+                                //alert("Yayy");
+                                var i = $(this).attr('class');
+                                console.log(i);
+                                $("#price p").html("Price: "+propertyList[i].price);
+                                $("#beds").html("Beds: "+propertyList[i].bedrooms);
+                                $("#baths").html("Baths: "+propertyList[i].bathrooms);
+                                $("#area").html("Area: "+propertyList[i].area);
+                                $("#type").html("Area: "+propertyList[i].productType);
+                                    $('.slider').empty();
+                                    $('.slider').append(
+                                         "<div class=\"bxslider\"> <img src="+propertyList[i].picture.linkFront+" width=580 height=270/>"
+                                         +"<img src="+propertyList[i].picture.linkBack+" width=580 height=270/>"
+                                         +"<img src="+propertyList[i].picture.linkLeft+" width=580 height=270/>"
+                                         +"<img src="+propertyList[i].picture.linkRight+" width=580 height=270/> </div>"
+                                         );
+                                $('.bxslider').bxSlider({
+                                        mode: 'horizontal',
+                                         auto: true,
+                                         pause: 2000,
+                                         speed:1000,
+                                        infiniteLoop:true,
+                                        buildPager: function(slideIndex){
+                                        switch(slideIndex){
+                                            case 0:
+                                                return '<img src='+propertyList[i].picture.linkFront+' width=50 height=50>';
+                                            case 1:
+                                                return '<img src='+propertyList[i].picture.linkBack+' width=50 height=50>';
+                                            case 2:
+                                                return '<img src='+propertyList[i].picture.linkLeft+' width=50 height=50>';
+                                            case 3:
+                                                return '<img src='+propertyList[i].picture.linkRight+' width=50 height=50>';
+                                        }
+                                        }
+                                    });
+
+                                return false;
+                                });
+
+                                $(document).ready(function(){
                                     $('.bxslider').bxSlider({
-                                            mode: 'horizontal',
-                                             auto: true,
-                                             pause: 2000,
-                                             speed:1000,
-                                            infiniteLoop:true,
-                                            buildPager: function(slideIndex){
-                                            switch(slideIndex){
-                                                case 0:
-                                                    return '<img src='+propertyList[i].picture.linkFront+' width=50 height=50>';
-                                                case 1:
-                                                    return '<img src='+propertyList[i].picture.linkBack+' width=50 height=50>';
-                                                case 2:
-                                                    return '<img src='+propertyList[i].picture.linkLeft+' width=50 height=50>';
-                                                case 3:
-                                                    return '<img src='+propertyList[i].picture.linkRight+' width=50 height=50>';
-                                            }
-                                            }
-                                        });
-
-                                    return false;
+                                        mode: 'horizontal',
+                                         auto: true,
+                                         pause: 2000,
+                                         speed:1000,
+                                        infiniteLoop:true,
+                                        buildPager: function(slideIndex){
+                                        switch(slideIndex){
+                                            case 0:
+                                                return '<img src='+propertyList[0].picture.linkFront+' width=50 height=50>';
+                                            case 1:
+                                                return '<img src='+propertyList[0].picture.linkBack+' width=50 height=50>';
+                                            case 2:
+                                                return '<img src='+propertyList[0].picture.linkLeft+' width=50 height=50>';
+                                            case 3:
+                                                return '<img src='+propertyList[0].picture.linkRight+' width=50 height=50>';
+                                        }
+                                        }
                                     });
-
-                                    $(document).ready(function(){
-                                        $('.bxslider').bxSlider({
-                                            mode: 'horizontal',
-                                             auto: true,
-                                             pause: 2000,
-                                             speed:1000,
-                                            infiniteLoop:true,
-                                            buildPager: function(slideIndex){
-                                            switch(slideIndex){
-                                                case 0:
-                                                    return '<img src='+propertyList[0].picture.linkFront+' width=50 height=50>';
-                                                case 1:
-                                                    return '<img src='+propertyList[0].picture.linkBack+' width=50 height=50>';
-                                                case 2:
-                                                    return '<img src='+propertyList[0].picture.linkLeft+' width=50 height=50>';
-                                                case 3:
-                                                    return '<img src='+propertyList[0].picture.linkRight+' width=50 height=50>';
-                                            }
-                                            }
-                                        });
-                                    });
+                                });
 
                             script.
                                 $(document).ready(function(){
