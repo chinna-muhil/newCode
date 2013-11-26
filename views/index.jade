@@ -473,8 +473,8 @@ html
                                                         option Bedrooms Low-High
                                                         option Bathrooms Low-High
                                                 //div#compare(onclick="sortAscendingByPrice()") Compare
-                                                div#compare Compare
-                                                    //a(href="/compare") Compare
+                                                div#compare
+                                                    a(href="#") Compare
                                                 div#list1
                                                     script.
                                                         var propertyList = JSON.parse( '!{JSON.stringify(products)}' );
@@ -513,9 +513,10 @@ html
                                                                             console.log($(this).val());
                                                                             return propertyList[$(this).val()];
                                                                         }).get();
-                                                                        console.log(checkValues[0]);
+                                                                        console.log(checkValues[0]["address"]["city"]);
                                                                         console.log(checkValues[1]);
-                                                                        if(checkValues[2] != null){
+                                                                        console.log(checkValues[2]);
+                                                                        if(checkValues[3] != null){
                                                                             console.log(checkValues[1]);
                                                                             //document.getElementById("comparison").innerHTML +=("<ul>"+
                                                                                                                                     "<li>"
@@ -548,8 +549,47 @@ html
                                                                             $("#CompareBaths2").html(checkValues[2]['bathrooms']);
                                                                             $("#CompareSqft2").html(checkValues[2]['area']);
                                                                             $("#CompareType2").html(checkValues[2]['productType']);
+                                                                            $("#comparePrice3").html(checkValues[3]['price']);
+                                                                            $("#CompareBeds3").html(checkValues[3]['bedrooms']);
+                                                                            $("#CompareBaths3").html(checkValues[3]['bathrooms']);
+                                                                            $("#CompareSqft3").html(checkValues[3]['area']);
+                                                                            $("#CompareType3").html(checkValues[3]['productType']);
+                                                                        }else if(checkValues[2] != null){
+                                                                            $("#MapDiv").hide();
+                                                                            $("#compare_body").show();
+                                                                            $("#class1").hide();
+                                                                            $("#comparePrice").html(checkValues[0]['price']);
+                                                                            $("#CompareBeds").html(checkValues[0]['bedrooms']);
+                                                                            $("#CompareBaths").html(checkValues[0]['bathrooms']);
+                                                                            $("#CompareSqft").html(checkValues[0]['area']);
+                                                                            $("#CompareType").html(checkValues[0]['productType']);
+                                                                            $("#comparePrice1").html(checkValues[1]['price']);
+                                                                            $("#CompareBeds1").html(checkValues[1]['bedrooms']);
+                                                                            $("#CompareBaths1").html(checkValues[1]['bathrooms']);
+                                                                            $("#CompareSqft1").html(checkValues[1]['area']);
+                                                                            $("#CompareType1").html(checkValues[1]['productType']);
+                                                                            $("#comparePrice2").html(checkValues[2]['price']);
+                                                                            $("#CompareBeds2").html(checkValues[2]['bedrooms']);
+                                                                            $("#CompareBaths2").html(checkValues[2]['bathrooms']);
+                                                                            $("#CompareSqft2").html(checkValues[2]['area']);
+                                                                            $("#CompareType2").html(checkValues[2]['productType']);
+                                                                        }else if(checkValues[1] != null){
+                                                                            $("#MapDiv").hide();
+                                                                            $("#compare_body").show();
+                                                                            $("#class").hide();
+                                                                            $("#class1").hide();
+                                                                            $("#comparePrice").html(checkValues[0]['price']);
+                                                                            $("#CompareBeds").html(checkValues[0]['bedrooms']);
+                                                                            $("#CompareBaths").html(checkValues[0]['bathrooms']);
+                                                                            $("#CompareSqft").html(checkValues[0]['area']);
+                                                                            $("#CompareType").html(checkValues[0]['productType']);
+                                                                            $("#comparePrice1").html(checkValues[1]['price']);
+                                                                            $("#CompareBeds1").html(checkValues[1]['bedrooms']);
+                                                                            $("#CompareBaths1").html(checkValues[1]['bathrooms']);
+                                                                            $("#CompareSqft1").html(checkValues[1]['area']);
+                                                                            $("#CompareType1").html(checkValues[1]['productType']);
                                                                         }else{
-                                                                            alert("select Three properties");
+                                                                            alert("Select atleast Two properties");
                                                                         }
                                                                     });
                                                                 });
@@ -616,10 +656,10 @@ html
                                     div#compare_body(style="display:none")
                                         div#compare_header
                                             div#back
-                                                p Back
-                                            h4 Comparing '3' properties
+                                                a(href="/properties") Back
+                                            h4 Comparing Properties
                                             div#close
-                                                p Close
+                                                a(href="/properties") Close
                                         div#comparison
                                             script.
                                                 var checkValues = JSON.parse( '!{JSON.stringify(products)}' );
@@ -651,6 +691,9 @@ html
                                                         });
                                                     div#details
                                                         div#black
+                                                            a
+                                                                script.
+                                                                    document.write(checkValues[0]['address']['city']);
                                                         div.comslider
                                                             img(src="/images/Prop4a.jpg", width="247px",height="110px")
                                                             img(src="images/Prop4b.jpg", width="247px",height="110px")
@@ -674,8 +717,6 @@ html
                                                         p#CompareBuilt 2012
                                                         p#CompareMls 0091948
                                                         p#CompareFeatures Alarm Balcony
-
-                                            -each checkValue in checkValues
                                                 li
                                                     div#details
                                                         div#black
@@ -702,7 +743,7 @@ html
                                                         p#CompareBuilt1 2012
                                                         p#CompareMls1 0091948
                                                         p#CompareFeatures1 Alarm Balcony
-                                                li
+                                                li#class
                                                     div#details
                                                         div#black
                                                         div.comslider
@@ -728,7 +769,32 @@ html
                                                         p#CompareBuilt2 2012
                                                         p#CompareMls2 0091948
                                                         p#CompareFeatures2 Alarm Balcony
-
+                                                li#class1
+                                                    div#details
+                                                        div#black
+                                                        div.comslider
+                                                            img(src="/images/Prop4c.jpg", width="247px",height="110px")
+                                                            img(src="images/Prop4d.jpg", width="247px",height="110px")
+                                                            img(src="images/Prop4a.jpg", width="247px",height="110px")
+                                                            img(src="images/Prop4b.jpg", width="247px",height="110px")
+                                                        p#comparePrice3
+                                                            script.
+                                                                document.write(checkValues[3]['price']);
+                                                        p#CompareBeds3
+                                                            script.
+                                                                document.write(checkValues[3]['bedrooms']);
+                                                        p#CompareBaths3
+                                                            script.
+                                                                document.write(checkValues[3]['bathrooms']);
+                                                        p#CompareSqft3
+                                                            script.
+                                                                document.write(checkValues[3]['area']);
+                                                        p#CompareType3
+                                                            script.
+                                                                document.write(checkValues[3]['productType']);
+                                                        p#CompareBuilt3 2012
+                                                        p#CompareMls3 0091948
+                                                        p#CompareFeatures3 Alarm Balcony
                                 else if routePath === "comparison"
                                     script.
                                         var propertyList = JSON.parse( '!{JSON.stringify(products)}' );
