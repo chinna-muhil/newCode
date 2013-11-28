@@ -26,6 +26,10 @@ a{
     text-decoration: none;
 }
 
+a, button, input[type="submit"] {
+    cursor: pointer;
+}
+
 #bigWarpper{
     margin: 0 auto;
     min-width: 1250px;
@@ -64,6 +68,11 @@ a{
     margin: 0;
 }
 
+#logo a{
+    color: #ffffff;
+    font:18px Segoeuil;
+}
+
 #mainNav ul{
     margin: 0 auto;
     width: 100%;
@@ -100,8 +109,9 @@ a{
 }
 
 #mainBody ul li:first-child{
-    width: 315px;
+    width: 290px;
     box-shadow: 10px -11px 10px -11px #888;
+    margin-left: -30px;
 }
 
 #mainBody ul li:last-child{
@@ -137,7 +147,7 @@ a{
 .selector{
     margin: 0 auto;
     display: inline-block;
-    width: 15%;
+    width: 20.2%;
     padding: 5px 0 5px 0;
     background: #ffffff;
     font-size: 14px;
@@ -145,8 +155,20 @@ a{
     border-bottom: 2px solid #dadada;
     border-left: 2px solid #dadada;
     border-right: 0 none;
+    cursor: pointer;
 }
 
+#all{
+    width: 19%;
+}
+
+#rent{
+    width: 19%;
+}
+
+#sale{
+    width: 19%;
+}
 
 #choosePropertyType ul li:first-child{
     width: 12%;
@@ -171,12 +193,14 @@ a{
 }
 
 #more{
-    height: 30px;
+    height: 32px;
     width: 58px;
     background: #ffffff;
     border: 2px solid #dadada;
     border-radius: 5px;
-    margin: 20px 100px 0 0 ;
+    margin: 20px 0 0 20px ;
+    cursor: pointer;
+    float: left;
 }
 
 #more p{
@@ -188,10 +212,12 @@ a{
     background: #5DA629;
     border: 0 none;
     border-radius:2px ;
-    padding: 5px 10px;
+    padding: 7px 23px;
     color: #ffffff;
     font-size: 14px;
     font-weight: bold;
+    cursor: pointer;
+
 }
 
 #bannerAd{
@@ -199,7 +225,8 @@ a{
     height: 220px;
     background: #ffffff;
     border: 1px solid #dadada;
-    margin: 40px auto;
+    margin-top: 30px;
+    margin-left: 50px;
 }
 
 #bannerAdText{
@@ -214,10 +241,23 @@ a{
 #MapDiv ul li:first-child{
     border: 0 none;
     width:320px;
-    overflow-y: scroll;
-    margin: 0 10px 0 10px;
+    /*overflow-y: scroll;*/
+    box-shadow: none;
+    margin: 0 10px 0 -25px;
 }
 
+#scroll{
+    height: 555px;
+    width: 320px;
+    overflow: hidden;
+}
+
+#list1{
+    width: 100%;
+    overflow: auto;
+    height: 100%;
+    padding-right: 17px;
+}
 #MapDiv ul li:last-child{
     border: 0 none;
     width: 62%;
@@ -225,7 +265,7 @@ a{
 }
 
 .propertiesList{
-    height: 150px;
+    height: 175px;
     background: url("../images/1b8d950ad2e378688b0b2ad14c82f006.jpg")no-repeat center ;
     cursor: pointer;
 }
@@ -241,12 +281,16 @@ a{
 #propertyPrice{
     position: relative;
     top: 92px;
-    padding:10px 0 0 20px;
+    padding-left:20px;
     background: #f9f9f9;
     box-shadow: inset 0 -10px 10px -13px #000000;
     text-align: left;
-    height: 30px;
-    width: 280px;
+    height: 50px;
+    /*width: 280px;*/
+}
+
+#propertyPrice a{
+    color: #909090;
 }
 
 .propertiesListMap{
@@ -537,16 +581,18 @@ a{
 
 #location,#country,#zipcode{
     width: 223px;
+    float: left;
+    margin-left: 20px;
 }
 
 #bedRooms a{
     float: left;
-    margin-left: 42px;
+    margin-left: 20px;
 }
 
 #bathrooms a{
     float: left;
-    margin-left: 42px;
+    margin-left: 20px;
 }
 
 #bedroom,#bathroom{
@@ -563,20 +609,29 @@ a{
 
 #search{
     width:70px;
+    margin-top: 20px;
 }
 
 #priceRange a {
     float: left;
-    margin-left: 42px;
+    margin-left: 20px;
 }
 
 #place a{
     float: left;
-    margin-left: 42px;
+    margin-left: 20px;
 }
 
-#minPrice,#maxPrice{
-    width: 105px;
+#minPrice{
+    width: 90px;
+    float: left;
+    margin-left: 20px;
+}
+
+#maxPrice{
+    width: 90px;
+    margin-left: 10px;
+    margin-right: 32px;
 }
 
 #less{
@@ -586,21 +641,27 @@ a{
     border: 2px solid #dadada;
     border-radius: 5px;
     margin-top: 20px;
-    margin-left: 42px;
+    margin-left: 20px;
 }
 
 #less p{
     margin: 5px;
     color: #212121;
+    cursor: pointer;
 }
 
 #hide_search{
     float: right;
-    margin-right: 60px;
+    margin-right: 44px;
 }
 
 #reset a{
     margin-top: 10px;
+}
+
+#result{
+    margin-right: 70%;
+    color: #909090;
 }
 
 #sort{
@@ -620,7 +681,7 @@ a{
 }
 
 #description_prop{
-    width: 560px;
+    width: 100%;
     padding-top: 10px;
     margin-left: 30px;
 }
@@ -635,7 +696,7 @@ a{
 
 #description_prop p{
     text-align: justify;
-    width: 520px;
+    width: 90%;
     font: 12px Tahoma;
     color: #909090;
     line-height: 20px;
@@ -1029,6 +1090,10 @@ input[type="range"]{
     background: #ffffff;
     color: #242424;
     font-size: smaller;
+}
+
+.slider{
+    width: 102.5%;
 }
 
 

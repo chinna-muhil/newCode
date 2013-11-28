@@ -24,7 +24,8 @@ html
             div#header
                 ul
                     li
-                        p#logo LSR
+                        p#logo
+                            a(href="/") LSR
                     li
                         div#map
                             a(href="/")
@@ -53,9 +54,9 @@ html
                         form#searchForm(action='/search',method='POST')
                             div#choosePropertyType
                                 ul
-                                    input(type='button', class='selector', value='All')
-                                    input(type='button', class='selector', value='Rent')
-                                    input(type='button', class='selector', value='Sale')
+                                    input(type='button', class='selector', id='all', value='All')
+                                    input(type='button', class='selector', id='rent', value='Rent')
+                                    input(type='button', class='selector', id='sale', value='Sale')
                                     input(type='button', class='selector', id='selectorLast', value='Timeshare')
                                     input(type='hidden', name='prop_type', id='chosenType', value="")
                                     script.
@@ -464,6 +465,10 @@ html
                                     div#MapDiv
                                         ul
                                             li.propertiesListContainer
+                                                a#result
+                                                    script.
+                                                        var propertyList = JSON.parse( '!{JSON.stringify(products)}' );
+                                                        document.write(propertyList.length+" results");
                                                 div#sort Sort:
                                                     select
                                                         option Price High-Low
@@ -475,125 +480,126 @@ html
                                                 //div#compare(onclick="sortAscendingByPrice()") Compare
                                                 div#compare
                                                     a(href="#") Compare
-                                                div#list1
-                                                    script.
-                                                        var propertyList = JSON.parse( '!{JSON.stringify(products)}' );
+                                                div#scroll
+                                                    div#list1
+                                                        script.
+                                                            var propertyList = JSON.parse( '!{JSON.stringify(products)}' );
 
-                                                            function populate(){
-                                                            $('#list1').empty();
-                                                            for(var i=0; i < propertyList.length ; i++){
-                                                            console.log(propertyList[i].price);
-                                                            document.getElementById("list1").innerHTML += "<br/><div class=propertiesList style=background:url("+propertyList[i].picture.linkFront+")no-repeat;background-size:300px 175px>"
-                                                                                                            +"<div id=propertyName>"+propertyList[i].productName+"<a style=float:right;margin-top:-2px;margin-right:20px><input type=checkbox name=property value=propertyList[i]></div>"
-                                                                                                            +"<div id=propertyPrice class="+i+">$"+propertyList[i].price+"<a style=margin-top:-2px;margin-right:20px><img src=/images/green_arrow.png></div>"
-                                                                                                            //+"<div id=arrowKey></div>"
-                                                                                                            +"</div></a>" }}
+                                                                function populate(){
+                                                                $('#list1').empty();
+                                                                $("#result").html(propertyList.length);
+                                                                for(var i=0; i < propertyList.length ; i++){
+                                                                console.log(propertyList[i].price);
+                                                                document.getElementById("list1").innerHTML += "<br/><div class=propertiesList style=background:url("+propertyList[i].picture.linkFront+")no-repeat;background-size:300px 175px>"
+                                                                                                                +"<div id=propertyName>"+propertyList[i].productName+"<a style=float:right;margin-top:-2px;margin-right:20px><input type=checkbox name=property value=propertyList[i]></div>"
+                                                                                                                +"<div id=propertyPrice class="+i+">$"+propertyList[i].price+"<a style=float:left;margin-top:-2px;margin-right:20px><img src=/images/green_arrow.png></div>"
+                                                                                                                //+"<div id=arrowKey></div>"
+                                                                                                                +"</div></a>" }}
 
-                                                            function sortAscendingByPrice(){
-                                                            propertyList.sort(function(a, b){
-                                                            return a.price - b.price;})
-                                                            console.log(propertyList);
-                                                            populate();
-                                                            }
+                                                                function sortAscendingByPrice(){
+                                                                propertyList.sort(function(a, b){
+                                                                return a.price - b.price;})
+                                                                console.log(propertyList);
+                                                                populate();
+                                                                }
 
-                                                            for(var i=0; i < propertyList.length ; i++){
-                                                                console.log(propertyList[i]);
-                                                                document.write("<br/> <div class=propertiesList style=background:url("+propertyList[i].picture.linkFront+")no-repeat;background-size:300px 175px>"
-                                                                                                        //+"<input type=checkbox name=property>"
-                                                                                                        +"<div id=propertyName>"+propertyList[i].productName+"<a style=float:right;margin-top:-2px;margin-right:20px><input type=checkbox name=property value="+i+"></div>"
-                                                                                                        +"<div id=propertyPrice class="+i+">$"+propertyList[i].price+"<a style=margin-top:-2px;margin-right:20px><img src=/images/green_arrow.png></div>"
-                                                                                                        +"<div id=arrowKey></div>"
-                                                                                                        +"</div></a>"
-                                                                                );
-                                                            };
-                                                            $(document).ready(function(){
-                                                                $(function compare() {
-                                                                    $('#compare').click(function () {
-                                                                        var checkValues = $('input[name=property]:checked').map(function() {
-                                                                            console.log($(this).val());
-                                                                            return propertyList[$(this).val()];
-                                                                        }).get();
-                                                                        console.log(checkValues[0]["address"]["city"]);
-                                                                        console.log(checkValues[1]);
-                                                                        console.log(checkValues[2]);
-                                                                        if(checkValues[3] != null){
+                                                                for(var i=0; i < propertyList.length ; i++){
+                                                                    console.log(propertyList[i]);
+                                                                    document.write("<br/> <div class=propertiesList style=background:url("+propertyList[i].picture.linkFront+")no-repeat;background-size:300px 175px>"
+                                                                                                            +"<div id=propertyName>"+propertyList[i].productName+"<a style=float:right;margin-top:-2px;margin-right:20px><input type=checkbox name=property value="+i+"></a></div>"
+                                                                                                            +"<div id=propertyPrice class="+i+">$"+propertyList[i].price+"<br /><a> Bed:"+propertyList[i].bedrooms+" Bath:"+propertyList[i].bathrooms+" Sqft:"+propertyList[i].area+"</a><a style=float:right;margin-top:-2px;margin-right:20px><img src=/images/green_arrow.png></div>"
+                                                                                                            +"<div id=arrowKey></div>"
+                                                                                                            +"</div></a>"
+                                                                                    );
+                                                                };
+                                                                $(document).ready(function(){
+                                                                    $(function compare() {
+                                                                        $('#compare').click(function () {
+                                                                            var checkValues = $('input[name=property]:checked').map(function() {
+                                                                                console.log($(this).val());
+                                                                                return propertyList[$(this).val()];
+                                                                            }).get();
+                                                                            console.log(checkValues[0]["address"]["city"]);
                                                                             console.log(checkValues[1]);
-                                                                            //document.getElementById("comparison").innerHTML +=("<ul>"+
-                                                                                                                                    "<li>"
-                                                                                                                                        +"<div id=details>"
-                                                                                                                                            +"<div id=black></div>"
-                                                                                                                                            +"<div class=comslider></div>"
-                                                                                                                                            +"<div id=comparePrice>"+checkValues[0]['price']+"</div>"
-                                                                                                                                            +"<div id=compareBeds>"+checkValues[0]['bedrooms']+"</div>"
-                                                                                                                                            +"<div id=compareBaths>"+checkValues[0]['bathrooms']+"</div>"
-                                                                                                                                            +"<div id=compareSqft>"+checkValues[0]['area']+"</div>"
-                                                                                                                                            +"<div id=compareType>"+checkValues[0]['productType']+"</div>"
-                                                                                                                                        +"</div>"
-                                                                                                                                    +"</li>"
-                                                                                                                                 +"</ul>";
-                                                                            //}
-                                                                            $("#MapDiv").hide();
-                                                                            $("#compare_body").show();
-                                                                            $("#comparePrice").html(checkValues[0]['price']);
-                                                                            $("#CompareBeds").html(checkValues[0]['bedrooms']);
-                                                                            $("#CompareBaths").html(checkValues[0]['bathrooms']);
-                                                                            $("#CompareSqft").html(checkValues[0]['area']);
-                                                                            $("#CompareType").html(checkValues[0]['productType']);
-                                                                            $("#comparePrice1").html(checkValues[1]['price']);
-                                                                            $("#CompareBeds1").html(checkValues[1]['bedrooms']);
-                                                                            $("#CompareBaths1").html(checkValues[1]['bathrooms']);
-                                                                            $("#CompareSqft1").html(checkValues[1]['area']);
-                                                                            $("#CompareType1").html(checkValues[1]['productType']);
-                                                                            $("#comparePrice2").html(checkValues[2]['price']);
-                                                                            $("#CompareBeds2").html(checkValues[2]['bedrooms']);
-                                                                            $("#CompareBaths2").html(checkValues[2]['bathrooms']);
-                                                                            $("#CompareSqft2").html(checkValues[2]['area']);
-                                                                            $("#CompareType2").html(checkValues[2]['productType']);
-                                                                            $("#comparePrice3").html(checkValues[3]['price']);
-                                                                            $("#CompareBeds3").html(checkValues[3]['bedrooms']);
-                                                                            $("#CompareBaths3").html(checkValues[3]['bathrooms']);
-                                                                            $("#CompareSqft3").html(checkValues[3]['area']);
-                                                                            $("#CompareType3").html(checkValues[3]['productType']);
-                                                                        }else if(checkValues[2] != null){
-                                                                            $("#MapDiv").hide();
-                                                                            $("#compare_body").show();
-                                                                            $("#class1").hide();
-                                                                            $("#comparePrice").html(checkValues[0]['price']);
-                                                                            $("#CompareBeds").html(checkValues[0]['bedrooms']);
-                                                                            $("#CompareBaths").html(checkValues[0]['bathrooms']);
-                                                                            $("#CompareSqft").html(checkValues[0]['area']);
-                                                                            $("#CompareType").html(checkValues[0]['productType']);
-                                                                            $("#comparePrice1").html(checkValues[1]['price']);
-                                                                            $("#CompareBeds1").html(checkValues[1]['bedrooms']);
-                                                                            $("#CompareBaths1").html(checkValues[1]['bathrooms']);
-                                                                            $("#CompareSqft1").html(checkValues[1]['area']);
-                                                                            $("#CompareType1").html(checkValues[1]['productType']);
-                                                                            $("#comparePrice2").html(checkValues[2]['price']);
-                                                                            $("#CompareBeds2").html(checkValues[2]['bedrooms']);
-                                                                            $("#CompareBaths2").html(checkValues[2]['bathrooms']);
-                                                                            $("#CompareSqft2").html(checkValues[2]['area']);
-                                                                            $("#CompareType2").html(checkValues[2]['productType']);
-                                                                        }else if(checkValues[1] != null){
-                                                                            $("#MapDiv").hide();
-                                                                            $("#compare_body").show();
-                                                                            $("#class").hide();
-                                                                            $("#class1").hide();
-                                                                            $("#comparePrice").html(checkValues[0]['price']);
-                                                                            $("#CompareBeds").html(checkValues[0]['bedrooms']);
-                                                                            $("#CompareBaths").html(checkValues[0]['bathrooms']);
-                                                                            $("#CompareSqft").html(checkValues[0]['area']);
-                                                                            $("#CompareType").html(checkValues[0]['productType']);
-                                                                            $("#comparePrice1").html(checkValues[1]['price']);
-                                                                            $("#CompareBeds1").html(checkValues[1]['bedrooms']);
-                                                                            $("#CompareBaths1").html(checkValues[1]['bathrooms']);
-                                                                            $("#CompareSqft1").html(checkValues[1]['area']);
-                                                                            $("#CompareType1").html(checkValues[1]['productType']);
-                                                                        }else{
-                                                                            alert("Select atleast Two properties");
-                                                                        }
+                                                                            console.log(checkValues[2]);
+                                                                            if(checkValues[3] != null){
+                                                                                console.log(checkValues[1]);
+                                                                                //document.getElementById("comparison").innerHTML +=("<ul>"+
+                                                                                                                                        "<li>"
+                                                                                                                                            +"<div id=details>"
+                                                                                                                                                +"<div id=black></div>"
+                                                                                                                                                +"<div class=comslider></div>"
+                                                                                                                                                +"<div id=comparePrice>"+checkValues[0]['price']+"</div>"
+                                                                                                                                                +"<div id=compareBeds>"+checkValues[0]['bedrooms']+"</div>"
+                                                                                                                                                +"<div id=compareBaths>"+checkValues[0]['bathrooms']+"</div>"
+                                                                                                                                                +"<div id=compareSqft>"+checkValues[0]['area']+"</div>"
+                                                                                                                                                +"<div id=compareType>"+checkValues[0]['productType']+"</div>"
+                                                                                                                                            +"</div>"
+                                                                                                                                        +"</li>"
+                                                                                                                                     +"</ul>";
+                                                                                //}
+                                                                                $("#MapDiv").hide();
+                                                                                $("#compare_body").show();
+                                                                                $("#comparePrice").html(checkValues[0]['price']);
+                                                                                $("#CompareBeds").html(checkValues[0]['bedrooms']);
+                                                                                $("#CompareBaths").html(checkValues[0]['bathrooms']);
+                                                                                $("#CompareSqft").html(checkValues[0]['area']);
+                                                                                $("#CompareType").html(checkValues[0]['productType']);
+                                                                                $("#comparePrice1").html(checkValues[1]['price']);
+                                                                                $("#CompareBeds1").html(checkValues[1]['bedrooms']);
+                                                                                $("#CompareBaths1").html(checkValues[1]['bathrooms']);
+                                                                                $("#CompareSqft1").html(checkValues[1]['area']);
+                                                                                $("#CompareType1").html(checkValues[1]['productType']);
+                                                                                $("#comparePrice2").html(checkValues[2]['price']);
+                                                                                $("#CompareBeds2").html(checkValues[2]['bedrooms']);
+                                                                                $("#CompareBaths2").html(checkValues[2]['bathrooms']);
+                                                                                $("#CompareSqft2").html(checkValues[2]['area']);
+                                                                                $("#CompareType2").html(checkValues[2]['productType']);
+                                                                                $("#comparePrice3").html(checkValues[3]['price']);
+                                                                                $("#CompareBeds3").html(checkValues[3]['bedrooms']);
+                                                                                $("#CompareBaths3").html(checkValues[3]['bathrooms']);
+                                                                                $("#CompareSqft3").html(checkValues[3]['area']);
+                                                                                $("#CompareType3").html(checkValues[3]['productType']);
+                                                                            }else if(checkValues[2] != null){
+                                                                                $("#MapDiv").hide();
+                                                                                $("#compare_body").show();
+                                                                                $("#class1").hide();
+                                                                                $("#comparePrice").html(checkValues[0]['price']);
+                                                                                $("#CompareBeds").html(checkValues[0]['bedrooms']);
+                                                                                $("#CompareBaths").html(checkValues[0]['bathrooms']);
+                                                                                $("#CompareSqft").html(checkValues[0]['area']);
+                                                                                $("#CompareType").html(checkValues[0]['productType']);
+                                                                                $("#comparePrice1").html(checkValues[1]['price']);
+                                                                                $("#CompareBeds1").html(checkValues[1]['bedrooms']);
+                                                                                $("#CompareBaths1").html(checkValues[1]['bathrooms']);
+                                                                                $("#CompareSqft1").html(checkValues[1]['area']);
+                                                                                $("#CompareType1").html(checkValues[1]['productType']);
+                                                                                $("#comparePrice2").html(checkValues[2]['price']);
+                                                                                $("#CompareBeds2").html(checkValues[2]['bedrooms']);
+                                                                                $("#CompareBaths2").html(checkValues[2]['bathrooms']);
+                                                                                $("#CompareSqft2").html(checkValues[2]['area']);
+                                                                                $("#CompareType2").html(checkValues[2]['productType']);
+                                                                            }else if(checkValues[1] != null){
+                                                                                $("#MapDiv").hide();
+                                                                                $("#compare_body").show();
+                                                                                $("#class").hide();
+                                                                                $("#class1").hide();
+                                                                                $("#comparePrice").html(checkValues[0]['price']);
+                                                                                $("#CompareBeds").html(checkValues[0]['bedrooms']);
+                                                                                $("#CompareBaths").html(checkValues[0]['bathrooms']);
+                                                                                $("#CompareSqft").html(checkValues[0]['area']);
+                                                                                $("#CompareType").html(checkValues[0]['productType']);
+                                                                                $("#comparePrice1").html(checkValues[1]['price']);
+                                                                                $("#CompareBeds1").html(checkValues[1]['bedrooms']);
+                                                                                $("#CompareBaths1").html(checkValues[1]['bathrooms']);
+                                                                                $("#CompareSqft1").html(checkValues[1]['area']);
+                                                                                $("#CompareType1").html(checkValues[1]['productType']);
+                                                                            }else{
+                                                                                alert("Select atleast Two properties");
+                                                                            }
+                                                                        });
                                                                     });
                                                                 });
-                                                            });
 
                                                     script.
                                                         $('#map').css('background','#1E9FDD')
@@ -630,7 +636,7 @@ html
                                                         div#price
                                                             p Price:
                                                                 script.
-                                                                    document.write(" "+propertyList[0].price)
+                                                                    document.write(" $"+propertyList[0].price)
                                                         div#property
                                                             div#property_details
                                                                 h4 Property Details
@@ -1082,10 +1088,10 @@ html
                                 $("#type").html("Area: "+propertyList[i].productType);
                                     $('.slider').empty();
                                     $('.slider').append(
-                                         "<div class=\"bxslider\"> <img src="+propertyList[i].picture.linkFront+" width=580 height=270/>"
-                                         +"<img src="+propertyList[i].picture.linkBack+" width=580 height=270/>"
-                                         +"<img src="+propertyList[i].picture.linkLeft+" width=580 height=270/>"
-                                         +"<img src="+propertyList[i].picture.linkRight+" width=580 height=270/> </div>"
+                                         "<div class=\"bxslider\"> <img src="+propertyList[i].picture.linkFront+" width=100% height=270/>"
+                                         +"<img src="+propertyList[i].picture.linkBack+" width=100% height=270/>"
+                                         +"<img src="+propertyList[i].picture.linkLeft+" width=100% height=270/>"
+                                         +"<img src="+propertyList[i].picture.linkRight+" width=100% height=270/> </div>"
                                          );
                                 $('.bxslider').bxSlider({
                                         mode: 'horizontal',

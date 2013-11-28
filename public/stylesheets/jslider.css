@@ -3,7 +3,7 @@
   .jslider {/* background: url(../images/jslider.png) no-repeat 0 0;*/ background-color: #ffffff; }
    .jslider-pointer { background: url(../images/pointer.png) no-repeat 0 0; /*background-color: #ffffff;*/ }
 
-  .jslider { display: block; width: 230px; margin-left: 50px; height: 1em; position: relative; top: 0.6em; font-family: Arial, sans-serif; border: 2px solid #dadada; }
+  .jslider { display: block; width: 230px; margin-left: 20px; height: 1em; position: relative; top: 0.6em; font-family: Arial, sans-serif; border: 2px solid #dadada; }
   .jslider table { width: 100%; border-collapse: collapse; border: 0; }
   .jslider td, .jslider th { padding: 0; vertical-align: top; text-align: left; border: 0; }
 
