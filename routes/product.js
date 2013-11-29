@@ -49,13 +49,6 @@ exports.new = function (req, res) {
     res.render("index", {routePath: "Add", title: 'Add New Product - By Sandeep Pagi'});
 };
 
-exports.comparison = function(req,res){
-    propertyModel.find({}, function (err, docs) {
-        if (err) return res.render('Error occurred');
-        res.render('index', {products: docs, routePath: "comparison", title: 'Product List - By Sandeep Pagi'});
-    });
-};
-
 exports.compare = function(req,res){
     propertyModel.find({}, function (err, docs) {
         if (err) return res.render('Error occurred');

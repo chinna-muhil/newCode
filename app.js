@@ -220,8 +220,6 @@ app.get('/s',function(req,res){
 
 app.get('/compare',productRoutes.compare);
 
-app.get('/comparison',productRoutes.comparison);
-
 //Routing
 app.post('/lsrLogin',user.index);
 app.get('/signup', user.signup);

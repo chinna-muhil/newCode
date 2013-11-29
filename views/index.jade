@@ -46,8 +46,6 @@ html
                                     abbr#navText ADD
                                 li: a(class="group1", href="#box1", style="text-decoration: none")
                                     | LOGIN
-                                li: a(href="/comparison",style="text-decoration: none")
-                                    | compare
             div#mainBody
                 ul
                     li.propertiesListContainer
@@ -524,20 +522,6 @@ html
                                                                             console.log(checkValues[2]);
                                                                             if(checkValues[3] != null){
                                                                                 console.log(checkValues[1]);
-                                                                                //document.getElementById("comparison").innerHTML +=("<ul>"+
-                                                                                                                                        "<li>"
-                                                                                                                                            +"<div id=details>"
-                                                                                                                                                +"<div id=black></div>"
-                                                                                                                                                +"<div class=comslider></div>"
-                                                                                                                                                +"<div id=comparePrice>"+checkValues[0]['price']+"</div>"
-                                                                                                                                                +"<div id=compareBeds>"+checkValues[0]['bedrooms']+"</div>"
-                                                                                                                                                +"<div id=compareBaths>"+checkValues[0]['bathrooms']+"</div>"
-                                                                                                                                                +"<div id=compareSqft>"+checkValues[0]['area']+"</div>"
-                                                                                                                                                +"<div id=compareType>"+checkValues[0]['productType']+"</div>"
-                                                                                                                                            +"</div>"
-                                                                                                                                        +"</li>"
-                                                                                                                                     +"</ul>";
-                                                                                //}
                                                                                 $("#MapDiv").hide();
                                                                                 $("#compare_body").show();
                                                                                 $("#comparePrice").html(checkValues[0]['price']);
@@ -801,27 +785,6 @@ html
                                                         p#CompareBuilt3 2012
                                                         p#CompareMls3 0091948
                                                         p#CompareFeatures3 Alarm Balcony
-                                else if routePath === "comparison"
-                                    script.
-                                        var propertyList = JSON.parse( '!{JSON.stringify(products)}' );
-                                            document.write("<div class=\"slider\"> <div class=\"bxslider\">"
-                                                            +"<img src="+propertyList[0].picture.linkFront+" width=580 height=270/>"
-                                                            +"<img src="+propertyList[0].picture.linkBack+" width=580 height=270/>"
-                                                            +"<img src="+propertyList[0].picture.linkLeft+" width=580 height=270/>"
-                                                            +"<img src="+propertyList[0].picture.linkRight+" width=580 height=270/>"
-                                                            +"</div></div>");
-                                            document.write("<div class=\"slider\"> <div class=\"bxslider\">"
-                                                            +"<img src="+propertyList[0].picture.linkFront+" width=580 height=270/>"
-                                                            +"<img src="+propertyList[0].picture.linkBack+" width=580 height=270/>"
-                                                            +"<img src="+propertyList[0].picture.linkLeft+" width=580 height=270/>"
-                                                            +"<img src="+propertyList[0].picture.linkRight+" width=580 height=270/>"
-                                                            +"</div></div>");
-                                            document.write("<div class=\"slider\"> <div class=\"bxslider\">"
-                                                            +"<img src="+propertyList[0].picture.linkFront+" width=580 height=270/>"
-                                                            +"<img src="+propertyList[0].picture.linkBack+" width=580 height=270/>"
-                                                            +"<img src="+propertyList[0].picture.linkLeft+" width=580 height=270/>"
-                                                            +"<img src="+propertyList[0].picture.linkRight+" width=580 height=270/>"
-                                                            +"</div></div>");
                                 else if routePath === "Add"
                                     form(method="POST",action="/properties")
                                         p#Addelements Name for Property :
@@ -1141,7 +1104,7 @@ html
                             script.
                                 $(document).ready(function(){
                                     //Examples of how to assign the Colorbox event to elements
-                                    $(".group1").colorbox({rel:'group3', inline:true, transition:"none"});
+                                    $(".group1").colorbox({rel:'group1', inline:true, transition:"none"});
                                 });
                             script.
                                 //AJax Request for sending mail
