@@ -150,6 +150,7 @@ html
                                     a Reset
                                     div#hide_search
                                         input(type='submit', value='Search',id='searchButton',onsubmit="validateForm()" )
+
                         li
                             aside#mainAside.propertiesListContainer
                                 if routePath === "home"
@@ -198,7 +199,6 @@ html
                                                                 +"<div id=propertyPriceMap>$"+propertyList[i].price+"<a style=float:right;margin-top:-2px;margin-right:20px><img src=/images/green_arrow.png></div>"
                                                                 +'<div id=arrowKeyMap></div>'
                                                                 +'</div></a><br/>';
-
 
                                                     var infoWindow = new google.maps.InfoWindow({
                                                         content : content
