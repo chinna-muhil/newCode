@@ -1533,10 +1533,10 @@ input[type="range"]{
 
 
 #mapidHide{
-    width: 50%;
+    width: 591px;
     position: absolute;
-    top: 22px;
-    left: 46%;
+    top: 43px;
+    right: -591px;
 }
 
 #moreMap{

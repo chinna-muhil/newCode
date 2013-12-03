@@ -203,6 +203,7 @@ html
                                                             var i = $(this).attr('class');
                                                             console.log(i);
                                                             $('#mapidHide').show();
+                                                            $('#mapidHide').animate({right: "1px"}, 1500);
                                                             $("#price p").html("Price: $"+propertyList[i].price);
                                                             $("#beds").html("Beds: "+propertyList[i].bedrooms);
                                                             $("#baths").html("Baths: "+propertyList[i].bathrooms);
@@ -260,7 +261,8 @@ html
                                                                 });
                                                     });
                                                     $("#moreMap").live('click',function(){
-                                                        $("#mapidHide").hide();
+                                                        $("#mapidHide").animate({right:"-591px"},1500,$("#mapidHide").hide());
+                                                        //$("#mapidHide").hide();
                                                     });
 
                                                     var infoWindow = new google.maps.InfoWindow({
