@@ -203,7 +203,7 @@ html
                                                             var i = $(this).attr('class');
                                                             console.log(i);
                                                             $('#mapidHide').show();
-                                                            $('#mapidHide').animate({right: "1px"}, 1500);
+                                                            $('#mapidHide').animate({right: "40px"}, 1500);
                                                             $("#price p").html("Price: $"+propertyList[i].price);
                                                             $("#beds").html("Beds: "+propertyList[i].bedrooms);
                                                             $("#baths").html("Baths: "+propertyList[i].bathrooms);
@@ -212,9 +212,9 @@ html
                                                                 $('.slider').empty();
                                                                 $('.slider').append(
                                                                 "<div class=\"bxslider\"> <img src="+propertyList[i].picture.linkFront+" width=100% height=270/>"
-                                                                +"<img src="+propertyList[i].picture.linkBack+" width=102.5% height=270/>"
-                                                                +"<img src="+propertyList[i].picture.linkLeft+" width=102.5% height=270/>"
-                                                                +"<img src="+propertyList[i].picture.linkRight+" width=102.5% height=270/> </div>"
+                                                                +"<img src="+propertyList[i].picture.linkBack+" width=100% height=270/>"
+                                                                +"<img src="+propertyList[i].picture.linkLeft+" width=100% height=270/>"
+                                                                +"<img src="+propertyList[i].picture.linkRight+" width=100% height=270/> </div>"
                                                                 );
                                                             $('.bxslider').bxSlider({
                                                             mode: 'horizontal',
@@ -1074,7 +1074,7 @@ html
                                                             p#CompareFeatures Alarm Balcony
         div#mapidHide(style="display:none")
             div#moreMap
-                p X
+                p Close Pane X
             div#propertyZoomedDetails
                 br
                 script.

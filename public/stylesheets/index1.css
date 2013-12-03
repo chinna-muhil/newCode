@@ -325,8 +325,9 @@ a, button, input[type="submit"] {
 
 
 #propertyZoomedDetails{
-    width: 100%;
+    width: 90%;
     height: auto;
+    margin: 0 auto;
 }
 
 #mapHoverInfo{
@@ -489,7 +490,7 @@ a, button, input[type="submit"] {
     height: 40px;
     float: left;
     padding-top: 14px;
-    margin-left: 4%;
+    margin-left: 5%;
 }
 
 #tabs ul li:first-child{
@@ -529,6 +530,7 @@ a, button, input[type="submit"] {
     margin: 0 auto;
     font: 18px Tahoma Bold;
     padding-top: 7px;
+    padding-left: 36%;
 }
 
 #property{
@@ -557,6 +559,7 @@ a, button, input[type="submit"] {
     color: #909090;
     width: 95%;
     padding: 2.5px 0 2.5px 0;
+    margin-left: 5%;
 }
 
 #property_types ul li{
@@ -1099,7 +1102,8 @@ input[type="range"]{
 }
 
 .slider{
-    width: 102.5%;
+    width: 91%;
+    margin: 0 auto;
 }
 
 
@@ -1537,20 +1541,23 @@ input[type="range"]{
     position: absolute;
     top: 43px;
     right: -591px;
+    background-color: #ffffff;
 }
 
 #moreMap{
     height: 32px;
-    width: 58px;
+    width: 104px;
     background: #ffffff;
     border: 2px solid #dadada;
     border-radius: 5px;
     cursor: pointer;
-    float: left;
+    float: right;
+    margin: 15px;
 }
 
 #moreMap p{
     margin: 5px;
     color: #212121;
     cursor: pointer;
+    text-align: center;
 }
