@@ -109,9 +109,13 @@ a, button, input[type="submit"] {
 }
 
 #mainBody ul li:first-child{
-    width: 290px;
+    width: 26%;
     box-shadow: 10px -11px 10px -11px #888;
-    margin-left: -30px;
+}
+
+#searchForm{
+    width:280px;
+    margin: 0 auto;
 }
 
 #mainBody ul li:last-child{

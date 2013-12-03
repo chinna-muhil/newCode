@@ -1,5 +1,5 @@
 var size1= function(){
-    $('#bigWarpper,.propertiesListContainer').height(
+    $('#bigWarpper,.propertiesListContainer,#mainAside,#MapDiv').height(
         $(window).height()-43
     );
 };
@@ -17,9 +17,7 @@ $(document).ready(size2);
 $(window).resize(size2);
 
 var size3= function(){
-    $('#mainAside,#MapDiv').height(
-        $(window).height()-90
-    );
+    $('.propertiesListContainer').css('margin','0 auto')
 };
 
 $(document).ready(size3);
