@@ -501,6 +501,7 @@ a, button, input[type="submit"] {
 #tabs ul li{
     width: 15%;
     float: left;
+    list-style-type: none;
     border: 0 none;
 }
 
@@ -1524,4 +1525,28 @@ input[type="range"]{
     height: 30px;
     margin: 0 auto;
     padding-top: 10px;
+}
+
+
+#mapidHide{
+    width: 50%;
+    position: absolute;
+    top: 22px;
+    left: 46%;
+}
+
+#moreMap{
+    height: 32px;
+    width: 58px;
+    background: #ffffff;
+    border: 2px solid #dadada;
+    border-radius: 5px;
+    cursor: pointer;
+    float: left;
+}
+
+#moreMap p{
+    margin: 5px;
+    color: #212121;
+    cursor: pointer;
 }

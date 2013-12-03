@@ -196,9 +196,72 @@ html
                                                                                        });
                                                     var content ='<div class=propertiesListMap style=background:url('+propertyList[i].picture.linkFront+')no-repeat;background-size:300px 175px>'
                                                                 +'<div id=propertyNameMap>'+propertyList[i].productName+'</div>'
-                                                                +"<div id=propertyPriceMap>$"+propertyList[i].price+"<a style=float:right;margin-top:-2px;margin-right:20px><img src=/images/green_arrow.png></div>"
+                                                                +"<div id=propertyPriceMap class="+i+">$"+propertyList[i].price+"<a style=float:right;margin-top:-2px;margin-right:20px><img src=/images/green_arrow.png></div>"
                                                                 +'<div id=arrowKeyMap></div>'
                                                                 +'</div></a><br/>';
+                                                    $("#propertyPriceMap").live('click',function() {
+                                                            var i = $(this).attr('class');
+                                                            console.log(i);
+                                                            $('#mapidHide').show();
+                                                            $("#price p").html("Price: $"+propertyList[i].price);
+                                                            $("#beds").html("Beds: "+propertyList[i].bedrooms);
+                                                            $("#baths").html("Baths: "+propertyList[i].bathrooms);
+                                                            $("#area").html("Sqft: "+propertyList[i].area);
+                                                            $("#type").html("Type: "+propertyList[i].productType);
+                                                                $('.slider').empty();
+                                                                $('.slider').append(
+                                                                "<div class=\"bxslider\"> <img src="+propertyList[i].picture.linkFront+" width=100% height=270/>"
+                                                                +"<img src="+propertyList[i].picture.linkBack+" width=102.5% height=270/>"
+                                                                +"<img src="+propertyList[i].picture.linkLeft+" width=102.5% height=270/>"
+                                                                +"<img src="+propertyList[i].picture.linkRight+" width=102.5% height=270/> </div>"
+                                                                );
+                                                            $('.bxslider').bxSlider({
+                                                            mode: 'horizontal',
+                                                            auto: true,
+                                                            pause: 2000,
+                                                            speed:1000,
+                                                            infiniteLoop:true,
+                                                            buildPager: function(slideIndex){
+                                                                switch(slideIndex){
+                                                                    case 0:
+                                                                        return '<img src='+propertyList[i].picture.linkFront+' width=50 height=50>';
+                                                                    case 1:
+                                                                        return '<img src='+propertyList[i].picture.linkBack+' width=50 height=50>';
+                                                                    case 2:
+                                                                        return '<img src='+propertyList[i].picture.linkLeft+' width=50 height=50>';
+                                                                    case 3:
+                                                                        return '<img src='+propertyList[i].picture.linkRight+' width=50 height=50>';
+                                                                }
+                                                                }
+                                                                });
+
+                                                            return false;
+                                                            });
+
+                                                            $(document).ready(function(){
+                                                                $('.bxslider').bxSlider({
+                                                                mode: 'horizontal',
+                                                                auto: true,
+                                                                pause: 2000,
+                                                                speed:1000,
+                                                                infiniteLoop:true,
+                                                                buildPager: function(slideIndex){
+                                                                    switch(slideIndex){
+                                                                        case 0:
+                                                                            return '<img src='+propertyList[0].picture.linkFront+' width=50 height=50>';
+                                                                        case 1:
+                                                                            return '<img src='+propertyList[0].picture.linkBack+' width=50 height=50>';
+                                                                        case 2:
+                                                                            return '<img src='+propertyList[0].picture.linkLeft+' width=50 height=50>';
+                                                                        case 3:
+                                                                            return '<img src='+propertyList[0].picture.linkRight+' width=50 height=50>';
+                                                                    }
+                                                                    }
+                                                                });
+                                                    });
+                                                    $("#moreMap").live('click',function(){
+                                                        $("#mapidHide").hide();
+                                                    });
 
                                                     var infoWindow = new google.maps.InfoWindow({
                                                         content : content
@@ -1007,6 +1070,57 @@ html
                                                             p#CompareBuilt 2012
                                                             p#CompareMls 0091948
                                                             p#CompareFeatures Alarm Balcony
+        div#mapidHide(style="display:none")
+            div#moreMap
+                p X
+            div#propertyZoomedDetails
+                br
+                script.
+                    document.write("<div class=\"slider\"> <div class=\"bxslider\">"
+                                    +"<img src="+propertyList[0].picture.linkFront+" width=657 height=270/>"
+                                    +"<img src="+propertyList[0].picture.linkBack+" width=657 height=270/>"
+                                    +"<img src="+propertyList[0].picture.linkLeft+" width=657 height=270/>"
+                                    +"<img src="+propertyList[0].picture.linkRight+" width=657 height=270/>"
+                                    +"</div></div>");
+                div#description
+                    div#tabs
+                        ul
+                            li
+                                img(src="/images/maps_button.png")
+                            li
+                                img(src="/images/messgae.png")
+                            li
+                                img(src="/images/save_button.png")
+                            li
+                                img(src="/images/some_button.png")
+                            li
+                                img(src="/images/print.png")
+                    div#price
+                        p Price:
+                            script.
+                                document.write(" $"+propertyList[0].price)
+                    div#property
+                        div#property_details
+                            h4 Property Details
+                        div#property_types
+                            ul
+                                li#beds Beds:
+                                    script.
+                                        document.write(" "+propertyList[0].bedrooms)
+                                li#area Sqft:
+                                    script.
+                                        document.write(" "+propertyList[0].area)
+                                li Built: 2005
+                                li#baths Bath:
+                                    script.
+                                        document.write(" "+propertyList[0].bathrooms)
+                                li#type Type:
+                                    script.
+                                        document.write(" "+propertyList[0].productType)
+                                li MLS ID
+                    div#description_prop
+                        h4 Descriptions
+                        p Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit.
         div(style="display:none; width: 50%; height:auto")
             div#box1
                 div#container
