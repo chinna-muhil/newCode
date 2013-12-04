@@ -209,14 +209,14 @@ html
                                                             $("#baths").html("Baths: "+propertyList[i].bathrooms);
                                                             $("#area").html("Sqft: "+propertyList[i].area);
                                                             $("#type").html("Type: "+propertyList[i].productType);
-                                                                $('.slider').empty();
-                                                                $('.slider').append(
-                                                                "<div class=\"bxslider\"> <img src="+propertyList[i].picture.linkFront+" width=100% height=270/>"
+                                                                $('.slidermap').empty();
+                                                                $('.slidermap').append(
+                                                                "<div class=\"bxslidermap\"> <img src="+propertyList[i].picture.linkFront+" width=100% height=270/>"
                                                                 +"<img src="+propertyList[i].picture.linkBack+" width=100% height=270/>"
                                                                 +"<img src="+propertyList[i].picture.linkLeft+" width=100% height=270/>"
                                                                 +"<img src="+propertyList[i].picture.linkRight+" width=100% height=270/> </div>"
                                                                 );
-                                                            $('.bxslider').bxSlider({
+                                                            $('.bxslidermap').bxSlider({
                                                             mode: 'horizontal',
                                                             auto: true,
                                                             pause: 2000,
@@ -240,7 +240,7 @@ html
                                                             });
 
                                                             $(document).ready(function(){
-                                                                $('.bxslider').bxSlider({
+                                                                $('.bxslidermap').bxSlider({
                                                                 mode: 'horizontal',
                                                                 auto: true,
                                                                 pause: 2000,
@@ -261,7 +261,7 @@ html
                                                                 });
                                                     });
                                                     $("#moreMap").live('click',function(){
-                                                        $("#mapidHide").animate({right:"-591px"},1500,$("#mapidHide").hide());
+                                                        $("#mapidHide").animate({right:"-40px"},1500,$("#mapidHide").hide());
                                                         //$("#mapidHide").hide();
                                                     });
 
@@ -533,14 +533,32 @@ html
                                                         var propertyList = JSON.parse( '!{JSON.stringify(products)}' );
                                                         document.write(propertyList.length+" results");
                                                 div#sort Sort:
-                                                    select
-                                                        option Price High-Low
-                                                        option Price Low-High
-                                                        option Time - Newest-Oldest
-                                                        option Time - Oldest-Newest
-                                                        option Bedrooms Low-High
-                                                        option Bathrooms Low-High
-                                                //div#compare(onclick="sortAscendingByPrice()") Compare
+                                                    select#mySelect(onchange="priceRange()")
+                                                        option
+                                                        option(value="Priceh") Price High-Low
+                                                        option(value="Pricel") Price Low-High
+                                                        option(value="Timen") Time - Newest-Oldest
+                                                        option(value="Timeo") Time - Oldest-Newest
+                                                        option(value="Bedl") Bedrooms Low-High
+                                                        option(value="Batl") Bathrooms Low-High
+                                                //div#compare(onclick="sortDescendingBybed()") Compare
+                                                script.
+                                                    function priceRange(){
+                                                        var mylist=document.getElementById("mySelect");
+                                                        var answer = mylist.options[mylist.selectedIndex].value;
+                                                        if(answer == "Priceh"){
+                                                            sortDescendingByPrice();
+                                                        }
+                                                        else if(answer == "Pricel"){
+                                                            sortAscendingByPrice();
+                                                        }
+                                                        else if(answer == "Bedl"){
+                                                            sortAscendingBybed();
+                                                        }
+                                                        else if(answer == "Batl"){
+                                                            sortAscendingBybath();
+                                                        }
+                                                    }
                                                 div#compare
                                                     a(href="#") Compare
                                                 div#scroll
@@ -552,10 +570,10 @@ html
                                                                 $('#list1').empty();
                                                                 $("#result").html(propertyList.length);
                                                                 for(var i=0; i < propertyList.length ; i++){
-                                                                console.log(propertyList[i].price);
+                                                                console.log(propertyList[i].bathrooms);
                                                                 document.getElementById("list1").innerHTML += "<br/><div class=propertiesList style=background:url("+propertyList[i].picture.linkFront+")no-repeat;background-size:300px 175px>"
-                                                                                                                +"<div id=propertyName>"+propertyList[i].productName+"<a style=float:right;margin-top:-2px;margin-right:20px><input type=checkbox name=property value=propertyList[i]></div>"
-                                                                                                                +"<div id=propertyPrice class="+i+">$"+propertyList[i].price+"<a style=float:left;margin-top:-2px;margin-right:20px><img src=/images/green_arrow.png></div>"
+                                                                                                                +"<div id=propertyName>"+propertyList[i].productName+"<a style=float:right;margin-top:-2px;margin-right:20px><input type=checkbox name=propertyvalue="+i+"></a></div>"
+                                                                                                                +"<div id=propertyPrice class="+i+">$"+propertyList[i].price+"<br /><a> Bed:"+propertyList[i].bedrooms+" Bath:"+propertyList[i].bathrooms+" Sqft:"+propertyList[i].area+"</a><a style=float:right;margin-top:-2px;margin-right:20px><img src=/images/green_arrow.png></div>"
                                                                                                                 //+"<div id=arrowKey></div>"
                                                                                                                 +"</div></a>" }}
 
@@ -566,12 +584,32 @@ html
                                                                 populate();
                                                                 }
 
+                                                                function sortDescendingByPrice(){
+                                                                    propertyList.sort(function(a, b){
+                                                                    return b.price - a.price;})
+                                                                    console.log(propertyList);
+                                                                    populate();
+                                                                }
+
+                                                                function sortAscendingBybed(){
+                                                                    propertyList.sort(function(a, b){
+                                                                    return a.bedrooms - b.bedrooms;})
+                                                                    console.log(propertyList);
+                                                                    populate();
+                                                                }
+
+                                                                function sortAscendingBybath(){
+                                                                    propertyList.sort(function(a, b){
+                                                                    return a.bathrooms - b.bathrooms;})
+                                                                    populate();
+                                                                }
+
                                                                 for(var i=0; i < propertyList.length ; i++){
                                                                     console.log(propertyList[i]);
                                                                     document.write("<br/> <div class=propertiesList style=background:url("+propertyList[i].picture.linkFront+")no-repeat;background-size:300px 175px>"
                                                                                                             +"<div id=propertyName>"+propertyList[i].productName+"<a style=float:right;margin-top:-2px;margin-right:20px><input type=checkbox name=property value="+i+"></a></div>"
                                                                                                             +"<div id=propertyPrice class="+i+">$"+propertyList[i].price+"<br /><a> Bed:"+propertyList[i].bedrooms+" Bath:"+propertyList[i].bathrooms+" Sqft:"+propertyList[i].area+"</a><a style=float:right;margin-top:-2px;margin-right:20px><img src=/images/green_arrow.png></div>"
-                                                                                                            +"<div id=arrowKey></div>"
+                                                                                                            //+"<div id=arrowKey></div>"
                                                                                                             +"</div></a>"
                                                                                     );
                                                                 };
@@ -582,7 +620,7 @@ html
                                                                                 console.log($(this).val());
                                                                                 return propertyList[$(this).val()];
                                                                             }).get();
-                                                                            console.log(checkValues[0]["address"]["city"]);
+                                                                            console.log(checkValues[0]);
                                                                             console.log(checkValues[1]);
                                                                             console.log(checkValues[2]);
                                                                             if(checkValues[3] != null){
@@ -1078,7 +1116,7 @@ html
             div#propertyZoomedDetails
                 br
                 script.
-                    document.write("<div class=\"slider\"> <div class=\"bxslider\">"
+                    document.write("<div class=\"slidermap\"> <div class=\"bxslidermap\">"
                                     +"<img src="+propertyList[0].picture.linkFront+" width=657 height=270/>"
                                     +"<img src="+propertyList[0].picture.linkBack+" width=657 height=270/>"
                                     +"<img src="+propertyList[0].picture.linkLeft+" width=657 height=270/>"

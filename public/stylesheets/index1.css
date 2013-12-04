@@ -1102,6 +1102,11 @@ input[type="range"]{
 }
 
 .slider{
+     width: 102.5%;
+     margin: 0 auto;
+ }
+
+.slidermap{
     width: 91%;
     margin: 0 auto;
 }
