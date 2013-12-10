@@ -23,4 +23,13 @@ var size3= function(){
 $(document).ready(size3);
 $(window).resize(size3);
 
+var size4= function(){
+    $('#mainBody ul li:last-child').width(
+        $(window).width()-281
+    )
+};
+
+$(document).ready(size4);
+$(window).resize(size4);
+
 

@@ -8,6 +8,7 @@ html
         link(rel='stylesheet', href='/stylesheets/jslider.round.css')
         link(rel='stylesheet', href='/stylesheets/jquery.bxslider.css')
         link(rel="stylesheet", href='/stylesheets/colorbox.css')
+        link(rel="stylesheet", href='/stylesheets/jquery.nouislider.min.css')
         script(type='text/javascript', src='/javascripts/jquery-1.7.1.js')
         script(type='text/javascript', src='/javascripts/jshashtable-2.1_src.js')
         script(type='text/javascript', src='/javascripts/jquery.numberformatter-1.2.3.js')
@@ -18,6 +19,7 @@ html
         script(type='text/javascript', src='https://google-maps-utility-library-v3.googlecode.com/svn/trunk/markerclusterer/src/markerclusterer.js')
         script(type='text/javascript', src='/javascripts/jquery.bxslider.min.js')
         script(type='text/javascript', src='/javascripts/jquery.colorbox-min.js')
+        script(type='text/javascript', src='/javascripts/jquery.nouislider.min.js')
         script(type='text/javascript',src='/javascripts/main.js')
     body
         div#bigWarpper
@@ -83,31 +85,43 @@ html
                                 br
                                 a Bedrooms
                                 br
-                                input#BedroomsSlider(type="slider", value="2", name="bedroom", style="display:block;")
-                                script(type='text/javascript', charset='utf-8').
-                                            jQuery("#BedroomsSlider").slider({
-                                            from: 1,
-                                            to: 5,
-                                            scale: ['|', '|', '|', '|', '|'],
-                                            limits: false,
-                                            step: 1,
-                                            dimension: '',
-                                            skin: "blue"
-                                            });
+                                //input#BedroomsSlider(type="slider", value="2", name="bedroom", style="display:block;")
+                                div(style="width: 240px;height: 20px;border: 1px solid #d9d9d9;margin:0 auto;background:#fff;border-radius:3px;")
+                                    div.noUiSlider(style="width: 180px;height: 20px; margin: 0 auto")
+                                    script(type='text/javascript', charset='utf-8').
+                                               var inp1= $('.noUiSlider').parent().find('[name="bedroom"]')
+                                                $('.noUiSlider').noUiSlider({
+                                                range: [1,5],
+                                                start: 1,
+                                                handles: 1,
+                                                connect: false,
+                                                step:1,
+                                                serialization: {
+                                                to: ["bedroom",inp1],
+                                                // round to 0 decimals
+                                                    resolution: 1
+                                                }
+                                                });
                             p#bathrooms
                                 br
                                 a Bathrooms
                                 br
-                                input#BathroomsSlider(type="slider", value="2", name="bathroom", style="display:block;")
+                                //input#BathroomsSlider(type="slider", value="2", name="bathroom", style="display:block;")
+                                div(style="width: 240px;height: 20px;border: 1px solid #d9d9d9;margin:0 auto;background:#fff;border-radius:3px;")
+                                    div.noUiSlider(style="width: 180px;height: 20px; margin: 0 auto")
                                 script(type='text/javascript', charset='utf-8').
-                                            jQuery("#BathroomsSlider").slider({
-                                            from: 1,
-                                            to: 5,
-                                            scale: ['|', '|', '|', '|', '|'],
-                                            limits: false,
-                                            step: 1,
-                                            dimension: '',
-                                            skin: "blue"
+                                           var inp2 = $('.noUiSlider').parent().find('[name="bathroom"]')
+                                            $('.noUiSlider').noUiSlider({
+                                            range: [1,5],
+                                            start: 1,
+                                            handles: 1,
+                                            connect: false,
+                                            step:1,
+                                            serialization: {
+                                            to: ["bathroom",inp2],
+                                            // round to 0 decimals
+                                                resolution: 1
+                                            }
                                             });
                             div#hidingDiv
                                 div#more_search
