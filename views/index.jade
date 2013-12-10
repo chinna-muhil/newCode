@@ -192,9 +192,45 @@ html
 
                                             map = new google.maps.Map(document.getElementById('MapDiv'), mapOptions);
 
+
                                             // Loading location as per Geolocation
                                             if (navigator.geolocation) {
                                             navigator.geolocation.getCurrentPosition(function (position) {
+
+                                            function DistanceWidget(map) {
+                                                this.set('map', map);
+                                                this.set('position', map.getCenter());
+
+                                                var marker = new google.maps.Marker({
+                                                    draggable: true,
+                                                    title: 'Move me!',
+                                                    icon:'../public/images/mapCenter.png'
+                                                });
+
+                                            // Create a new radius widget
+                                                        var radiusWidget = new RadiusWidget();
+
+                                            // Bind the radiusWidget map to the DistanceWidget map
+                                                        radiusWidget.bindTo('map', this);
+
+                                            // Bind the radiusWidget center to the DistanceWidget position
+                                                        radiusWidget.bindTo('center', this, 'position');
+
+                                            // Bind the marker map property to the DistanceWidget map property
+                                                        marker.bindTo('map', this);
+
+                                            // Bind the marker position property to the DistanceWidget position
+                                            // property
+                                                        marker.bindTo('position', this);
+
+                                            // Bind to the radiusWidgets' distance property
+                                                        this.bindTo('distance', radiusWidget);
+
+                                            // Bind to the radiusWidgets' bounds property
+                                                        this.bindTo('bounds', radiusWidget);
+                                                    }
+                                            //var distanceWidget = new DistanceWidget(map);
+
                                                 console.log(propertyList[0].address.city)
                                                 console.log
                                                 var pos = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
@@ -903,7 +939,7 @@ html
                                                         p#CompareMls3 0091948
                                                         p#CompareFeatures3 Alarm Balcony
                                 else if routePath === "Add"
-                                    form(method="POST",action="/properties")
+                                    form(method="POST",action="/properties",enctype='multipart/form-data')
                                         p#Addelements Name for Property :
                                             input(type="text", name="productName")
                                         p#Addelements Type for the Product :
@@ -938,6 +974,14 @@ html
                                             input(type="float", name="latitude")
                                         p#Addelements Property's Longitude :
                                             input(type="float", name="longitude")
+                                        p#Addelements Property's Front Image :
+                                            input(type="file", name="pictureFront")
+                                        p#Addelements Property's Back Image :
+                                            input(type="file", name="pictureBack")
+                                        p#Addelements Property's Left Image :
+                                            input(type="file", name="pictureLeft")
+                                        p#Addelements Property's Right Image :
+                                            input(type="file", name="pictureRight")
                                         button#serachFunctionButton(type="submit", name="AddProduct") Add Product
                                 else if routePath === "Edit"
                                     div#dispaly

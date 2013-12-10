@@ -58,6 +58,29 @@ exports.compare = function(req,res){
 
 exports.create = function (req, res) {
     var temp = req.body;
+
+    //Resolving the base path for multiple image file uploaded by user
+    var linkFront = req.files.pictureFront.path;
+    var linkBack = req.files.pictureBack.path;
+    var linkLeft = req.files.pictureLeft.path;
+    var linkRight = req.files.pictureRight.path;
+
+    //Create an array of all the file paths uploaded.
+    var linkArray= new Array([linkFront],[linkBack],[linkLeft],[linkRight]);
+
+    //Function to iterate the the link array and resolve proper paths and push to resolvedPathArray.
+    function resolveBasePath(){
+        var resolvedPathArray =new Object();
+        for(var i= 0;i <linkArray.length;i++){
+            var baseName = path.basename(linkArray[i]);
+            var joinedPath = '/images/' + baseName;
+            if(i==0){resolvedPathArray.linkFront=joinedPath.toString();}
+            if(i==1){resolvedPathArray.linkBack=joinedPath.toString();}
+            if(i==2){resolvedPathArray.linkLeft=joinedPath.toString();}
+            if(i==3){resolvedPathArray.linkRight=joinedPath.toString();}
+        }
+        return resolvedPathArray;
+    }
     new propertyModel({
         productType: temp.productType,
         productName: temp.productName,
@@ -81,7 +104,8 @@ exports.create = function (req, res) {
         LatLng: {
             latitude: temp.latitude,
             longitude: temp.longitude
-        }
+        },
+        picture: resolveBasePath()
     }).save(function (err, product) {
             if (err) res.json(err)
             res.redirect('/properties/' + temp.productName)
