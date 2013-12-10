@@ -24,12 +24,30 @@ $(document).ready(size3);
 $(window).resize(size3);
 
 var size4= function(){
-    $('#mainBody ul li:last-child').width(
+    $('.lastchild').width(
         $(window).width()-281
     )
 };
 
 $(document).ready(size4);
 $(window).resize(size4);
+
+var size5= function(){
+    $('.propertiesListScroll').width(
+        $(window).width()-921
+    )
+};
+
+$(document).ready(size5);
+$(window).resize(size5);
+
+var size6= function(){
+    $('.zoomedDetails').width(
+        $(window).width()-705
+    )
+};
+
+$(document).ready(size6);
+$(window).resize(size6);
 
 

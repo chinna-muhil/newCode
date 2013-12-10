@@ -250,6 +250,10 @@ a, button, input[type="submit"] {
     margin: 0 10px 0 -25px;
 }
 
+.propertiesListScroll{
+    width: 340px;
+}
+
 #scroll{
     height: 590px;
     width: 320px;
@@ -516,6 +520,7 @@ a, button, input[type="submit"] {
     border: 0 none;
     overflow-y: visible;
     margin: 0;
+    box-shadow: none;
     max-height: 640px;
 }
 
@@ -530,7 +535,7 @@ a, button, input[type="submit"] {
     margin: 0 auto;
     font: 18px Tahoma Bold;
     padding-top: 7px;
-    padding-left: 36%;
+    /*padding-left: 36%;*/
 }
 
 #property{
@@ -582,6 +587,7 @@ a, button, input[type="submit"] {
 
 #property_types ul li:last-child{
     width: 48%;
+    box-shadow: none;
 }
 
 
@@ -686,7 +692,7 @@ a, button, input[type="submit"] {
     background-color: #ffffff;
     border: 1px solid #dadada;
     float: right;
-    margin:-22px 0 0 0 ;
+    margin:-22px 40px 0 0 ;
 }
 
 #description_prop{

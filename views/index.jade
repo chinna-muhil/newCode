@@ -89,19 +89,19 @@ html
                                 div(style="width: 240px;height: 20px;border: 1px solid #d9d9d9;margin:0 auto;background:#fff;border-radius:3px;")
                                     div.noUiSlider(style="width: 180px;height: 20px; margin: 0 auto")
                                     script(type='text/javascript', charset='utf-8').
-                                               var inp1= $('.noUiSlider').parent().find('[name="bedroom"]')
-                                                $('.noUiSlider').noUiSlider({
-                                                range: [1,5],
-                                                start: 1,
-                                                handles: 1,
-                                                connect: false,
-                                                step:1,
-                                                serialization: {
-                                                to: ["bedroom",inp1],
-                                                // round to 0 decimals
-                                                    resolution: 1
-                                                }
-                                                });
+                                        var inp1= $('.noUiSlider').parent().find('[name="bedroom"]')
+                                        $('.noUiSlider').noUiSlider({
+                                        range: [1,5],
+                                        start: 1,
+                                        handles: 1,
+                                        connect: false,
+                                        step:1,
+                                        serialization: {
+                                        to: ["bedroom",inp1],
+                                        // round to 0 decimals
+                                            resolution: 1
+                                        }
+                                        });
                             p#bathrooms
                                 br
                                 a Bathrooms
@@ -109,20 +109,20 @@ html
                                 //input#BathroomsSlider(type="slider", value="2", name="bathroom", style="display:block;")
                                 div(style="width: 240px;height: 20px;border: 1px solid #d9d9d9;margin:0 auto;background:#fff;border-radius:3px;")
                                     div.noUiSlider(style="width: 180px;height: 20px; margin: 0 auto")
-                                script(type='text/javascript', charset='utf-8').
-                                           var inp2 = $('.noUiSlider').parent().find('[name="bathroom"]')
-                                            $('.noUiSlider').noUiSlider({
-                                            range: [1,5],
-                                            start: 1,
-                                            handles: 1,
-                                            connect: false,
-                                            step:1,
-                                            serialization: {
-                                            to: ["bathroom",inp2],
-                                            // round to 0 decimals
-                                                resolution: 1
-                                            }
-                                            });
+                                    script(type='text/javascript', charset='utf-8').
+                                               var inp2 = $('.noUiSlider').parent().find('[name="bathroom"]')
+                                                $('.noUiSlider').noUiSlider({
+                                                range: [1,5],
+                                                start: 1,
+                                                handles: 1,
+                                                connect: false,
+                                                step:1,
+                                                serialization: {
+                                                to: ["bathroom",inp2],
+                                                // round to 0 decimals
+                                                    resolution: 1
+                                                }
+                                                });
                             div#hidingDiv
                                 div#more_search
                                     div#more
@@ -165,7 +165,7 @@ html
                                     div#hide_search
                                         input(type='submit', value='Search',id='searchButton',onsubmit="validateForm()" )
 
-                        li
+                        li.lastchild
                             aside#mainAside.propertiesListContainer
                                 if routePath === "home"
                                     div#MapDiv.propertiesListContainer
@@ -577,7 +577,7 @@ html
                                 else if routePath === "prod"
                                     div#MapDiv
                                         ul
-                                            li.propertiesListContainer
+                                            li.propertiesListScroll
                                                 a#result
                                                     script.
                                                         var propertyList = JSON.parse( '!{JSON.stringify(products)}' );
@@ -622,7 +622,7 @@ html
                                                                 for(var i=0; i < propertyList.length ; i++){
                                                                 console.log(propertyList[i].bathrooms);
                                                                 document.getElementById("list1").innerHTML += "<br/><div class=propertiesList style=background:url("+propertyList[i].picture.linkFront+")no-repeat;background-size:300px 175px>"
-                                                                                                                +"<div id=propertyName>"+propertyList[i].productName+"<a style=float:right;margin-top:-2px;margin-right:20px><input type=checkbox name=propertyvalue="+i+"></a></div>"
+                                                                                                                +"<div id=propertyName>"+propertyList[i].productName+"<a style=float:right;margin-top:-2px;margin-right:20px><input type=checkbox name=property value="+i+"></a></div>"
                                                                                                                 +"<div id=propertyPrice class="+i+">$"+propertyList[i].price+"<br /><a> Bed:"+propertyList[i].bedrooms+" Bath:"+propertyList[i].bathrooms+" Sqft:"+propertyList[i].area+"</a><a style=float:right;margin-top:-2px;margin-right:20px><img src=/images/green_arrow.png></div>"
                                                                                                                 //+"<div id=arrowKey></div>"
                                                                                                                 +"</div></a>" }}
@@ -747,7 +747,7 @@ html
                                                         $('#list img').attr('src','/images/listicon_grey.png')
                                                         $('#list a').css('color','#000000')
                                                         $('#list').css('height','27')
-                                            li
+                                            li.zoomedDetails
                                                 div#propertyZoomedDetails
                                                     br
                                                     script.
