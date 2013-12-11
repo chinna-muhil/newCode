@@ -120,8 +120,10 @@ a, button, input[type="submit"] {
 
 #searchForm{
     width:280px;
+    /*top: 43px;
+    left: 0;
     margin: 0 auto;
-    position: fixed;
+    position: fixed; */
 }
 
 #mainBody ul li:last-child{
@@ -254,7 +256,7 @@ a, button, input[type="submit"] {
     width:320px;
     /*overflow-y: scroll;*/
     box-shadow: none;
-    margin: 0 10px 0 -25px;
+    margin: 0 auto;
 }
 
 .propertiesListScroll{
@@ -1189,6 +1191,7 @@ input[type="range"]{
 
 #comparison div{
     display: inline-block;
+    vertical-align: top;
 }
 
 #comparison ul{
@@ -1213,9 +1216,10 @@ input[type="range"]{
     border: 1px solid #dadada;
     background-color: #f1f1f1;
     border-radius: 5px;
-    overflow-y: auto;
+    /*overflow-y: auto;*/
+    vertical-align: bottom;
     box-shadow: none;
-    margin: 0 8px;
+    margin-right: 5px;
 }
 
 #comparison ul li:first-child{
@@ -1314,6 +1318,22 @@ input[type="range"]{
     width: 100%;
     height: 60px;
     background-color: #000000;
+    text-align: justify;
+}
+
+#black a{
+    color: #ffffff;
+}
+
+.comproductName{
+    font: 16px bold;
+    padding-left: 10px;
+}
+
+.comAddress{
+    color: #ffffff;
+    font-size: 11px;
+    padding-left: 10px;
 }
 
 #comparePrice{
