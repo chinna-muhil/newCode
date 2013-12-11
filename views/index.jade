@@ -253,7 +253,7 @@ html
                                                             var i = $(this).attr('class');
                                                             console.log(i);
                                                             $('#mapidHide').show();
-                                                            $('#mapidHide').animate({right: "40px"}, 1500);
+                                                            $('#mapidHide').animate({right: "0px"}, 1500);
                                                             $("#price p").html("Price: $"+propertyList[i].price);
                                                             $("#beds").html("Beds: "+propertyList[i].bedrooms);
                                                             $("#baths").html("Baths: "+propertyList[i].bathrooms);
@@ -275,13 +275,13 @@ html
                                                             buildPager: function(slideIndex){
                                                                 switch(slideIndex){
                                                                     case 0:
-                                                                        return '<img src='+propertyList[i].picture.linkFront+' width=50 height=50>';
+                                                                        return '<img src='+propertyList[i].picture.linkFront+' width=100 height=50>';
                                                                     case 1:
-                                                                        return '<img src='+propertyList[i].picture.linkBack+' width=50 height=50>';
+                                                                        return '<img src='+propertyList[i].picture.linkBack+' width=100 height=50>';
                                                                     case 2:
-                                                                        return '<img src='+propertyList[i].picture.linkLeft+' width=50 height=50>';
+                                                                        return '<img src='+propertyList[i].picture.linkLeft+' width=100 height=50>';
                                                                     case 3:
-                                                                        return '<img src='+propertyList[i].picture.linkRight+' width=50 height=50>';
+                                                                        return '<img src='+propertyList[i].picture.linkRight+' width=100 height=50>';
                                                                 }
                                                                 }
                                                                 });
@@ -299,13 +299,13 @@ html
                                                                 buildPager: function(slideIndex){
                                                                     switch(slideIndex){
                                                                         case 0:
-                                                                            return '<img src='+propertyList[0].picture.linkFront+' width=50 height=50>';
+                                                                            return '<img src='+propertyList[0].picture.linkFront+' width=100 height=50>';
                                                                         case 1:
-                                                                            return '<img src='+propertyList[0].picture.linkBack+' width=50 height=50>';
+                                                                            return '<img src='+propertyList[0].picture.linkBack+' width=100 height=50>';
                                                                         case 2:
-                                                                            return '<img src='+propertyList[0].picture.linkLeft+' width=50 height=50>';
+                                                                            return '<img src='+propertyList[0].picture.linkLeft+' width=100 height=50>';
                                                                         case 3:
-                                                                            return '<img src='+propertyList[0].picture.linkRight+' width=50 height=50>';
+                                                                            return '<img src='+propertyList[0].picture.linkRight+' width=100 height=50>';
                                                                     }
                                                                     }
                                                                 });
@@ -757,7 +757,7 @@ html
                                                                         +"<img src="+propertyList[0].picture.linkLeft+" width=580 height=270/>"
                                                                         +"<img src="+propertyList[0].picture.linkRight+" width=580 height=270/>"
                                                                         +"</div></div>");
-                                                    div#description
+                                                    div#description(style="width:102.5%")
                                                         div#tabs
                                                             ul
                                                                 li
@@ -771,7 +771,7 @@ html
                                                                 li
                                                                     img(src="/images/print.png")
                                                         div#price
-                                                            p Price:
+                                                            p(style="padding-left:0") Price:
                                                                 script.
                                                                     document.write(" $"+propertyList[0].price)
                                                         div#property
@@ -1175,10 +1175,10 @@ html
                 br
                 script.
                     document.write("<div class=\"slidermap\"> <div class=\"bxslidermap\">"
-                                    +"<img src="+propertyList[0].picture.linkFront+" width=657 height=270/>"
-                                    +"<img src="+propertyList[0].picture.linkBack+" width=657 height=270/>"
-                                    +"<img src="+propertyList[0].picture.linkLeft+" width=657 height=270/>"
-                                    +"<img src="+propertyList[0].picture.linkRight+" width=657 height=270/>"
+                                    +"<img src="+propertyList[0].picture.linkFront+" width=700 height=270/>"
+                                    +"<img src="+propertyList[0].picture.linkBack+" width=700 height=270/>"
+                                    +"<img src="+propertyList[0].picture.linkLeft+" width=700 height=270/>"
+                                    +"<img src="+propertyList[0].picture.linkRight+" width=700 height=270/>"
                                     +"</div></div>");
                 div#description
                     div#tabs
@@ -1277,13 +1277,13 @@ html
                                         buildPager: function(slideIndex){
                                         switch(slideIndex){
                                             case 0:
-                                                return '<img src='+propertyList[i].picture.linkFront+' width=50 height=50>';
+                                                return '<img src='+propertyList[i].picture.linkFront+' width=100 height=50>';
                                             case 1:
-                                                return '<img src='+propertyList[i].picture.linkBack+' width=50 height=50>';
+                                                return '<img src='+propertyList[i].picture.linkBack+' width=100 height=50>';
                                             case 2:
-                                                return '<img src='+propertyList[i].picture.linkLeft+' width=50 height=50>';
+                                                return '<img src='+propertyList[i].picture.linkLeft+' width=100 height=50>';
                                             case 3:
-                                                return '<img src='+propertyList[i].picture.linkRight+' width=50 height=50>';
+                                                return '<img src='+propertyList[i].picture.linkRight+' width=100 height=50>';
                                         }
                                         }
                                     });
@@ -1301,13 +1301,13 @@ html
                                         buildPager: function(slideIndex){
                                         switch(slideIndex){
                                             case 0:
-                                                return '<img src='+propertyList[0].picture.linkFront+' width=50 height=50>';
+                                                return '<img src='+propertyList[0].picture.linkFront+' width=100 height=50>';
                                             case 1:
-                                                return '<img src='+propertyList[0].picture.linkBack+' width=50 height=50>';
+                                                return '<img src='+propertyList[0].picture.linkBack+' width=100 height=50>';
                                             case 2:
-                                                return '<img src='+propertyList[0].picture.linkLeft+' width=50 height=50>';
+                                                return '<img src='+propertyList[0].picture.linkLeft+' width=100 height=50>';
                                             case 3:
-                                                return '<img src='+propertyList[0].picture.linkRight+' width=50 height=50>';
+                                                return '<img src='+propertyList[0].picture.linkRight+' width=100 height=50>';
                                         }
                                         }
                                     });

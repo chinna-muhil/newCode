@@ -41,6 +41,9 @@ a, button, input[type="submit"] {
     background: #0093da;
     text-align: center;
     color: #ffffff;
+    position: fixed;
+    width: 100%;
+    z-index: 99999;
     border-bottom:3px solid #3c484f ;
 }
 
@@ -119,6 +122,7 @@ a, button, input[type="submit"] {
 }
 
 #mainBody ul li:last-child{
+    width:77%;
     box-shadow: -3px 0 3px #888;
 }
 
@@ -264,7 +268,7 @@ a, button, input[type="submit"] {
     width: 100%;
     overflow: auto;
     height: 100%;
-    padding-right: 17px;
+    padding-right: 20px;
 }
 #MapDiv ul li:last-child{
     border: 0 none;
@@ -447,7 +451,7 @@ a, button, input[type="submit"] {
 
 /*----------------------------------------------------------------------------------------------------------------------*/
 #description{
-    width: 102.5%;
+    /*width: 102.5%;*/
     margin-top: -60px;
     background: #ffffff;
 }
@@ -535,7 +539,7 @@ a, button, input[type="submit"] {
     margin: 0 auto;
     font: 18px Tahoma Bold;
     padding-top: 7px;
-    /*padding-left: 36%;*/
+    padding-left: 36%;
 }
 
 #property{
@@ -1115,6 +1119,7 @@ input[type="range"]{
 .slidermap{
     width: 91%;
     margin: 0 auto;
+    padding-top:20px;
 }
 
 
@@ -1548,11 +1553,12 @@ input[type="range"]{
 
 
 #mapidHide{
-    width: 591px;
+    width: 632px;
     position: absolute;
     top: 43px;
     right: -591px;
     background-color: #ffffff;
+    z-index: 1000;
 }
 
 #moreMap{
@@ -1563,7 +1569,7 @@ input[type="range"]{
     border-radius: 5px;
     cursor: pointer;
     float: right;
-    margin: 15px;
+    margin: 15px 56px 15px 0;
 }
 
 #moreMap p{

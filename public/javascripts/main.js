@@ -6,7 +6,7 @@ var size1= function(){
 
 $(document).ready(size1);
 $(window).resize(size1);
-
+/*
 var size2= function(){
     $('#mainSection').height(
         $(window).height()-90
@@ -34,7 +34,7 @@ $(window).resize(size4);
 
 var size5= function(){
     $('.propertiesListScroll').width(
-        $(window).width()-921
+        $(window).width()-953
     )
 };
 
@@ -43,7 +43,7 @@ $(window).resize(size5);
 
 var size6= function(){
     $('.zoomedDetails').width(
-        $(window).width()-705
+        $(window).width()-595
     )
 };
 
@@ -51,3 +51,4 @@ $(document).ready(size6);
 $(window).resize(size6);
 
 
+  */
