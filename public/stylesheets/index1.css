@@ -96,6 +96,8 @@ a, button, input[type="submit"] {
     background: #f1f1f1;
     text-align: center;
     margin: 0 auto;
+    position: relative;
+    top: 7%;
 }
 
 #mainBody ul{
@@ -119,11 +121,12 @@ a, button, input[type="submit"] {
 #searchForm{
     width:280px;
     margin: 0 auto;
+    position: fixed;
 }
 
 #mainBody ul li:last-child{
     width:77%;
-    box-shadow: -3px 0 3px #888;
+    box-shadow: -5px 0 5px -5px #888;
 }
 
 #mainNav ul li a{
@@ -274,6 +277,7 @@ a, button, input[type="submit"] {
     border: 0 none;
     width: 62%;
     padding: 0 0 0 0;
+    box-shadow:none;
 }
 
 .propertiesList{
@@ -1183,8 +1187,12 @@ input[type="range"]{
     margin: 0 auto;
 }
 
+#comparison div{
+    display: inline-block;
+}
+
 #comparison ul{
-    width: 100%;
+    width: 90%;
     height: 480px;
     margin-top: 10px;
     display: inline-flex;
@@ -1199,7 +1207,7 @@ input[type="range"]{
     margin-right: 5px;
 }
 
-#comparison ul li:first-child{
+#name{
     width: 7%;
     height: 100%;
     border: 1px solid #dadada;
@@ -1208,6 +1216,15 @@ input[type="range"]{
     overflow-y: auto;
     box-shadow: none;
     margin: 0 8px;
+}
+
+#comparison ul li:first-child{
+    width: 28%;
+    height: 100%;
+    border: 1px solid #dadada;
+    border-radius: 5px;
+    display: inline-block;
+    margin-right: 5px;
 }
 
 #comparison ul li:last-child{

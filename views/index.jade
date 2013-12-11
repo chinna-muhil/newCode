@@ -97,7 +97,7 @@ html
                                         connect: false,
                                         step:1,
                                         serialization: {
-                                        to: ["bedroom",inp1]
+                                        to: ["bedroom",inp1],
                                         // round to 0 decimals
                                             resolution: 1
                                         }
@@ -108,10 +108,10 @@ html
                                 br
                                 //input#BathroomsSlider(type="slider", value="2", name="bathroom", style="display:block;")
                                 div(style="width: 240px;height: 20px;border: 1px solid #d9d9d9;margin:0 auto;background:#fff;border-radius:3px;")
-                                    div.noUiSlider(style="width: 180px;height: 20px; margin: 0 auto")
+                                    div.noUiSlider2(style="width: 180px;height: 20px; margin: 0 auto")
                                     script(type='text/javascript', charset='utf-8').
                                                var inp2 = $('.noUiSlider').parent().find('[name="bathroom"]')
-                                                $('.noUiSlider').noUiSlider({
+                                                $('.noUiSlider2').noUiSlider({
                                                 range: [1,5],
                                                 start: 1,
                                                 handles: 1,
@@ -338,7 +338,6 @@ html
                                                         document.write(propertyList.length+" results");
                                                 div#sort Sort:
                                                     select#mySelect(onchange="priceRange()")
-                                                        option
                                                         option(value="Priceh") Price High-Low
                                                         option(value="Pricel") Price Low-High
                                                         option(value="Timen") Time - Newest-Oldest
@@ -421,12 +420,16 @@ html
                                                                     $(function compare() {
                                                                         $('#compare').click(function () {
                                                                             var checkValues = $('input[name=property]:checked').map(function() {
+                                                                                $(this).parent().find('#compare').css('background-color','#ffffff');
+                                                                                $(this).css('background-color','green');
                                                                                 console.log($(this).val());
                                                                                 return propertyList[$(this).val()];
+
                                                                             }).get();
+
                                                                             console.log(checkValues[0]);
-                                                                            console.log(checkValues[1]);
-                                                                            console.log(checkValues[2]);
+                                                                            //console.log(checkValues[1]);
+                                                                            //console.log(checkValues[2]);
                                                                             if(checkValues[3] != null){
                                                                                 console.log(checkValues[1]);
                                                                                 $("#MapDiv").hide();
@@ -558,10 +561,21 @@ html
                                             div#close
                                                 a(href="/properties") Close
                                         div#comparison
+                                            div#name
+                                                div#compare_details
+                                                    p#property_name Property Name
+                                                    p#compare_price Price
+                                                    p#compare_beds Beds
+                                                    p#compare_baths Baths
+                                                    p#compare_sqft Sqft
+                                                    p#compare_type Type
+                                                    p#compare_built Built
+                                                    p#compare_mls MLS ID
+                                                    p#compare_features Features
                                             script.
                                                 var checkValues = JSON.parse( '!{JSON.stringify(products)}' );
-                                            ul
-                                                li
+                                            ul.comMainSlider
+                                                //li
                                                     div#compare_details
                                                         p#property_name Property Name
                                                         p#compare_price Price
@@ -583,7 +597,7 @@ html
                                                             slideMargin: 2,
                                                             pager: false,
                                                             pause:3000,
-                                                            speed: 2000,
+                                                            speed: 2000
                                                             });
                                                         });
                                                     div#details
