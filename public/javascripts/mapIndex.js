@@ -139,7 +139,7 @@ function initialize() {
                     });
                 });
                 $("#moreMap").live('click',function(){
-                    $("#mapidHide").animate({right:"-40px"},1500,$("#mapidHide").hide());
+                    $("#mapidHide").hide().animate({right:"-632px"},1);
                     //$("#mapidHide").hide();
                 });
 
