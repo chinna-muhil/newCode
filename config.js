@@ -8,9 +8,9 @@
 module.exports = {
     development: {
         fb:{
-            appId: '565894130130334',
-            appSecret: '09efbe9a8a1fb61432451259ddc5bf76',
-            url: 'http://localhost:3000'
+            appId: '548996441845195',
+            appSecret: '3efa0ea33ba00a484830c28626b1259e',
+            url: 'https://206.72.207.4:3030'
         },
         twitter:{
             TWITTER_CONSUMER_KEY: "aX5yhKcQU5YHQLKS08vRgg",
