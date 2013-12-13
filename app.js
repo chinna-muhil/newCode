@@ -90,7 +90,7 @@ passport.use(new FacebookStrategy({
 passport.use(new TwitterStrategy({
         consumerKey: TWITTER_CONSUMER_KEY,
         consumerSecret: TWITTER_CONSUMER_SECRET,
-        callbackURL: "http://206.72.207.4:3000/auth/twitter/callback"
+        callbackURL: "https://206.72.207.4:3030/auth/twitter/callback"
     },
     function(token, tokenSecret, profile, done) {
         process.nextTick(function () {
@@ -124,7 +124,7 @@ passport.use(new TwitterStrategy({
 passport.use(new LinkedInStrategy({
         consumerKey: LINKEDIN_API_KEY,
         consumerSecret: LINKEDIN_SECRET_KEY,
-        callbackURL: "http://206.72.207.4:3000/auth/linkedin/callback"
+        callbackURL: "https://206.72.207.4:3030/auth/linkedin/callback"
     },
     function(token, tokenSecret, profile, done) {
         process.nextTick(function () {
