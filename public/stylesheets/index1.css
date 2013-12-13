@@ -120,10 +120,10 @@ a, button, input[type="submit"] {
 
 #searchForm{
     width:280px;
-    /*top: 43px;
+    top: 43px;
     left: 0;
     margin: 0 auto;
-    position: fixed; */
+    position: fixed;
 }
 
 #mainBody ul li:last-child{
@@ -770,8 +770,8 @@ input[type="range"]{
 }
 
 #MapDiv2 {
-    width: 906px;
-    height: 550px;
+    /*width: 906px;*/
+    height: 100%;
     overflow-y: scroll;
     margin: 0 0 0 5px;
 }
@@ -1195,14 +1195,17 @@ input[type="range"]{
 }
 
 #comparison ul{
-    width: 90%;
+    max-width: 806px;
     height: 480px;
     margin-top: 10px;
     display: inline-flex;
+    /*overflow-x: scroll;
+    overflow-y: hidden;
+    white-space: nowrap;*/
 }
 
 #comparison ul li{
-    width: 28%;
+    width: 247px;
     height: 100%;
     border: 1px solid #dadada;
     border-radius: 5px;
@@ -1223,7 +1226,7 @@ input[type="range"]{
 }
 
 #comparison ul li:first-child{
-    width: 28%;
+    width: 247px;
     height: 100%;
     border: 1px solid #dadada;
     border-radius: 5px;
@@ -1232,10 +1235,11 @@ input[type="range"]{
 }
 
 #comparison ul li:last-child{
-    width: 28%;
+    width: 247px;
     height: 100%;
     border: 1px solid #dadada;
     display: inline-block;
+    box-shadow: none;
 }
 
 #compare_details{
