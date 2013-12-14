@@ -63,18 +63,26 @@ passport.use(new FacebookStrategy({
                 }else{
                     var newUser = new User();
                     newUser.fbId = profile.id;
-                    newUser.name = profile.displayName;
-                    newUser.username = profile._json.username;
-                    newUser.first_name = profile._json.first_name;
-                    newUser.last_name = profile._json.last_name;
-                    newUser.email = profile.emails[0].value;
-                    newUser.bio = profile._json.bio;
-                    newUser.gender = profile.gender;
-                    newUser.birthday = profile._json.birthday;
-                    newUser.hometown = profile._json.hometown.name;
-                    newUser.location = profile._json.location.name;
+                    if(profile.name !== 'undefined'){
+                    newUser.name = profile.displayName;}
+                    else if(profile.username !== 'undefined'){
+                    newUser.username = profile._json.username;}
+                    else if(profile.first_name !== 'undefined'){
+                    newUser.first_name = profile._json.first_name;}
+                    else if(profile.last_name !== 'undefined'){
+                    newUser.last_name = profile._json.last_name;}
+                    else if(profile.email !== 'undefined'){
+                    newUser.email = profile.emails[0].value;}
+                    else if(profile.gender !== 'undefined'){
+                    newUser.gender = profile.gender;}
+                    else if(profile.birthday !== 'undefined'){
+                    newUser.birthday = profile._json.birthday;}
+                    else if(typeof profile.hometown !== 'undefined'){
+                    newUser.hometown = profile._json.hometown.name;}
+                    else if(typeof profile.location !== 'undefined'){
+                    newUser.location = profile._json.location.name; }
+                    else(profile.friends !== 'undefined')
                     newUser.friends = profile._json.friends;
-                    newUser.favorite_teams = profile._json.favorite_teams;
                     newUser.save(function(err){
                         if(err) throw err;
                         console.log('New user: ' + newUser.name + ' created and logged in!');
@@ -104,8 +112,11 @@ passport.use(new TwitterStrategy({
                 } else {
                     var newUser = new User();
                     newUser.twitterId = profile.id;
-                    newUser.name = profile.displayName;
-                    newUser.username = profile.username;
+                    if(profile.name !== 'undefined'){
+                    newUser.name = profile.displayName;}
+                    else if(profile.username !== 'undefined'){
+                    newUser.username = profile.username;}
+                    else(profile.location !== 'undefined')
                     newUser.location = profile._json.location;
                     newUser.save(function(err) {
                         if(err) {throw err;}
@@ -137,7 +148,8 @@ passport.use(new LinkedInStrategy({
                     console.log ("profile", profile);
                 } else {
                     var newUser = new User();
-                    newUser.name = profile.displayName;
+                    if(profile.name !== 'undefined'){
+                    newUser.name = profile.displayName;}
                     newUser.linkedinId = profile.id;
                     newUser.save(function(err) {
                         if(err) {throw err;}
@@ -234,7 +246,7 @@ app.get('/fbauth', passport.authenticate('facebook', {/*display:'popup',*/ scope
 app.get('/loggedin', ensureLoggedIn('/'), routes.index);
 app.get('/fbauthed', passport.authenticate('facebook',{
     failureRedirect: '/',
-    successRedirect: '/loggedin'
+    successRedirect: '/'
 }));
 
 
