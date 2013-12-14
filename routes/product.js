@@ -211,8 +211,8 @@ exports.search = function (req, res) {
     //Query Database to find properties
     propertyModel.where('price').gte(req.body.min_price)
         .where('price').lte(req.body.max_price)
-        .where('bedrooms',req.body.bedroom)
-        .where('bathrooms',req.body.bathroom)
+        .where('bedrooms',req.body.bedrooms)
+        .where('bathrooms',req.body.bathrooms)
         .where('type').in([new RegExp(req.body.location,'i')])
         .where('type').in([new RegExp(req.body.prop_type,'i')])
 
@@ -224,8 +224,8 @@ exports.search = function (req, res) {
             console.log("results in main search"+results);
             console.log('ZipCode:'+req.body.zipcode+"And is of type:===>"+(typeof req.body.zipcode));
             console.log('location:'+req.body.location);
-            console.log('bedrooms:'+req.body.bedroom);
-            console.log('bathrooms:'+req.body.bathroom);
+            console.log('bedrooms:'+req.body.bedrooms);
+            console.log('bathrooms:'+req.body.bathrooms);
             console.log('country:'+req.body.country);
             console.log('areaOfSearch:'+req.body.areaOfSearch);
             console.log('min_price:'+req.body.min_price);
