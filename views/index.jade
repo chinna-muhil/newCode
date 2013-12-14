@@ -16,7 +16,6 @@ html
         script(type='text/javascript', src='/javascripts/jquery.dependClass-0.1.js')
         script(type='text/javascript', src='/javascripts/draggable-0.1.js')
         script(type='text/javascript', src='/javascripts/jquery.slider.js')
-        script(type='text/javascript', src='https://google-maps-utility-library-v3.googlecode.com/svn/trunk/markerclusterer/src/markerclusterer.js')
         script(type='text/javascript', src='/javascripts/jquery.bxslider.min.js')
         script(type='text/javascript', src='/javascripts/jquery.colorbox-min.js')
         script(type='text/javascript', src='/javascripts/jquery.nouislider.min.js')
@@ -89,7 +88,7 @@ html
                                 div(style="width: 240px;height: 20px;border: 1px solid #d9d9d9;margin:0 auto;background:#fff;border-radius:3px;")
                                     div.noUiSlider(style="width: 180px;height: 20px; margin: 0 auto")
                                     script(type='text/javascript', charset='utf-8').
-                                        var inp1= $('.noUiSlider').parent().find('[name="bedroom"]')
+                                        var inp1= $('.noUiSlider').parent().find('[name="bedrooms"]')
                                         $('.noUiSlider').noUiSlider({
                                         range: [1,5],
                                         start: 1,
@@ -97,7 +96,7 @@ html
                                         connect: false,
                                         step:1,
                                         serialization: {
-                                        to: ["bedroom",inp1],
+                                        to: ["bedrooms",inp1],
                                         // round to 0 decimals
                                             resolution: 1
                                         }
@@ -110,7 +109,7 @@ html
                                 div(style="width: 240px;height: 20px;border: 1px solid #d9d9d9;margin:0 auto;background:#fff;border-radius:3px;")
                                     div.noUiSlider2(style="width: 180px;height: 20px; margin: 0 auto")
                                     script(type='text/javascript', charset='utf-8').
-                                               var inp2 = $('.noUiSlider').parent().find('[name="bathroom"]')
+                                               var inp2 = $('.noUiSlider').parent().find('[name="bathrooms"]')
                                                 $('.noUiSlider2').noUiSlider({
                                                 range: [1,5],
                                                 start: 1,
@@ -118,7 +117,7 @@ html
                                                 connect: false,
                                                 step:1,
                                                 serialization: {
-                                                to: ["bathroom",inp2],
+                                                to: ["bathrooms",inp2],
                                                 // round to 0 decimals
                                                     resolution: 1
                                                 }
@@ -535,7 +534,7 @@ html
                                                     div#description(style="width:102.5%")
                                                         div#tabs
                                                             ul
-                                                                li
+                                                                li#LocationClick
                                                                     img(src="/images/maps_button.png")
                                                                 li
                                                                     img(src="/images/messgae.png")
@@ -1074,7 +1073,7 @@ html
                             p#forgot Forgot password?
                                 a  Reset it
                             div#button
-                                input#submit(type="submit", value="Login")
+                                input#submit(type="submit", value="Login", id="login", onsubmit="validateForm()")
                         div#border
                             a OR
                         div#social_network
@@ -1095,6 +1094,7 @@ html
                                 //alert("Yayy");
                                 var i = $(this).attr('class');
                                 console.log(i);
+                                $("#LocationClick").addClass(i);
                                 $("#price p").html("Price: $"+propertyList[i].price);
                                 $("#beds").html("Beds: "+propertyList[i].bedrooms);
                                 $("#baths").html("Baths: "+propertyList[i].bathrooms);
@@ -1151,7 +1151,12 @@ html
                                         }
                                     });
                                 });
-
+                            script.
+                                $("#LocationClick").live('click',function() {
+                                    alert("Yayy");
+                                    var j = $(this).attr('class');
+                                    console.log(j);
+                                });
                             script.
                                 $(document).ready(function(){
                                     //Examples of how to assign the Colorbox event to elements

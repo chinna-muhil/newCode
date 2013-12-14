@@ -25,40 +25,6 @@ function initialize() {
     if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(function (position) {
 
-            function DistanceWidget(map) {
-                this.set('map', map);
-                this.set('position', map.getCenter());
-
-                var marker = new google.maps.Marker({
-                    draggable: true,
-                    title: 'Move me!',
-                    icon:'../public/images/mapCenter.png'
-                });
-
-                // Create a new radius widget
-                var radiusWidget = new RadiusWidget();
-
-                // Bind the radiusWidget map to the DistanceWidget map
-                radiusWidget.bindTo('map', this);
-
-                // Bind the radiusWidget center to the DistanceWidget position
-                radiusWidget.bindTo('center', this, 'position');
-
-                // Bind the marker map property to the DistanceWidget map property
-                marker.bindTo('map', this);
-
-                // Bind the marker position property to the DistanceWidget position
-                // property
-                marker.bindTo('position', this);
-
-                // Bind to the radiusWidgets' distance property
-                this.bindTo('distance', radiusWidget);
-
-                // Bind to the radiusWidgets' bounds property
-                this.bindTo('bounds', radiusWidget);
-            }
-            //var distanceWidget = new DistanceWidget(map);
-
             console.log(propertyList[0].address.city)
             console.log
             var pos = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
@@ -67,104 +33,110 @@ function initialize() {
             // Loading properties in Map using marker array from DB
             var markers = [];
             var infoWindows = [];
-            for (var i = 0; i < propertyList.length; i++) {
-                var latLng = new google.maps.LatLng(propertyList[i].LatLng.latitude, propertyList[i].LatLng.longitude);
-                var marker = new google.maps.Marker({'position': latLng, infoWindowIndex : i,
-                    icon:'/images/marker.png'
-                });
-                var content ='<div class=propertiesListMap style=background:url('+propertyList[i].picture.linkFront+')no-repeat;background-size:300px 175px>'
-                    +'<div id=propertyNameMap>'+propertyList[i].productName+'</div>'
-                    +"<div id=propertyPriceMap class="+i+">$"+propertyList[i].price+"<a style=float:right;margin-top:-2px;margin-right:20px><img src=/images/green_arrow.png></div>"
-                    +'<div id=arrowKeyMap></div>'
-                    +'</div></a><br/>';
-                $("#propertyPriceMap").live('click',function() {
-                    var i = $(this).attr('class');
-                    console.log(i);
-                    $('#mapidHide').show();
-                    $('#mapidHide').animate({right: "0px"}, 1500);
-                    $("#price p").html("Price: $"+propertyList[i].price);
-                    $("#beds").html("Beds: "+propertyList[i].bedrooms);
-                    $("#baths").html("Baths: "+propertyList[i].bathrooms);
-                    $("#area").html("Sqft: "+propertyList[i].area);
-                    $("#type").html("Type: "+propertyList[i].productType);
-                    $('.slidermap').empty();
-                    $('.slidermap').append(
-                        "<div class=\"bxslidermap\"> <img src="+propertyList[i].picture.linkFront+" width=100% height=270/>"
-                            +"<img src="+propertyList[i].picture.linkBack+" width=100% height=270/>"
-                            +"<img src="+propertyList[i].picture.linkLeft+" width=100% height=270/>"
-                            +"<img src="+propertyList[i].picture.linkRight+" width=100% height=270/> </div>"
+            //if(i=j){
+                //alert("Working");
+            //}else{
+                for (var i = 0; i < propertyList.length; i++) {
+                    var latLng = new google.maps.LatLng(propertyList[i].LatLng.latitude, propertyList[i].LatLng.longitude);
+                    var marker = new google.maps.Marker({
+                        position: latLng,
+                        infoWindowIndex : i,
+                        icon:'/images/marker.png',
+                        map: map
+                    });
+                    var content ='<div class=propertiesListMap style=background:url('+propertyList[i].picture.linkFront+')no-repeat;background-size:300px 175px>'
+                        +'<div id=propertyNameMap>'+propertyList[i].productName+'</div>'
+                        +'<div id=propertyPriceMap class='+i+'>$'+propertyList[i].price+'<br /><a> Bed:'+propertyList[i].bedrooms+' Bath:'+propertyList[i].bathrooms+' Sqft:'+propertyList[i].area+'</a><a style=float:right;margin-top:-9px;margin-right:20px><img src=/images/green_arrow.png></div>'
+                        +'<div id=arrowKeyMap></div>'
+                        +'</div></a><br/>';
+                    $("#propertyPriceMap").live('click',function() {
+                        var i = $(this).attr('class');
+                        console.log(i);
+                        $('#mapidHide').show();
+                        $('#mapidHide').animate({right: "0px"}, 1500);
+                        $("#price p").html("Price: $"+propertyList[i].price);
+                        $("#beds").html("Beds: "+propertyList[i].bedrooms);
+                        $("#baths").html("Baths: "+propertyList[i].bathrooms);
+                        $("#area").html("Sqft: "+propertyList[i].area);
+                        $("#type").html("Type: "+propertyList[i].productType);
+                        $('.slidermap').empty();
+                        $('.slidermap').append(
+                            "<div class=\"bxslidermap\"> <img src="+propertyList[i].picture.linkFront+" width=100% height=270/>"
+                                +"<img src="+propertyList[i].picture.linkBack+" width=100% height=270/>"
+                                +"<img src="+propertyList[i].picture.linkLeft+" width=100% height=270/>"
+                                +"<img src="+propertyList[i].picture.linkRight+" width=100% height=270/> </div>"
+                        );
+                        $('.bxslidermap').bxSlider({
+                            mode: 'horizontal',
+                            auto: true,
+                            pause: 2000,
+                            speed:1000,
+                            infiniteLoop:true,
+                            buildPager: function(slideIndex){
+                                switch(slideIndex){
+                                    case 0:
+                                        return '<img src='+propertyList[i].picture.linkFront+' width=100 height=50>';
+                                    case 1:
+                                        return '<img src='+propertyList[i].picture.linkBack+' width=100 height=50>';
+                                    case 2:
+                                        return '<img src='+propertyList[i].picture.linkLeft+' width=100 height=50>';
+                                    case 3:
+                                        return '<img src='+propertyList[i].picture.linkRight+' width=100 height=50>';
+                                }
+                            }
+                        });
+
+                        return false;
+                    });
+
+                    $(document).ready(function(){
+                        $('.bxslidermap').bxSlider({
+                            mode: 'horizontal',
+                            auto: true,
+                            pause: 2000,
+                            speed:1000,
+                            infiniteLoop:true,
+                            buildPager: function(slideIndex){
+                                switch(slideIndex){
+                                    case 0:
+                                        return '<img src='+propertyList[0].picture.linkFront+' width=100 height=50>';
+                                    case 1:
+                                        return '<img src='+propertyList[0].picture.linkBack+' width=100 height=50>';
+                                    case 2:
+                                        return '<img src='+propertyList[0].picture.linkLeft+' width=100 height=50>';
+                                    case 3:
+                                        return '<img src='+propertyList[0].picture.linkRight+' width=100 height=50>';
+                                }
+                            }
+                        });
+                    });
+                    $("#moreMap").live('click',function(){
+                        $("#mapidHide").hide().animate({right:"-632px"},1);
+                        //$("#mapidHide").hide();
+                    });
+
+                    var infoWindow = new google.maps.InfoWindow({
+                        content : content
+                    });
+                    google.maps.event.addListener(marker, 'click',
+                        function(event)
+                        {
+                            this.setIcon('/images/marker_hover.png');
+                            infoWindows[this.infoWindowIndex].open(map, this);
+                        }
                     );
-                    $('.bxslidermap').bxSlider({
-                        mode: 'horizontal',
-                        auto: true,
-                        pause: 2000,
-                        speed:1000,
-                        infiniteLoop:true,
-                        buildPager: function(slideIndex){
-                            switch(slideIndex){
-                                case 0:
-                                    return '<img src='+propertyList[i].picture.linkFront+' width=100 height=50>';
-                                case 1:
-                                    return '<img src='+propertyList[i].picture.linkBack+' width=100 height=50>';
-                                case 2:
-                                    return '<img src='+propertyList[i].picture.linkLeft+' width=100 height=50>';
-                                case 3:
-                                    return '<img src='+propertyList[i].picture.linkRight+' width=100 height=50>';
-                            }
-                        }
-                    });
-
-                    return false;
-                });
-
-                $(document).ready(function(){
-                    $('.bxslidermap').bxSlider({
-                        mode: 'horizontal',
-                        auto: true,
-                        pause: 2000,
-                        speed:1000,
-                        infiniteLoop:true,
-                        buildPager: function(slideIndex){
-                            switch(slideIndex){
-                                case 0:
-                                    return '<img src='+propertyList[0].picture.linkFront+' width=100 height=50>';
-                                case 1:
-                                    return '<img src='+propertyList[0].picture.linkBack+' width=100 height=50>';
-                                case 2:
-                                    return '<img src='+propertyList[0].picture.linkLeft+' width=100 height=50>';
-                                case 3:
-                                    return '<img src='+propertyList[0].picture.linkRight+' width=100 height=50>';
-                            }
-                        }
-                    });
-                });
-                $("#moreMap").live('click',function(){
-                    $("#mapidHide").hide().animate({right:"-632px"},1);
-                    //$("#mapidHide").hide();
-                });
-
-                var infoWindow = new google.maps.InfoWindow({
-                    content : content
-                });
-                google.maps.event.addListener(marker, 'click',
-                    function(event)
-                    {
-                        this.setIcon('/images/marker_hover.png');
-                        infoWindows[this.infoWindowIndex].open(map, this);
-                    }
-                );
-                /*
-                 google.maps.event.addListener(marker, 'mouseout',
-                 function(event)
-                 {
-                 this.setIcon('/images/marker.png');
-                 infoWindows[this.infoWindowIndex].close();
-                 }
-                 ); */
-                infoWindows.push(infoWindow);
-                markers.push(marker);
-            }
-            var markerCluster = new MarkerClusterer(map, markers, mapOptions);
+                    /*
+                     google.maps.event.addListener(marker, 'mouseout',
+                     function(event)
+                     {
+                     this.setIcon('/images/marker.png');
+                     infoWindows[this.infoWindowIndex].close();
+                     }
+                     ); */
+                    infoWindows.push(infoWindow);
+                    markers.push(marker);
+                }
+            //}
             // End of Clustering
 
             // Setting up the Map position.

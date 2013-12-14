@@ -329,12 +329,17 @@ a, button, input[type="submit"] {
 #propertyPriceMap{
     position: absolute;
     bottom: 18px;
-    padding:10px 0 0 20px;
+    padding:10px 0 10px 20px;
+    margin-bottom: -18px;
     background: #f9f9f9;
     box-shadow: inset 0 -10px 10px -13px #000000;
     text-align: left;
     height: 30px;
     width: 280px;
+}
+
+#propertyPriceMap a{
+    color: #909090;
 }
 
 

@@ -21,6 +21,7 @@ html
         script(type='text/javascript', src='/javascripts/jquery.bxslider.min.js')
         script(type='text/javascript', src='/javascripts/jquery.nouislider.min.js')
         script(type='text/javascript', src='/javascripts/jquery.colorbox-min.js')
+        script(type='text/javascript', src='/javascripts/SearchPageScript.js')
     body
         div#bigWarpper
             div#header
@@ -33,7 +34,7 @@ html
                             a(href="/search")
                                 img(src="/images/map_icon.png",style="margin-right:7px")
                                 | Map
-                        div#list
+                        div#list(onclick="showListView(); return false;")
                             a
                                 img(src="/images/listicon_bluepng.png",style="margin-right:10px")
                                 | List

@@ -7,7 +7,7 @@ exports.index= function(req,res,done){
             if (oldUser){
                 console.log('Existing User:' + oldUser.name + ' found and logged in!');
                 done(null, oldUser);
-                res.send('/login','Welcome: '+oldUser.name);
+                res.send('/','Welcome: '+oldUser.name);
             }else{
                 //var newUser = new User();
                 //newUser.lsrId = req.body.email;
@@ -32,7 +32,6 @@ exports.signedup=function(req,res,done){
     process.nextTick(function(){
                 var newUser = new User();
                 newUser.lsrId = req.body.email;
-                newUser.lsrPassword = req.body.password;
                 newUser.name = req.body.firstName+' '+req.body.lastName;
                 newUser.lsrPassword = req.body.password;
                 newUser.save(function(err){
@@ -41,7 +40,7 @@ exports.signedup=function(req,res,done){
                     console.log('New user: ' + newUser.name + ' created and logged in!');
                     res.send('allworked ');
                     done(null, newUser);
-                    //res.send({redirect:'/login'});
+                    res.send({redirect:'/loggedin'});
                 });
            // }
         //});
