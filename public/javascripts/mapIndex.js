@@ -1,156 +1,137 @@
-var map;
-//var propertyList = JSON.parse( !{JSON.stringify(products)} );
-console.log("propertyList");
-console.log(propertyList);
-var myArray=[propertyList[0]];
-console.log("Here Comes myArray")
-console.log(myArray[0].price);
-propertyList.sort(function(a, b) {
-    return a.price - b.price;
-})
-console.log(propertyList);
-function initialize() {
-    // Initial Map Options.
-    var mapOptions = {
-        zoom: 14,
-        mapTypeId: google.maps.MapTypeId.ROADMAP
-    };
+function init() {
+    var mapDiv = document.getElementById('MapDiv');
 
-    // Loading Map
-
-    map = new google.maps.Map(document.getElementById('MapDiv'), mapOptions);
-
-
-    // Loading location as per Geolocation
     if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(function (position) {
+            var map = new google.maps.Map(mapDiv, {
+                center: new google.maps.LatLng(position.coords.latitude, position.coords.longitude),
+                zoom: 13,
+                mapTypeId: google.maps.MapTypeId.ROADMAP
+            });
 
-            console.log(propertyList[0].address.city)
-            console.log
             var pos = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
-            console.log(pos+"----loading---");
-            // Function for Clustering
-            // Loading properties in Map using marker array from DB
+
+            var distanceWidget = new DistanceWidget(map);
+
+
+            google.maps.event.addListener(distanceWidget, 'distance_changed', function() {
+                displayInfo(distanceWidget);
+            });
+
+            google.maps.event.addListener(distanceWidget, 'position_changed', function() {
+                displayInfo(distanceWidget);
+            });
+
             var markers = [];
             var infoWindows = [];
-            //if(i=j){
-                //alert("Working");
-            //}else{
-                for (var i = 0; i < propertyList.length; i++) {
-                    var latLng = new google.maps.LatLng(propertyList[i].LatLng.latitude, propertyList[i].LatLng.longitude);
-                    var marker = new google.maps.Marker({
-                        position: latLng,
-                        infoWindowIndex : i,
-                        icon:'/images/marker.png',
-                        map: map
-                    });
-                    var content ='<div class=propertiesListMap style=background:url('+propertyList[i].picture.linkFront+')no-repeat;background-size:300px 175px>'
-                        +'<div id=propertyNameMap>'+propertyList[i].productName+'</div>'
-                        +'<div id=propertyPriceMap class='+i+'>$'+propertyList[i].price+'<br /><a> Bed:'+propertyList[i].bedrooms+' Bath:'+propertyList[i].bathrooms+' Sqft:'+propertyList[i].area+'</a><a style=float:right;margin-top:-9px;margin-right:20px><img src=/images/green_arrow.png></div>'
-                        +'<div id=arrowKeyMap></div>'
-                        +'</div></a><br/>';
-                    $("#propertyPriceMap").live('click',function() {
-                        var i = $(this).attr('class');
-                        console.log(i);
-                        $('#mapidHide').show();
-                        $('#mapidHide').animate({right: "0px"}, 1500);
-                        $("#price p").html("Price: $"+propertyList[i].price);
-                        $("#beds").html("Beds: "+propertyList[i].bedrooms);
-                        $("#baths").html("Baths: "+propertyList[i].bathrooms);
-                        $("#area").html("Sqft: "+propertyList[i].area);
-                        $("#type").html("Type: "+propertyList[i].productType);
-                        $('.slidermap').empty();
-                        $('.slidermap').append(
-                            "<div class=\"bxslidermap\"> <img src="+propertyList[i].picture.linkFront+" width=100% height=270/>"
-                                +"<img src="+propertyList[i].picture.linkBack+" width=100% height=270/>"
-                                +"<img src="+propertyList[i].picture.linkLeft+" width=100% height=270/>"
-                                +"<img src="+propertyList[i].picture.linkRight+" width=100% height=270/> </div>"
-                        );
-                        $('.bxslidermap').bxSlider({
-                            mode: 'horizontal',
-                            auto: true,
-                            pause: 2000,
-                            speed:1000,
-                            infiniteLoop:true,
-                            buildPager: function(slideIndex){
-                                switch(slideIndex){
-                                    case 0:
-                                        return '<img src='+propertyList[i].picture.linkFront+' width=100 height=50>';
-                                    case 1:
-                                        return '<img src='+propertyList[i].picture.linkBack+' width=100 height=50>';
-                                    case 2:
-                                        return '<img src='+propertyList[i].picture.linkLeft+' width=100 height=50>';
-                                    case 3:
-                                        return '<img src='+propertyList[i].picture.linkRight+' width=100 height=50>';
-                                }
-                            }
-                        });
 
-                        return false;
-                    });
-
-                    $(document).ready(function(){
-                        $('.bxslidermap').bxSlider({
-                            mode: 'horizontal',
-                            auto: true,
-                            pause: 2000,
-                            speed:1000,
-                            infiniteLoop:true,
-                            buildPager: function(slideIndex){
-                                switch(slideIndex){
-                                    case 0:
-                                        return '<img src='+propertyList[0].picture.linkFront+' width=100 height=50>';
-                                    case 1:
-                                        return '<img src='+propertyList[0].picture.linkBack+' width=100 height=50>';
-                                    case 2:
-                                        return '<img src='+propertyList[0].picture.linkLeft+' width=100 height=50>';
-                                    case 3:
-                                        return '<img src='+propertyList[0].picture.linkRight+' width=100 height=50>';
-                                }
-                            }
-                        });
-                    });
-                    $("#moreMap").live('click',function(){
-                        $("#mapidHide").hide().animate({right:"-632px"},1);
-                        //$("#mapidHide").hide();
-                    });
-
-                    var infoWindow = new google.maps.InfoWindow({
-                        content : content
-                    });
-                    google.maps.event.addListener(marker, 'click',
-                        function(event)
-                        {
-                            this.setIcon('/images/marker_hover.png');
-                            infoWindows[this.infoWindowIndex].open(map, this);
-                        }
+            for (var i = 0; i < propertyList.length; i++) {
+                var latLng = new google.maps.LatLng(propertyList[i].LatLng.latitude, propertyList[i].LatLng.longitude);
+                var marker = new google.maps.Marker({
+                    position: latLng,
+                    infoWindowIndex : i,
+                    icon:'/images/marker.png',
+                    map: map
+                });
+                var content ='<div class=propertiesListMap style=background:url('+propertyList[i].picture.linkFront+')no-repeat;background-size:300px 175px>'
+                    +'<div id=propertyNameMap>'+propertyList[i].productName+'</div>'
+                    +'<div id=propertyPriceMap class='+i+'>$'+propertyList[i].price+'<br /><a> Bed:'+propertyList[i].bedrooms+' Bath:'+propertyList[i].bathrooms+' Sqft:'+propertyList[i].area+'</a><a style=float:right;margin-top:-9px;margin-right:20px><img src=/images/green_arrow.png></div>'
+                    +'<div id=arrowKeyMap></div>'
+                    +'</div></a><br/>';
+                $("#propertyPriceMap").live('click',function() {
+                    var i = $(this).attr('class');
+                    console.log(i);
+                    $('#mapidHide').show();
+                    $('#mapidHide').animate({right: "0px"}, 1500);
+                    $("#price p").html("Price: $"+propertyList[i].price);
+                    $("#beds").html("Beds: "+propertyList[i].bedrooms);
+                    $("#baths").html("Baths: "+propertyList[i].bathrooms);
+                    $("#area").html("Sqft: "+propertyList[i].area);
+                    $("#type").html("Type: "+propertyList[i].productType);
+                    $('.slidermap').empty();
+                    $('.slidermap').append(
+                        "<div class=\"bxslidermap\"> <img src="+propertyList[i].picture.linkFront+" width=100% height=270/>"
+                            +"<img src="+propertyList[i].picture.linkBack+" width=100% height=270/>"
+                            +"<img src="+propertyList[i].picture.linkLeft+" width=100% height=270/>"
+                            +"<img src="+propertyList[i].picture.linkRight+" width=100% height=270/> </div>"
                     );
-                    /*
-                     google.maps.event.addListener(marker, 'mouseout',
-                     function(event)
-                     {
-                     this.setIcon('/images/marker.png');
-                     infoWindows[this.infoWindowIndex].close();
-                     }
-                     ); */
-                    infoWindows.push(infoWindow);
-                    markers.push(marker);
-                }
-            //}
-            // End of Clustering
+                    $('.bxslidermap').bxSlider({
+                        mode: 'horizontal',
+                        auto: true,
+                        pause: 2000,
+                        speed:1000,
+                        infiniteLoop:true,
+                        buildPager: function(slideIndex){
+                            switch(slideIndex){
+                                case 0:
+                                    return '<img src='+propertyList[i].picture.linkFront+' width=100 height=50>';
+                                case 1:
+                                    return '<img src='+propertyList[i].picture.linkBack+' width=100 height=50>';
+                                case 2:
+                                    return '<img src='+propertyList[i].picture.linkLeft+' width=100 height=50>';
+                                case 3:
+                                    return '<img src='+propertyList[i].picture.linkRight+' width=100 height=50>';
+                            }
+                        }
+                    });
 
-            // Setting up the Map position.
-            map.setCenter(pos);
+                    return false;
+                });
 
-            // Function for Places.
-            // Not sure about Markers array please go through it when time permits
-            // End of the Places Library
+                $(document).ready(function(){
+                    $('.bxslidermap').bxSlider({
+                        mode: 'horizontal',
+                        auto: true,
+                        pause: 2000,
+                        speed:1000,
+                        infiniteLoop:true,
+                        buildPager: function(slideIndex){
+                            switch(slideIndex){
+                                case 0:
+                                    return '<img src='+propertyList[0].picture.linkFront+' width=100 height=50>';
+                                case 1:
+                                    return '<img src='+propertyList[0].picture.linkBack+' width=100 height=50>';
+                                case 2:
+                                    return '<img src='+propertyList[0].picture.linkLeft+' width=100 height=50>';
+                                case 3:
+                                    return '<img src='+propertyList[0].picture.linkRight+' width=100 height=50>';
+                            }
+                        }
+                    });
+                });
+                $("#moreMap").live('click',function(){
+                    $("#mapidHide").hide().animate({right:"-632px"},1);
+                    //$("#mapidHide").hide();
+                });
+
+                var infoWindow = new google.maps.InfoWindow({
+                    content : content
+                });
+                google.maps.event.addListener(marker, 'click',
+                    function(event)
+                    {
+                        this.setIcon('/images/marker_hover.png');
+                        infoWindows[this.infoWindowIndex].open(map, this);
+                    }
+                );
+
+                 google.maps.event.addListener(infoWindow,'closeclick',
+                 function(event)
+                 {
+                    marker.setIcon('/images/marker.png');
+                 //infoWindows[this.infoWindowIndex].close();
+                 }
+                 );
+                infoWindows.push(infoWindow);
+                markers.push(marker);
+            }
+
 
             // Reverse Geocoder function to get location city and state in Readable format
             // Also populate in area search box
 
             geocoder = new google.maps.Geocoder();
-            var location = pos;
+            var location =pos;
             geocoder.geocode({'location': location }, function (results, status) {
 
                 if (status == google.maps.GeocoderStatus.OK) {
@@ -181,6 +162,9 @@ function initialize() {
                     }
                 }
             });
+
+
+
         }, function () {
             handleNoGeolocation(true);
         });
@@ -190,32 +174,177 @@ function initialize() {
     }
 }
 
-// Test for Geolocation.
+    /**
+     * A distance widget that will display a circle that can be resized and will
+     * provide the radius in km.
+     *
+     * @param {google.maps.Map} map The map on which to attach the distance widget.
+     *
+     * @constructor
+     */
+    function DistanceWidget(map) {
+        this.set('map', map);
+        this.set('position', map.getCenter());
 
-function handleNoGeolocation(errorFlag) {
-    if (errorFlag) {
-        var content = 'Error: The Geolocation service failed.';
-    } else {
-        var content = 'Error: Your browser doesn\'t support geolocation.';
+        var marker = new google.maps.Marker({
+            title: 'Move me!',
+            icon:'/images/mapCenter.png',
+            raiseOnDrag: false
+        });
+
+        // Bind the marker map property to the DistanceWidget map property
+        marker.bindTo('map', this);
+
+        // Bind the marker position property to the DistanceWidget position
+        // property
+        marker.bindTo('position', this);
+
+        // Create a new radius widget
+        var radiusWidget = new RadiusWidget();
+
+        // Bind the radiusWidget map to the DistanceWidget map
+        radiusWidget.bindTo('map', this);
+
+        // Bind the radiusWidget center to the DistanceWidget position
+        radiusWidget.bindTo('center', this, 'position');
+
+        // Bind to the radiusWidgets' distance property
+        this.bindTo('distance', radiusWidget);
+
+        // Bind to the radiusWidgets' bounds property
+        this.bindTo('bounds', radiusWidget);
+
+
     }
-    var options = {
-        map: map,
-        position: new google.maps.LatLng(60, 105),
-        content: content
+    DistanceWidget.prototype = new google.maps.MVCObject();
+
+    /**
+     * A radius widget that add a circle to a map and centers on a marker.
+     *
+     * @constructor
+     */
+    function RadiusWidget() {
+        var circle = new google.maps.Circle({
+            strokeWeight: 2,
+            strokeColor:'#00aeef',
+            fillColor:'#e9e5dc'
+        });
+
+        // Set the distance property value, default to 50km.
+        this.set('distance', 2);
+
+        // Bind the RadiusWidget bounds property to the circle bounds property.
+        this.bindTo('bounds', circle);
+
+        // Bind the circle center to the RadiusWidget center property
+        circle.bindTo('center', this);
+
+        // Bind the circle map to the RadiusWidget map
+        circle.bindTo('map', this);
+
+        // Bind the circle radius property to the RadiusWidget radius property
+        circle.bindTo('radius', this);
+
+        /**
+         * Update the center of the circle and position the sizer back on the line.
+         *
+         * Position is bound to the DistanceWidget so this is expected to change when
+         * the position of the distance widget is changed.
+         */
+        RadiusWidget.prototype.center_changed = function() {
+            var bounds = this.get('bounds');
+
+            // Bounds might not always be set so check that it exists first.
+            if (bounds) {
+                var lng = bounds.getNorthEast().lng();
+
+                // Put the sizer at center, right on the circle.
+                var position = new google.maps.LatLng(this.get('center').lat(), lng);
+                this.set('sizer_position', position);
+            }
+        };
+
+        this.addSizer_();
+    }
+    RadiusWidget.prototype = new google.maps.MVCObject();
+
+
+    /**
+     * Update the radius when the distance has changed.
+     */
+    RadiusWidget.prototype.distance_changed = function() {
+        this.set('radius', this.get('distance') * 1000);
     };
-    var infowindow = new google.maps.InfoWindow(options);
-    map.setCenter(options.position);
-}
 
-// Loading main Javascript for Map
+    /**
+     * Add the sizer marker to the map.
+     *
+     * @private
+     */
+    RadiusWidget.prototype.addSizer_ = function() {
+        var sizer = new google.maps.Marker({
+            draggable: true,
+            title: 'Drag me!',
+            icon:'/images/dragger.png',
+            raiseOnDrag: false
+        });
+
+        var me = this;
+        google.maps.event.addListener(sizer, 'drag', function() {
+            // Set the circle distance (radius)
+            me.setDistance();
+        });
+
+        sizer.bindTo('map', this);
+        sizer.bindTo('position', this, 'sizer_position');
+    };
+
+    /**
+     * Calculates the distance between two latlng locations in km.
+     * @see http://www.movable-type.co.uk/scripts/latlong.html
+     *
+     * @param {google.maps.LatLng} p1 The first lat lng point.
+     * @param {google.maps.LatLng} p2 The second lat lng point.
+     * @return {number} The distance between the two points in km.
+     * @private
+     */
+    RadiusWidget.prototype.distanceBetweenPoints_ = function(p1, p2) {
+        if (!p1 || !p2) {
+            return 0;
+        }
+
+        var R = 6371; // Radius of the Earth in km
+        var dLat = (p2.lat() - p1.lat()) * Math.PI / 180;
+        var dLon = (p2.lng() - p1.lng()) * Math.PI / 180;
+        var a = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+            Math.cos(p1.lat() * Math.PI / 180) * Math.cos(p2.lat() * Math.PI / 180) *
+                Math.sin(dLon / 2) * Math.sin(dLon / 2);
+        var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+        var d = R * c;
+        return d;
+    };
 
 
-function loadScript() {
-    var script = document.createElement('script');
-    script.type = 'text/javascript';
-    script.src = 'https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&' +
-        'callback=initialize&libraries=geometry&libraries=places';
-    document.body.appendChild(script);
-}
+    /**
+     * Set the distance of the circle based on the position of the sizer.
+     */
+    RadiusWidget.prototype.setDistance = function() {
+        // As the sizer is being dragged, its position changes.  Because the
+        // RadiusWidget's sizer_position is bound to the sizer's position, it will
+        // change as well.
+        var pos = this.get('sizer_position');
+        var center = this.get('center');
+        var distance = this.distanceBetweenPoints_(center, pos);
 
-window.onload = loadScript;
+        // Set the distance property for any objects that are bound to it
+        this.set('distance', distance);
+    };
+
+    function displayInfo(widget) {
+        //var info = document.getElementById('info');
+        console.log( 'Position: ' + widget.get('position') + ', distance: ' +
+            widget.get('distance'));
+        document.getElementById('areaOfSearch').value= widget.get('distance');
+    }
+
+    google.maps.event.addDomListener(window, 'load', init);

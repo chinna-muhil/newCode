@@ -19,7 +19,8 @@ html
         script(type='text/javascript', src='/javascripts/jquery.bxslider.min.js')
         script(type='text/javascript', src='/javascripts/jquery.colorbox-min.js')
         script(type='text/javascript', src='/javascripts/jquery.nouislider.min.js')
-        script(type='text/javascript',src='/javascripts/main.js')
+        script(type='text/javascript', src='/javascripts/main.js')
+        script(type='text/javascript', src="https://www.google.com/jsapi?autoload={'modules':[{name:'maps',version:3,other_params:'sensor=false'}]}")
     body
         div#bigWarpper
             div#header
@@ -155,10 +156,9 @@ html
                                     br
                                     input#zipcode(type="text", name="zipcode")
                                 p#place
-                                    a Area Within
+                                    a Area Within (in Km)
                                     br
-                                    input#location(type="text", name="areaOfSearch")
-
+                                    input#location(type="text", name="areaOfSearch", id="areaOfSearch")
                                 div#reset
                                     a Reset
                                     div#hide_search
@@ -171,8 +171,6 @@ html
                                         script.
                                             var propertyList = JSON.parse( !{JSON.stringify(products)} );
                                         script(type='text/javascript',src='/javascripts/mapIndex.js')
-
-
                                 else if routePath === "search"
                                     div#MapDiv2
                                         script.
@@ -323,10 +321,6 @@ html
                                             }
 
                                             window.onload = loadScript;
-
-                                else if routePath === "searchFailed"
-                                    p
-                                        h1#searchFailedMessage Could Not Find Any Properties matching Your criteria.Please Try again.
                                 else if routePath === "prod"
                                     div#MapDiv
                                         ul
@@ -335,14 +329,15 @@ html
                                                     script.
                                                         var propertyList = JSON.parse( '!{JSON.stringify(products)}' );
                                                         document.write(propertyList.length+" results");
-                                                div#sort Sort:
+                                                div#sort
+                                                    label
                                                     select#mySelect(onchange="priceRange()")
-                                                        option(value="Priceh") Price High-Low
-                                                        option(value="Pricel") Price Low-High
-                                                        option(value="Timen") Time - Newest-Oldest
-                                                        option(value="Timeo") Time - Oldest-Newest
-                                                        option(value="Bedl") Bedrooms Low-High
-                                                        option(value="Batl") Bathrooms Low-High
+                                                        option(value="Priceh") Sort: Price High-Low
+                                                        option(value="Pricel") Sort: Price Low-High
+                                                        option(value="Timen") Sort: Time - Newest-Oldest
+                                                        option(value="Timeo") Sort: Time - Oldest-Newest
+                                                        option(value="Bedl") Sort: Bedrooms Low-High
+                                                        option(value="Batl") Sort: Bathrooms Low-High
                                                 //div#compare(onclick="sortDescendingBybed()") Compare
                                                 script.
                                                     function priceRange(){
@@ -534,7 +529,7 @@ html
                                                     div#description(style="width:102.5%")
                                                         div#tabs
                                                             ul
-                                                                li#LocationClick
+                                                                li#LocationClick(style="cursor:pointer",class="0")
                                                                     img(src="/images/maps_button.png")
                                                                 li
                                                                     img(src="/images/messgae.png")
@@ -1006,6 +1001,13 @@ html
                                                             p#CompareBuilt 2012
                                                             p#CompareMls 0091948
                                                             p#CompareFeatures Alarm Balcony
+                                else if routePath === "searchFailed"
+                                    div#MapDiv.propertiesListContainer
+                                        script.
+                                            var propertyList = "#{products}";
+                                            console.log(propertyList)
+                                        //script(type='text/javascript', src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false")
+                                        script(type='text/javascript', src='/javascripts/searchFailed.js')
         div#mapidHide(style="display:none")
             div#moreMap
                 p Close Pane X
@@ -1094,7 +1096,7 @@ html
                                 //alert("Yayy");
                                 var i = $(this).attr('class');
                                 console.log(i);
-                                $("#LocationClick").addClass(i);
+                                $("#LocationClick").removeClass().addClass(i);
                                 $("#price p").html("Price: $"+propertyList[i].price);
                                 $("#beds").html("Beds: "+propertyList[i].bedrooms);
                                 $("#baths").html("Baths: "+propertyList[i].bathrooms);
