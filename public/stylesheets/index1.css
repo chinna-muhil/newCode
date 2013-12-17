@@ -115,7 +115,17 @@ a, button, input[type="submit"] {
 }
 
 #mainBody ul li:first-child{
-    width: 280px;
+    /*width: 280px;*/
+}
+
+.propertiesListContainer{
+    width:22%;
+    float: left;
+}
+
+.ListOfProperty{
+    width:25%;
+    float: left;
 }
 
 #searchForm{
@@ -248,16 +258,18 @@ a, button, input[type="submit"] {
 }
 
 .hidelist{
-    width: 600px;
+    float: left;
+    width: 52%;
 }
 
 #MapDiv2{
-    width: 600px;
+    width: 100%;
     vertical-align: top;
 }
 
 #MapDiv{
     margin: 0 0 0 5px;
+    width: 100%;
 }
 
 .lastchild{
@@ -293,6 +305,10 @@ a, button, input[type="submit"] {
     width: 62%;
     padding: 0 0 0 0;
     box-shadow:none;
+}
+
+#mainAside{
+    width: 100%;
 }
 
 .propertiesList{
