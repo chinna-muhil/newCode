@@ -36,6 +36,7 @@ a, button, input[type="submit"] {
    /* min-width: 1250px;*/
     width: 1000px;
     background-color: #f1f1f1;
+	max-height: 1080px;
 }
 
 #header{
@@ -257,7 +258,7 @@ a, button, input[type="submit"] {
     background: #ffffff;
     border: 1px solid #dadada;
     margin-top: 30px;
-    margin-left: 50px;
+    margin-left: 16%;
 }
 
 #bannerAdText{
@@ -1254,7 +1255,7 @@ input[type="range"]{
 }
 
 #comparison ul{
-    max-width: 806px;
+    max-width: 630px;
     height: 480px;
     margin-top: 10px;
     display: inline-flex;
@@ -1273,7 +1274,7 @@ input[type="range"]{
 }
 
 #name{
-    width: 7%;
+    width: 9%;
     height: 100%;
     border: 1px solid #dadada;
     background-color: #f1f1f1;
@@ -1655,7 +1656,7 @@ input[type="range"]{
 #mapidHide{
     width: 500px;
     position: relative;
-    top: -620px;
+    /*top: -620px;*/
     right: -500px;
     background-color: #ffffff;
     z-index: 1000;

@@ -53,3 +53,12 @@ $(window).resize(size6);
 
 */
 
+var size6= function(){
+    $('#mapidHide').css('top',-($(window).height()-81));
+        
+    
+};
+
+$(document).ready(size6);
+$(window).resize(size6);
+
