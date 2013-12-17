@@ -3,7 +3,7 @@ html,body{
     padding: 0;
     width: 100%;
     height: 100%;
-    background: #f1f1f1;
+    /*background: #f1f1f1;*/
 }
 
 @font-face {
@@ -30,9 +30,12 @@ a, button, input[type="submit"] {
     cursor: pointer;
 }
 
+
 #bigWarpper{
     margin: 0 auto;
-    min-width: 1250px;
+   /* min-width: 1250px;*/
+    width: 1000px;
+    background-color: #f1f1f1;
 }
 
 #header{
@@ -42,13 +45,13 @@ a, button, input[type="submit"] {
     text-align: center;
     color: #ffffff;
     position: fixed;
-    width: 100%;
+    width: 1000px;
     z-index: 99999;
     border-bottom:3px solid #3c484f ;
 }
 
 #header ul{
-    width: 100%;
+    width: 1000px;
     padding: 0;
     display: inline-block;
     margin: 0 auto;
@@ -98,6 +101,7 @@ a, button, input[type="submit"] {
     margin: 0 auto;
     position: relative;
     top: 7%;
+    width: 1000px;
 }
 
 #mainBody ul{
@@ -115,29 +119,31 @@ a, button, input[type="submit"] {
 }
 
 #mainBody ul li:first-child{
-    /*width: 280px;*/
+    /*width: 230px;*/
 }
 
 .propertiesListContainer{
-    width:22%;
+    width:24%;
     float: left;
 }
 
 .ListOfProperty{
-    width:25%;
+    width:30%;
     float: left;
+    box-shadow: -5px 0 5px -5px #888;
+
 }
 
 #searchForm{
-    width:280px;
+    width:250px;
     top: 43px;
     left: 0;
     margin: 0 auto;
-    position: fixed;
+   /* position: fixed;*/
 }
 
 #mainBody ul li:last-child{
-    /*width:77%;*/
+    width:76%;
     box-shadow: -5px 0 5px -5px #888;
 }
 
@@ -152,7 +158,7 @@ a, button, input[type="submit"] {
 }
 
 #mainNav ul li:nth-child(2){
-    width: 15%;
+    width: 21%;
 }
 
 #choosePropertyType{
@@ -199,16 +205,18 @@ a, button, input[type="submit"] {
 }
 
 #selectorLast{
-    width: 25%;
+    width: 28%;
     border-right: 2px solid #dadada;
 }
 
 #minPrice,#location,#maxPrice,#country,#zipcode,#areaOfSearch{
     height: 30px;
+    width: 83%;
 }
 
 #place,#priceRange,#bedRooms#bathrooms{
     height: 60px;
+    width: 100%;
 }
 
 #minPrice,#maxPrice{
@@ -259,7 +267,7 @@ a, button, input[type="submit"] {
 
 .hidelist{
     float: left;
-    width: 52%;
+    width: 45%;
 }
 
 #MapDiv2{
@@ -268,20 +276,29 @@ a, button, input[type="submit"] {
 }
 
 #MapDiv{
-    margin: 0 0 0 5px;
+   /* margin: 0 0 0 5px;*/
     width: 100%;
+    box-shadow: 5px 0 5px -5px #888;
 }
 
 .lastchild{
-    width: 77%;
+    width: 74%;
+}
+
+#MapDiv ul{
+    width: 100%;
+    float:left;
+    margin:0;
 }
 
 #MapDiv ul li:first-child{
     border: 0 none;
-    width:320px;
+    width:33%;
+   /* margin-right: 2%;*/
     /*overflow-y: scroll;*/
     box-shadow: none;
-    margin: 0 auto;
+   margin: 0 auto;
+    float: left;
 }
 
 .propertiesListScroll{
@@ -290,7 +307,7 @@ a, button, input[type="submit"] {
 
 #scroll{
     height: 590px;
-    width: 320px;
+    width: 306px;
     overflow: hidden;
 }
 
@@ -302,9 +319,11 @@ a, button, input[type="submit"] {
 }
 #MapDiv ul li:last-child{
     border: 0 none;
-    width: 62%;
+    width: 61%;
     padding: 0 0 0 0;
     box-shadow:none;
+    margin-left: 0;
+    float: right;
 }
 
 #mainAside{
@@ -315,10 +334,12 @@ a, button, input[type="submit"] {
     height: 170px;
     background: url("../images/1b8d950ad2e378688b0b2ad14c82f006.jpg")no-repeat center ;
     cursor: pointer;
+    width: 250px;
+    margin: 0 auto;
 }
 
 #propertyName{
-    width: 290px;
+    width: 240px;
     padding: 5px;
     background:url("../images/transbg.png")repeat center ;
     color: #ffffff;
@@ -334,7 +355,7 @@ a, button, input[type="submit"] {
     box-shadow: inset 0 -10px 10px -13px #000000;
     text-align: left;
     height: 50px;
-    width: 280px;
+    width: 230px;
 }
 
 #propertyPrice a{
@@ -373,9 +394,10 @@ a, button, input[type="submit"] {
 
 
 #propertyZoomedDetails{
-    width: 90%;
+    width: 93%;
     height: auto;
-    margin: 0 auto;
+    /*margin: 0 auto;*/
+    /*float:right;*/
 }
 
 #mapHoverInfo{
@@ -639,7 +661,7 @@ a, button, input[type="submit"] {
 /*---------------------------------------------------------------------------@@@@@@@@@_-------------------------------*/
 
 #location,#country,#zipcode,#areaofSearch{
-    width: 223px;
+    width: 83%;
     float: left;
     margin-left: 20px;
 }
@@ -682,15 +704,16 @@ a, button, input[type="submit"] {
 }
 
 #minPrice{
-    width: 90px;
+    width: 34%;
     float: left;
-    margin-left: 20px;
+    margin-left: 16px;
+    margin-right: 2px;
 }
 
 #maxPrice{
-    width: 90px;
+    width: 34%;
     margin-left: 10px;
-    margin-right: 32px;
+    margin-right: 10px;
 }
 
 #less{
@@ -711,7 +734,7 @@ a, button, input[type="submit"] {
 
 #hide_search{
     float: right;
-    margin-right: 44px;
+    margin-right: 23px;
 }
 
 #reset a{
@@ -724,11 +747,12 @@ a, button, input[type="submit"] {
 }
 
 #sort{
-    width: 176px;
-    background-color: #ffffff;
-    border: 1px solid #dadada;
+    width: 250px;
+    /*background-color: #ffffff;
+    border: 1px solid #dadada; */
     margin-right: 30px;
     margin-top: 10px;
+    margin-left: 8%;
 }
 
 #compare{
@@ -736,21 +760,21 @@ a, button, input[type="submit"] {
     background-color: #ffffff;
     border: 1px solid #dadada;
     float: right;
-    margin:-22px 40px 0 0 ;
+    /*margin:-22px -30px 0 0 ;*/
+    height: 29px;
 }
 
 #description_prop{
     width: 100%;
     padding-top: 10px;
-    margin-left: 30px;
 }
 
 #description_prop h4{
     border-bottom: 2px solid #f3f3f3;
     padding-bottom: 5px;
-    float: left;
-    margin-right: 100%;
-    padding-right: 440px;
+    width: 90%;
+    text-align: start;
+    margin-left: 30px;
 }
 
 #description_prop p{
@@ -759,6 +783,7 @@ a, button, input[type="submit"] {
     font: 12px Tahoma;
     color: #909090;
     line-height: 20px;
+    margin-left: 30px;
 }
 
 input[type="range"]{
@@ -807,7 +832,7 @@ input[type="range"]{
     /*width: 906px;*/
     height: 100%;
     overflow-y: scroll;
-    margin: 0 0 0 5px;
+    /*margin: 0 0 0 5px;*/
 }
 
 #list{
@@ -1628,10 +1653,10 @@ input[type="range"]{
 
 
 #mapidHide{
-    width: 632px;
-    position: absolute;
-    top: 43px;
-    right: -591px;
+    width: 500px;
+    position: relative;
+    top: -620px;
+    right: -500px;
     background-color: #ffffff;
     z-index: 1000;
 }

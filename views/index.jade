@@ -20,7 +20,7 @@ html
         script(type='text/javascript', src='/javascripts/jquery.colorbox-min.js')
         script(type='text/javascript', src='/javascripts/jquery.nouislider.min.js')
         script(type='text/javascript', src='/javascripts/main.js')
-        script(type='text/javascript', src="https://www.google.com/jsapi?autoload={'modules':[{name:'maps',version:3,other_params:'sensor=false'}]}")
+        script(type='text/javascript', src="https://www.google.com/jsapi?autoload={'modules':[{name:'maps',version:3,other_params:'libraries=places%26sensor=false'}]}")
     body
         div#bigWarpper
             div#header
@@ -86,7 +86,7 @@ html
                                 a Bedrooms
                                 br
                                 //input#BedroomsSlider(type="slider", value="2", name="bedroom", style="display:block;")
-                                div(style="width: 240px;height: 20px;border: 1px solid #d9d9d9;margin:0 auto;background:#fff;border-radius:3px;")
+                                div(style="width: 83%;height: 20px;border: 1px solid #d9d9d9;margin:0 auto;background:#fff;border-radius:3px;")
                                     div.noUiSlider(style="width: 180px;height: 20px; margin: 0 auto")
                                     script(type='text/javascript', charset='utf-8').
                                         var inp1= $('.noUiSlider').parent().find('[name="bedrooms"]')
@@ -107,7 +107,7 @@ html
                                 a Bathrooms
                                 br
                                 //input#BathroomsSlider(type="slider", value="2", name="bathroom", style="display:block;")
-                                div(style="width: 240px;height: 20px;border: 1px solid #d9d9d9;margin:0 auto;background:#fff;border-radius:3px;")
+                                div(style="width: 83%;height: 20px;border: 1px solid #d9d9d9;margin:0 auto;background:#fff;border-radius:3px;")
                                     div.noUiSlider2(style="width: 180px;height: 20px; margin: 0 auto")
                                     script(type='text/javascript', charset='utf-8').
                                                var inp2 = $('.noUiSlider').parent().find('[name="bathrooms"]')
@@ -338,7 +338,9 @@ html
                                                         option(value="Timeo") Sort: Time - Oldest-Newest
                                                         option(value="Bedl") Sort: Bedrooms Low-High
                                                         option(value="Batl") Sort: Bathrooms Low-High
-                                                //div#compare(onclick="sortDescendingBybed()") Compare
+                                                    //div#compare(onclick="sortDescendingBybed()") Compare
+                                                    div#compare
+                                                        a(href="#") Compare
                                                 script.
                                                     function priceRange(){
                                                         var mylist=document.getElementById("mySelect");
@@ -356,8 +358,6 @@ html
                                                             sortAscendingBybath();
                                                         }
                                                     }
-                                                div#compare
-                                                    a(href="#") Compare
                                                 div#scroll
                                                     div#list1
                                                         script.
@@ -564,7 +564,7 @@ html
                                                                     li MLS ID
                                                         div#description_prop
                                                             h4 Descriptions
-                                                            p Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit.
+                                                            p Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat.
                                     div#compare_body(style="display:none")
                                         div#compare_header
                                             div#back
@@ -1008,57 +1008,57 @@ html
                                             console.log(propertyList)
                                         //script(type='text/javascript', src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false")
                                         script(type='text/javascript', src='/javascripts/searchFailed.js')
-        div#mapidHide(style="display:none")
-            div#moreMap
-                p Close Pane X
-            div#propertyZoomedDetails
-                br
-                script.
-                    document.write("<div class=\"slidermap\"> <div class=\"bxslidermap\">"
-                                    +"<img src="+propertyList[0].picture.linkFront+" width=700 height=270/>"
-                                    +"<img src="+propertyList[0].picture.linkBack+" width=700 height=270/>"
-                                    +"<img src="+propertyList[0].picture.linkLeft+" width=700 height=270/>"
-                                    +"<img src="+propertyList[0].picture.linkRight+" width=700 height=270/>"
-                                    +"</div></div>");
-                div#description
-                    div#tabs
-                        ul
-                            li
-                                img(src="/images/maps_button.png")
-                            li
-                                img(src="/images/messgae.png")
-                            li
-                                img(src="/images/save_button.png")
-                            li
-                                img(src="/images/some_button.png")
-                            li
-                                img(src="/images/print.png")
-                    div#price
-                        p Price:
-                            script.
-                                document.write(" $"+propertyList[0].price)
-                    div#property
-                        div#property_details
-                            h4 Property Details
-                        div#property_types
+            div#mapidHide(style="display:none")
+                div#moreMap
+                    p Close Pane X
+                div#propertyZoomedDetails
+                    br
+                    script.
+                        document.write("<div class=\"slidermap\"> <div class=\"bxslidermap\">"
+                                        +"<img src="+propertyList[0].picture.linkFront+" width=700 height=270/>"
+                                        +"<img src="+propertyList[0].picture.linkBack+" width=700 height=270/>"
+                                        +"<img src="+propertyList[0].picture.linkLeft+" width=700 height=270/>"
+                                        +"<img src="+propertyList[0].picture.linkRight+" width=700 height=270/>"
+                                        +"</div></div>");
+                    div#description
+                        div#tabs
                             ul
-                                li#beds Beds:
-                                    script.
-                                        document.write(" "+propertyList[0].bedrooms)
-                                li#area Sqft:
-                                    script.
-                                        document.write(" "+propertyList[0].area)
-                                li Built: 2005
-                                li#baths Bath:
-                                    script.
-                                        document.write(" "+propertyList[0].bathrooms)
-                                li#type Type:
-                                    script.
-                                        document.write(" "+propertyList[0].productType)
-                                li MLS ID
-                    div#description_prop
-                        h4 Descriptions
-                        p Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit.
+                                li
+                                    img(src="/images/maps_button.png")
+                                li
+                                    img(src="/images/messgae.png")
+                                li
+                                    img(src="/images/save_button.png")
+                                li
+                                    img(src="/images/some_button.png")
+                                li
+                                    img(src="/images/print.png")
+                        div#price
+                            p Price:
+                                script.
+                                    document.write(" $"+propertyList[0].price)
+                        div#property
+                            div#property_details
+                                h4 Property Details
+                            div#property_types
+                                ul
+                                    li#beds Beds:
+                                        script.
+                                            document.write(" "+propertyList[0].bedrooms)
+                                    li#area Sqft:
+                                        script.
+                                            document.write(" "+propertyList[0].area)
+                                    li Built: 2005
+                                    li#baths Bath:
+                                        script.
+                                            document.write(" "+propertyList[0].bathrooms)
+                                    li#type Type:
+                                        script.
+                                            document.write(" "+propertyList[0].productType)
+                                    li MLS ID
+                        div#description_prop
+                            h4 Descriptions
+                            p Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit.
         div(style="display:none; width: 50%; height:auto")
             div#box1
                 div#container
@@ -1104,7 +1104,7 @@ html
                                 $("#type").html("Area: "+propertyList[i].productType);
                                     $('.slider').empty();
                                     $('.slider').append(
-                                         "<div class=\"bxslider\"> <img src="+propertyList[i].picture.linkFront+" width=100% height=270/>"
+                                         "<div class=\"bxslider\"> <img src="+propertyList[i].picture.linkFront+" width=102.5% height=270/>"
                                          +"<img src="+propertyList[i].picture.linkBack+" width=102.5% height=270/>"
                                          +"<img src="+propertyList[i].picture.linkLeft+" width=102.5% height=270/>"
                                          +"<img src="+propertyList[i].picture.linkRight+" width=102.5% height=270/> </div>"
