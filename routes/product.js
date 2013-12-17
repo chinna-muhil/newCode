@@ -242,7 +242,7 @@ exports.search = function (req, res) {
             res.render('search', {products: JSON.stringify(docs), routePath: "search"});
         }else{
             console.log("Failed"+docs.length);
-            res.render('index', {products:city[0] , routePath: "searchFailed"});
+            res.render('index', {products:req.body.location , routePath: "searchFailed"});
         }
     });
 };

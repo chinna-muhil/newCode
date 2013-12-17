@@ -51,4 +51,5 @@ $(document).ready(size6);
 $(window).resize(size6);
 
 
-  */
+*/
+
