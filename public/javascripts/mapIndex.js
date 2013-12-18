@@ -42,7 +42,7 @@ function init() {
                     var i = $(this).attr('class');
                     console.log(i);
                     $('#mapidHide').show();
-                    $('#mapidHide').animate({right: "-500px"}, 1500);
+                    $('#mapidHide').animate({right: "-500px"},1);
                     $("#price p").html("Price: $"+propertyList[i].price);
                     $("#beds").html("Beds: "+propertyList[i].bedrooms);
                     $("#baths").html("Baths: "+propertyList[i].bathrooms);
