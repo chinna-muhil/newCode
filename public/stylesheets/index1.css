@@ -336,7 +336,7 @@ a, button, input[type="submit"] {
 }
 
 .propertiesList{
-    height: 29%;
+    height: 28%;
     background: url("../images/1b8d950ad2e378688b0b2ad14c82f006.jpg")no-repeat center ;
     cursor: pointer;
     width: 100%;
@@ -402,7 +402,7 @@ a, button, input[type="submit"] {
     width: 93%;
     height: auto;
     /*margin: 0 auto;*/
-    /*float:right;*/
+    float:right;
 }
 
 #mapHoverInfo{
