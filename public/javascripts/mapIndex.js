@@ -1,5 +1,6 @@
 var min_distance = 0.5; //0.5km 
 var max_distance = 5; //5km 
+var markers = [];
 function init() {
     var mapDiv = document.getElementById('MapDiv');
 
@@ -25,7 +26,7 @@ function init() {
                 displayInfo(distanceWidget);
             });
 
-            var markers = [];
+            // var markers = [];
             var infoWindows = [];
 
             for (var i = 0; i < propertyList.length; i++) {
@@ -211,10 +212,10 @@ function init() {
             });
 
             function moveMarker(placeName, latlng){
-                //marker.setIcon(image);
-                //marker.setPosition(latlng);
-                //infowindow.setContent(placeName);
-                //infowindow.open(map, marker);
+   //             marker.setIcon(image);
+   //             marker.setPosition(latlng);
+    //            infowindow.setContent(placeName);
+    //            infowindow.open(map, marker);
             }
 /*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
 
@@ -300,8 +301,6 @@ function init() {
         // Bind the circle radius property to the RadiusWidget radius property
         circle.bindTo('radius', this);
        
-
-
         /**
          * Update the center of the circle and position the sizer back on the line.
          *
@@ -338,7 +337,6 @@ function init() {
         // Bounds might not always be set so check that it exists first.
         if (bounds) {
             var lng = bounds.getNorthEast().lng();
-
             // Put the sizer at center, right on the circle.
             var position = new google.maps.LatLng(this.get('center').lat(), lng);
             this.set('sizer_position', position);
@@ -375,11 +373,12 @@ function init() {
         });
         
         var olddist = me.get('distance');
+            
         var map = me.get('map');
         google.maps.event.addListener(sizer, 'dragend', function() {
             var dist = me.get('distance');
             var currentZoomLevel = map.getZoom();
-//            console.log( 'currentZoomLevel :'+currentZoomLevel +', distance :'+dist + ', olddist : '+olddist);
+
             if(dist > olddist &&  currentZoomLevel != 0){
                 map.setZoom(currentZoomLevel - 1);
                 olddist = dist;
@@ -388,19 +387,29 @@ function init() {
                 map.setZoom(currentZoomLevel + 1);
                 olddist = dist;
             }  
-            //var new_radius = me.radius;
+
             if(dist > max_distance){
                 this.set('distance', max_distance);
-      //          olddist = max_distance;
             }
             if(dist < min_distance){
                 this.set('distance', min_distance);
-        //        olddist = min_distance;
             }  
             me.center_changed();
-//            console.log('Radius :'+me.radius);
+            showHideMarker();
         });
-//        console.log('Radius :'+me.radius);
+        showHideMarker();
+
+        function showHideMarker(){
+            var circleCenter = me.get('center');
+            for (var i = 0; i < markers.length; i++) {
+                var propDistance = me.distanceBetweenPoints_(circleCenter, markers[i].position);
+                if (me.radius > (propDistance *1000)){
+                 markers[i].setVisible(true);
+                }else{
+                    markers[i].setVisible(false);
+                }
+            };
+        };
     };
 
     /**
@@ -439,7 +448,6 @@ function init() {
         var pos = this.get('sizer_position');
         var center = this.get('center');
         var distance = this.distanceBetweenPoints_(center, pos);
-
         // Set the distance property for any objects that are bound to it
         this.set('distance', distance);
           
@@ -447,8 +455,8 @@ function init() {
 
     function displayInfo(widget) {
         //var info = document.getElementById('info');
-        console.log( 'Position: ' + widget.get('position') + ', distance: ' +
-            widget.get('distance')+ ' Radius :'+widget.get('radius'));
+        //console.log( 'Position: ' + widget.get('position') + ', distance: ' +
+//            widget.get('distance')+ ' Radius :'+widget.get('radius'));
         document.getElementById('areaOfSearch').value= widget.get('distance');
     }
 

@@ -110,6 +110,11 @@ function showListView(){
         var url = $(location).attr('href');
         url = url.substring(0, url.indexOf('/search'));
         
+        $('#mapimg').click(function(){
+            var a = $('<a>').attr('href', url+'/search').appendTo('body');
+            a[0].click();
+            a.remove();
+        }); 
         
         $('#socialimg').click(function(){
         var a = $('<a>').attr('href', url+'/fbauth').attr('target', '_blank').appendTo('body');
