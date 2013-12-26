@@ -10,7 +10,7 @@ function showListView(){
                                                             +"<img src="+propertyList[0].picture.linkLeft+" width=580 height=270/>"
                                                             +"<img src="+propertyList[0].picture.linkRight+" width=580 height=270/>"
                                                             +"</div></div>"+
-                                                            "<div id=description style=width:102.5%><div id=tabs>" +
+                                                            "<div id=description style=width:100%><div id=tabs>" +
                                                             "<ul><li><button id='mapimg'><img src=/images/maps_button.png  title='Go To Location In Map'>" +
                                                             "</button></li><li><button id='messageimg'><img src=/images/messgae.png  title='Email Selected Image'>" +
                                                             "</button></li><li><button id='saveimg'><img src=/images/save_button.png  title='Save Selected Image' >" +
@@ -140,7 +140,7 @@ function showListView(){
         });
 
         
-        $("#propertyPrice").live('click',function() {
+        $("#propertyPriceSearch").live('click',function() {
             //alert("Yayy");
             console.log("propertyPrice Ready...");
             var i = $(this).attr('class');
