@@ -11,6 +11,7 @@ var express = require('express')
     , TwitterStrategy = require('passport-twitter').Strategy
     , LinkedInStrategy = require('passport-linkedin').Strategy
     ,nodemailer = require("nodemailer");
+    , graph = require('fbgraph');
 
 var mongo = require('mongodb');
 var BSON = mongo.BSONPure;
@@ -31,6 +32,7 @@ var TWITTER_CONSUMER_SECRET = "cX37DlsPLeW55zXAmrs1douL4B87Yd536EutZ2QqpA";
 
 var LINKEDIN_API_KEY = "77970wh9b8os92";
 var LINKEDIN_SECRET_KEY = "XTj0TNj0eTbnU5cS";
+var selectedImage;
 
 //set up the passport
 
@@ -57,6 +59,22 @@ passport.use(new FacebookStrategy({
             query.exec(function(err, oldUser){
                 if (oldUser){
                     console.log('Existing User:' + oldUser.name + ' found and logged in!');
+                     graph.setAccessToken(accessToken);
+                    var wallPost = {
+                      message: "Testing from node...", //TODO: Please put the right information before go to production.
+                      picture: config.development.fb.url+'/images/'+selectedImage
+                    };
+                    
+                    graph.post('me' + "/staging_resources?access_token="+accessToken, wallPost, function(err, res) {
+                         if(err) throw err;
+                         // returns the post id
+                         console.log(res); // { id: xxxxx}
+                     });
+                    graph.post('me' + "/feed?access_token="+accessToken, wallPost, function(err, res) {
+                         if(err) throw err;
+                         // returns the post id
+                         console.log(res); // { id: xxxxx}
+                     });
                     done(null, oldUser);
                     /*console.log ("accesToken ", accessToken);
                     console.log ("refreshToken", refreshToken);
@@ -226,10 +244,12 @@ app.put('/properties/:name', productRoutes.update);
 app.delete('/properties/:name', productRoutes.remove);
 app.post('/search',productRoutes.search);
 app.get('/search',productRoutes.getsearch);
+app.get('/search/:propid',productRoutes.searchProp);
 app.get('/searchList',productRoutes.searchList);
 app.get('/s',function(req,res){
     res.render('s.html');
 });
+app.get('/locationmap/:propid', productRoutes.locationMap);
 
 app.get('/compare',productRoutes.compare);
 
@@ -243,7 +263,7 @@ app.get('/index1',function(req,res){
 
 //facebook login
 app.get('/', routes.index);
-app.get('/fbauth', passport.authenticate('facebook', {/*display:'popup',*/ scope: ['email', 'user_birthday', 'user_hometown', 'user_friends','read_stream'] }));
+app.get('/fbauth', passport.authenticate('facebook', {/*display:'popup',*/ scope: ['email', 'user_birthday', 'user_hometown', 'user_friends','read_stream', 'publish_stream'] }));
 app.get('/loggedin', ensureLoggedIn('/'), routes.index);
 app.get('/fbauthed', passport.authenticate('facebook',{
     failureRedirect: '/',
@@ -290,7 +310,7 @@ function ensureAuthenticated(req, res, next) {
     res.redirect('/login')
 };
 
-app.get('/sendmail/images/:image', function(req, res){
+app.get('/sendmail/images/:image/:price/:beds/:area/:built/:baths/:type', function(req, res){
     var transport = nodemailer.createTransport("SMTP", {
         service: "Gmail",
         auth: {
@@ -301,8 +321,15 @@ app.get('/sendmail/images/:image', function(req, res){
     var mailOptions = {
         from: "chinna.wip@gmail.com",
         to: "chinna_wip@yahoo.com",
-        subject: "Pictures...",
-        text: req.params.image,
+        subject: "Property details...",
+ //       text: req.params.image,
+        html: 
+'<div id="price"><p style="padding-left:0">Price: '+req.params.price+'</p></div><div id="property">'+
+'<div id="property_details"><h4>Property Details</h4></div><div id="property_types"><ul><li id="beds">Beds: '+req.params.beds+
+'</li><li id="area">Area: '+req.params.area+'</li><li>Built: '+req.params.built+'</li><li id="baths">Baths: '+req.params.baths+'</li><li id="type">Type: '+req.params.type+
+'</li></ul></div></div>'+
+'<div id="description_prop"><h4>Descriptions</h4><p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat.</p></div>'+
+'</div></div></li></ul></div>',
         attachments: [{
             filePath: path.join(__dirname,'/public/images/'+req.params.image)
         }]
@@ -319,3 +346,7 @@ app.get('/sendmail/images/:image', function(req, res){
 });
 });
 
+app.get('/shareimage/:image', function(req, res){
+    selectedImage = req.params.image;
+    res.redirect('/fbauth');
+});
