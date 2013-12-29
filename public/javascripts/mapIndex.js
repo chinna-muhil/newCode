@@ -1,22 +1,21 @@
 var min_distance = 0.5; //0.5km 
 var max_distance = 5; //5km 
 var markers = [];
+var map;
 function init() {
     var mapDiv = document.getElementById('MapDiv');
-
     if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(function (position) {
-            var map = new google.maps.Map(mapDiv, {
+            map = new google.maps.Map(mapDiv, {
                 center: new google.maps.LatLng(position.coords.latitude, position.coords.longitude),
                 zoom: 14,
                 zoomControl: true,
                 mapTypeId: google.maps.MapTypeId.ROADMAP
             });
-
-            var pos = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
-
+            //var pos = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+            var pos = new google.maps.LatLng(propertyList[mapIndex].LatLng.latitude, propertyList[mapIndex].LatLng.longitude);
+            map.setCenter(pos);
             var distanceWidget = new DistanceWidget(map);
-
 
             google.maps.event.addListener(distanceWidget, 'distance_changed', function() {
                 displayInfo(distanceWidget);
@@ -130,7 +129,6 @@ function init() {
                 markers.push(marker);
             }
 
-
             // Reverse Geocoder function to get location city and state in Readable format
             // Also populate in area search box
 
@@ -188,6 +186,8 @@ function init() {
 
                 moveMarker(place.name, place.geometry.location);
             });
+
+
 
             $("location").focusin(function () {
                 $(document).keypress(function (e) {
