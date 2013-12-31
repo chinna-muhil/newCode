@@ -1,7 +1,8 @@
-var min_distance = 0.5; //0.5km 
-var max_distance = 5; //5km 
-var markers = [];
-var map;
+var min_distance = 0.5
+    , max_distance = 5
+    , markers = []
+    , map
+    , initialDistance = 2;
 function init() {
     var mapDiv = document.getElementById('MapDiv');
     if (navigator.geolocation) {
@@ -12,7 +13,7 @@ function init() {
                 zoomControl: true,
                 mapTypeId: google.maps.MapTypeId.ROADMAP
             });
-            //var pos = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+           // var pos = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
             var pos = new google.maps.LatLng(propertyList[mapIndex].LatLng.latitude, propertyList[mapIndex].LatLng.longitude);
             map.setCenter(pos);
             var distanceWidget = new DistanceWidget(map);
@@ -27,7 +28,7 @@ function init() {
 
             // var markers = [];
             var infoWindows = [];
-
+            var initialRadius = initialDistance * 1000;
             for (var i = 0; i < propertyList.length; i++) {
                 var latLng = new google.maps.LatLng(propertyList[i].LatLng.latitude, propertyList[i].LatLng.longitude);
                 var marker = new google.maps.Marker({
@@ -36,6 +37,14 @@ function init() {
                     icon:'/images/marker.png',
                     map: map
                 });
+                
+                var propDistance = RadiusWidget.prototype.distanceBetweenPoints_(map.center, marker.position);
+                if (initialRadius > (propDistance *1000)){
+                    marker.setVisible(true);
+                }else{
+                    marker.setVisible(false);
+                }
+
                 var content ='<div class=propertiesListMap style=background:url('+propertyList[i].picture.linkFront+')no-repeat;background-size:300px 175px>'
                     +'<div id=propertyNameMap>'+propertyList[i].productName+'</div>'
                     +'<div id=propertyPriceMap class='+i+'>$'+propertyList[i].price+'<br /><a> Bed:'+propertyList[i].bedrooms+' Bath:'+propertyList[i].bathrooms+' Sqft:'+propertyList[i].area+'</a><a style=float:right;margin-top:-9px;margin-right:20px><img src=/images/green_arrow.png></div>'
@@ -286,7 +295,7 @@ function init() {
         });
 
         // Set the distance property value, default to 50km.
-        this.set('distance', 2);
+        this.set('distance', initialDistance);
 
         this.set('map', map);
 
@@ -342,6 +351,7 @@ function init() {
             var position = new google.maps.LatLng(this.get('center').lat(), lng);
             this.set('sizer_position', position);
         }
+        
     };
 
     /**
@@ -399,7 +409,6 @@ function init() {
             showHideMarker();
         });
         showHideMarker();
-
         function showHideMarker(){
             var circleCenter = me.get('center');
             for (var i = 0; i < markers.length; i++) {
@@ -413,6 +422,7 @@ function init() {
         };
     };
 
+   
     /**
      * Calculates the distance between two latlng locations in km.
      * @see http://www.movable-type.co.uk/scripts/latlong.html
