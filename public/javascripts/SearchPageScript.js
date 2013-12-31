@@ -10,14 +10,17 @@ function showListView(){
                                                             +"<img src="+propertyList[0].picture.linkLeft+" width=580 height=270/>"
                                                             +"<img src="+propertyList[0].picture.linkRight+" width=580 height=270/>"
                                                             +"</div></div>"+
-                                                            "<div id=description style=width:100%><div id=tabs>" +
-                                                            "<ul><li><img  id='mapimg' src=/images/maps_button.png style='cursor:pointer' class='0' title='Go To Location In Map'/>" +
-                                                            "</li><li><img id='messageimg' src=/images/messgae.png style='cursor:pointer' class='0' title='Email Selected Image'/>" +
-                                                            "</li><li><img id='saveimg' src=/images/save_button.png  style='cursor:pointer' class='0' title='Save Selected Image' />" +
-                                                            "</li><li><img id='socialimg' src=/images/some_button.png  style='cursor:pointer' class='0' title='Share Selected Image'/>" +
-                                                            "</li><li><img id='printimg' src=/images/print.png style='cursor:pointer' class='0' title='Print Selected Image'/>" +
-                                                            "</li></ul>" +
-                                                            "</div><div id=price><p style=padding-left:0>Price: $"+propertyList[0].price+"</p>" +
+                                                            "<div id=description style=width:100%>"+
+                                                            "<div id=tabs><br>" +
+                                                            "<img  id='mapimg' src=/images/maps_button.png  style='cursor:pointer' class='0' title='Go To Location In Map'/>&nbsp;&nbsp;" +
+                                                            "<img id='messageimg' src=/images/messgae.png   style='cursor:pointer' class='0' title='Email Selected Image'/>&nbsp;&nbsp;" +
+                                                            "<img id='saveimg' src=/images/save_button.png    style='cursor:pointer' class='0' title='Save Selected Image'/>&nbsp;&nbsp;" +
+                                                            "<img id='printimg' src=/images/print.png   style='cursor:pointer' class='0' title='Print Selected Image'/>&nbsp;&nbsp;" +
+                                                            "<img id='facebookimg' src=/images/facebook-variation.png  style='cursor:pointer' class='0' title='Share on FaceBook'/>&nbsp;&nbsp;" +
+                                                            "<img id='twitterimg' src=/images/twitter-variation.png  style='cursor:pointer' class='0' title='Share on Twitter'/>&nbsp;&nbsp;" +
+                                                            "<img id='linkedinimg' src=/images/linkedin-variation.png  style='cursor:pointer' class='0' title='Share on LinkedIn'/>" +
+                                                            "</div>"+
+                                                            "<div id=price><p style=padding-left:0>Price: $"+propertyList[0].price+"</p>" +
                                                             "</div><div id=property><div id=property_details><h4>Property Details</h4></div> " +
                                                             "<div id=property_types><ul><li id=beds>Beds: "+propertyList[0].bedrooms+"</li>" +
                                                             "<li id=area>Area: "+propertyList[0].area+"</li>" +
@@ -110,9 +113,26 @@ function showListView(){
         var url = $(location).attr('href');
         url = url.substring(0, url.indexOf('/search'));
         
-        $('#socialimg').click(function(){
+         $('#facebookimg').click(function(){
            selectedImage = selectedImage.substring(selectedImage.lastIndexOf('/'));
-           var a = $('<a>').attr('href', url+'/shareimage'+selectedImage).attr('target', '_blank').appendTo('body');
+           var a = $('<a>').attr('href', url+'/sharefacebook'+selectedImage).attr('target', '_blank').appendTo('body');
+           a[0].click();
+           a.remove();
+         });
+        
+         $('#twitterimg').click(function(){
+           selectedImage = selectedImage.substring(selectedImage.lastIndexOf('/'));
+           url = url.replace('localhost','www.mysite.com');
+           var a = $('<a>').attr('href', url+'/sharetwitter'+selectedImage).attr('target', '_blank').appendTo('body');
+           a[0].click();
+           a.remove();
+         });
+
+         $('#linkedinimg').click(function(){
+           selectedImage = selectedImage.substring(selectedImage.lastIndexOf('/'));
+           url = url.replace('localhost','www.mysite.com');
+           //var a = $('<a>').attr('href', url+'/sharelinkedin'+selectedImage).attr('target', '_blank').appendTo('body');
+           var a = $('<a>').attr('href', url+'/message').attr('target', '_blank').appendTo('body');
            a[0].click();
            a.remove();
          });
@@ -124,11 +144,12 @@ function showListView(){
             a.remove();
         }); 
         
-        $('#socialimg').click(function(){
-        var a = $('<a>').attr('href', url+'/fbauth').attr('target', '_blank').appendTo('body');
-        a[0].click();
-        a.remove();
-        });                                    
+        // $('#socialimg').click(function(){
+        // //var a = $('<a>').attr('href', url+'/fbauth').attr('target', '_blank').appendTo('body');
+        // var a = $('<a>').attr('href', url+'/auth/twitter').attr('target', '_blank').appendTo('body');
+        // a[0].click();
+        // a.remove();
+        // });                                    
 
 
         $('#messageimg').click(function(){

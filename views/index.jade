@@ -529,18 +529,20 @@ html
                                                                         +"</div></div>");
                                                     div#description(style="width:100%")
                                                         div#tabs
-                                                            ul
-                                                                //li#LocationClick(style="cursor:pointer",class="0")
-                                                                li
-                                                                    img(src="/images/maps_button.png")#LocationClick(style="cursor:pointer",class="0")
-                                                                li
-                                                                    img(src="/images/messgae.png")#SendMailClick(style="cursor:pointer",class="0")
-                                                                li
-                                                                    img(src="/images/save_button.png")#SaveClick(style="cursor:pointer",class="0") // chinna
-                                                                li
-                                                                    img(src="/images/some_button.png")#ShareClick(style="cursor:pointer",class="0")
-                                                                li
-                                                                    img(src="/images/print.png")#PrintClick(style="cursor:pointer",class="0")
+                                                                    br
+                                                                    img(src="/images/maps_button.png")#LocationClick(style="cursor:pointer",class="0", title='Go To Location In Map')
+                                                                    &nbsp;&nbsp;
+                                                                    img(src="/images/messgae.png")#SendMailClick(style="cursor:pointer",class="0", title='Email Selected Image')
+                                                                    &nbsp;&nbsp;
+                                                                    img(src="/images/save_button.png")#SaveClick(style="cursor:pointer",class="0", title='Save Selected Image') // chinna
+                                                                    &nbsp;&nbsp;
+                                                                    img(src="/images/print.png")#PrintClick(style="cursor:pointer",class="0", title='Print Selected Image')
+                                                                    &nbsp;&nbsp;
+                                                                    img(src="/images/facebook-variation.png")#FacebookShareClick(style="cursor:pointer",class="0", title='Share on FaceBook')
+                                                                    &nbsp;&nbsp;
+                                                                    img(src="/images/twitter-variation.png")#TwitterShareClick(style="cursor:pointer",class="0", title='Share on Twitter')
+                                                                    &nbsp;&nbsp;
+                                                                    img(src="/images/linkedin-variation.png")#LinkedinShareClick(style="cursor:pointer",class="0", title='Share on LinkedIn')   
                                                         div#price
                                                             p(style="padding-left:0") Price:
                                                                 script.
@@ -1100,7 +1102,9 @@ html
                                 $("#LocationClick").removeClass().addClass(i);
                                 $("#SendMailClick").removeClass().addClass(i);
                                 $("#SaveClick").removeClass().addClass(i);
-                                $("#ShareClick").removeClass().addClass(i);
+                                $("#FacebookShareClick").removeClass().addClass(i);
+                                $("#TwitterShareClick").removeClass().addClass(i);
+                                $("#LinkedinShareClick").removeClass().addClass(i);
                                 $("#PrintClick").removeClass().addClass(i);
                                 $("#price p").html("Price: $"+propertyList[i].price);
                                 $("#beds").html("Beds: "+propertyList[i].bedrooms);
@@ -1217,8 +1221,26 @@ html
                                     a[0].click();
                                     a.remove();
                                 });
-                                $("#ShareClick").live('click',function() {
-                                    //TODO : alert(propertyList[index].price);
+                                $("#FacebookShareClick").live('click',function() {
+                                   selectedImage = selectedImage.substring(selectedImage.lastIndexOf('/'));
+                                   var a = $('<a>').attr('href', url+'/sharefacebook'+selectedImage).attr('target', '_blank').appendTo('body');
+                                   a[0].click();
+                                   a.remove();
+                                });
+                                $('#TwitterShareClick').click(function(){
+                                   selectedImage = selectedImage.substring(selectedImage.lastIndexOf('/'));
+                                   url = url.replace('localhost','www.mysite.com');
+                                   var a = $('<a>').attr('href', url+'/sharetwitter'+selectedImage).attr('target', '_blank').appendTo('body');
+                                   a[0].click();
+                                   a.remove();
+                                 });
+
+                                 $('#LinkedinShareClick').click(function(){
+                                   selectedImage = selectedImage.substring(selectedImage.lastIndexOf('/'));
+                                   url = url.replace('localhost','www.mysite.com');
+                                   var a = $('<a>').attr('href', url+'/sharetwitter'+selectedImage).attr('target', '_blank').appendTo('body');
+                                   a[0].click();
+                                   a.remove();
                                 });
                                 $("#PrintClick").live('click',function() {
                                     var propDtlHtml =  document.getElementById('mainAside').innerHTML.substring(document.getElementById('mainAside').innerHTML.indexOf('<div id="price">'));

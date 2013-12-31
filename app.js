@@ -10,8 +10,11 @@ var express = require('express')
     , mongoose = require('mongoose')
     , TwitterStrategy = require('passport-twitter').Strategy
     , LinkedInStrategy = require('passport-linkedin').Strategy
-    ,nodemailer = require("nodemailer");
-    , graph = require('fbgraph');
+    , nodemailer = require("nodemailer")
+    , graph = require('fbgraph')
+    , twitter_update_with_media = require('./routes/twitter_update_with_media');
+
+
 
 var mongo = require('mongodb');
 var BSON = mongo.BSONPure;
@@ -33,6 +36,14 @@ var TWITTER_CONSUMER_SECRET = "cX37DlsPLeW55zXAmrs1douL4B87Yd536EutZ2QqpA";
 var LINKEDIN_API_KEY = "77970wh9b8os92";
 var LINKEDIN_SECRET_KEY = "XTj0TNj0eTbnU5cS";
 var selectedImage;
+
+var tuwm = new twitter_update_with_media({
+  consumer_key: TWITTER_CONSUMER_KEY,
+  consumer_secret: TWITTER_CONSUMER_SECRET,
+  token: TWITTER_ACCESS_TOKEN,
+  token_secret: TWITTER_ACCESS_TOKEN_SECRET
+});
+ 
 
 //set up the passport
 
@@ -61,7 +72,7 @@ passport.use(new FacebookStrategy({
                     console.log('Existing User:' + oldUser.name + ' found and logged in!');
                      graph.setAccessToken(accessToken);
                     var wallPost = {
-                      message: "Testing from node...", //TODO: Please put the right information before go to production.
+                      message: "Property details...", //TODO: Please put the right information before go to production.
                       picture: config.development.fb.url+'/images/'+selectedImage
                     };
                     
@@ -117,7 +128,8 @@ passport.use(new FacebookStrategy({
 passport.use(new TwitterStrategy({
         consumerKey: TWITTER_CONSUMER_KEY,
         consumerSecret: TWITTER_CONSUMER_SECRET,
-        callbackURL: "https://206.72.207.4:3030/auth/twitter/callback"
+        //callbackURL: "https://206.72.207.4:3030/auth/twitter/callback"
+        callbackURL: config.development.twitter.url
     },
     function(token, tokenSecret, profile, done) {
         process.nextTick(function () {
@@ -125,6 +137,12 @@ passport.use(new TwitterStrategy({
             query.exec(function (err, oldUser) {
                 console.log(oldUser);
                 if(oldUser) {
+                    tuwm.post('Property details...', path.join(__dirname,'/public/images/'+selectedImage), function(err, response) {
+                      if (err) {
+                        console.log(err);
+                      }
+                      console.log('Posted the property on Twitter successfully.');
+                    });
                     console.log('User: ' + oldUser.name + ' found and logged in!');
                     done(null, oldUser);
                     console.log ("profile", profile);
@@ -154,7 +172,8 @@ passport.use(new TwitterStrategy({
 passport.use(new LinkedInStrategy({
         consumerKey: LINKEDIN_API_KEY,
         consumerSecret: LINKEDIN_SECRET_KEY,
-        callbackURL: "https://206.72.207.4:3030/auth/linkedin/callback"
+        //callbackURL: "https://206.72.207.4:3030/auth/linkedin/callback"
+        callbackURL: config.development.linkedin.url
     },
     function(token, tokenSecret, profile, done) {
         process.nextTick(function () {
@@ -346,7 +365,15 @@ app.get('/sendmail/images/:image/:price/:beds/:area/:built/:baths/:type', functi
 });
 });
 
-app.get('/shareimage/:image', function(req, res){
+app.get('/sharefacebook/:image', function(req, res){
     selectedImage = req.params.image;
     res.redirect('/fbauth');
+});
+app.get('/sharetwitter/:image', function(req, res){
+    selectedImage = req.params.image;
+    res.redirect('/auth/twitter');
+});
+app.get('/sharelinkedin/:image', function(req, res){
+    selectedImage = req.params.image;
+    res.redirect('/auth/linkedin');
 });

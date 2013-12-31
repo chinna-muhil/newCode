@@ -243,6 +243,7 @@ function init() {
 
         var marker = new google.maps.Marker({
             title: 'Move me!',
+            draggable: true,
             icon:'/images/mapCenter.png',
             raiseOnDrag: false
         });
